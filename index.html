@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>CCGH101 · 工具</title>
+<style>
+  :root{
+    --bg:#fffaf5; --surface:#ffffff; --ink:#221407; --ink-2:#7a5a44; --ink-3:#b08a6d;
+    --line:#f3ddcb; --accent:#e85d04; --accent-deep:#c24e02;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;}
+  .wrap{max-width:640px;margin:0 auto;padding:72px 24px 64px}
+  .brand{font-size:13px;letter-spacing:.35em;color:var(--accent);font-weight:700}
+  h1{font-family:Georgia,"Times New Roman","Songti SC",serif;font-size:44px;line-height:1.15;margin:18px 0 12px;font-weight:600}
+  .sub{color:var(--ink-2);font-size:16px;line-height:1.7;margin:0 0 48px}
+  .rule{height:1px;background:var(--line);margin:0 0 8px}
+  .tool{display:flex;align-items:baseline;gap:16px;padding:22px 4px;text-decoration:none;color:var(--ink);
+    border-bottom:1px solid var(--line)}
+  .tool:hover .name{color:var(--accent-deep)}
+  .no{font-family:Georgia,serif;font-style:italic;color:var(--ink-3);font-size:15px;min-width:28px}
+  .name{font-size:19px;font-weight:600;transition:color .15s}
+  .desc{color:var(--ink-2);font-size:14px;margin-top:4px;line-height:1.6}
+  .arrow{margin-left:auto;color:var(--accent);font-size:18px}
+  footer{margin-top:56px;color:var(--ink-3);font-size:13px}
+  footer a{color:var(--ink-2)}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="brand">CCGH101</div>
+    <h1>小工具</h1>
+    <p class="sub">一些随手做的小工具，打开就能用，不用注册，所有生成都在本地完成。</p>
+    <div class="rule"></div>
+    <a class="tool" href="account-generator.html">
+      <span class="no">01</span>
+      <span>
+        <span class="name">随机账号 · 密码 · 名字生成器</span>
+        <div class="desc">一次生成成套组合：单个英文词名字 + 10 位以内短账号（可加自定义后缀）+ 特殊字符只有「.」的密码。</div>
+      </span>
+      <span class="arrow">→</span>
+    </a>
+    <footer>© 2026 CCGH101 · <a href="https://github.com/CCGH101">GitHub</a></footer>
+  </main>
+</body>
+</html>

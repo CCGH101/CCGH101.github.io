@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>随机账号密码名字生成器</title>
+<style>
+  :root{
+    --bg:#fffaf5;
+    --surface:#ffffff;
+    --surface-2:#ffefe3;
+    --ink:#221407;
+    --ink-2:#7a5a44;
+    --ink-3:#b08a6d;
+    --line:#f3ddcb;
+    --accent:#e85d04;
+    --accent-deep:#c24e02;
+    --accent-ink:#ffffff;
+    --serif:Georgia,"Times New Roman","Songti SC","STSong","Noto Serif SC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55}
+  button,input{min-height:2.25rem}
+  .wrap{max-width:660px;margin:0 auto;padding:52px 20px 64px}
+
+  header{padding-bottom:26px;border-bottom:2px solid var(--accent)}
+  h1{font-family:var(--serif);font-size:29px;font-weight:600;line-height:1.3;margin:0 0 8px;letter-spacing:.01em}
+  .sub{color:var(--ink-2);font-size:14px;margin:0;max-width:52ch}
+
+  /* ---------- 结果 ---------- */
+  .combo{padding:26px 2px 22px;border-bottom:1px solid var(--line)}
+  .combo-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+  .combo-name{font-family:var(--serif);font-size:27px;font-weight:600;line-height:1.2;letter-spacing:.01em}
+  .combo-idx{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--ink-3)}
+  .combo-copy{margin-left:auto;border:0;background:transparent;color:var(--ink-2);font:inherit;font-size:12.5px;padding:4px 6px;cursor:pointer;border-radius:6px;flex:none}
+  .combo-copy:hover{background:var(--surface-2);color:var(--ink)}
+  .combo-copy.copied{color:var(--accent)}
+  .row{display:flex;align-items:center;gap:12px;padding:7px 0}
+  .row .k{font-size:11px;letter-spacing:.14em;color:var(--ink-3);width:36px;flex:none;font-weight:600}
+  .row .v{font-family:var(--mono);font-size:15.5px;letter-spacing:.01em;word-break:break-all;flex:1}
+  .copy-btn{border:0;background:transparent;color:var(--ink-3);font:inherit;font-size:12.5px;padding:4px 8px;cursor:pointer;border-radius:6px;flex:none}
+  .copy-btn:hover{background:var(--surface-2);color:var(--ink)}
+  .copy-btn.copied{color:var(--accent)}
+  button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  /* ---------- 操作 ---------- */
+  .gen-btn{width:100%;margin-top:30px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-ink);font:inherit;font-size:15.5px;font-weight:600;letter-spacing:.04em;padding:15px;cursor:pointer;min-height:3.25rem;transition:background .15s}
+  .gen-btn:hover{background:var(--accent-deep)}
+  .gen-btn:active{transform:translateY(1px)}
+
+  .settings{margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+  .set-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .toggle{display:flex;align-items:center;gap:8px;font-size:13.5px;cursor:pointer;min-height:2.25rem}
+  .toggle input{width:17px;height:17px;accent-color:var(--accent);flex:none;margin:0}
+  .suffix-wrap{display:flex;align-items:center;gap:10px;margin-left:auto}
+  .suffix-wrap label{font-size:13.5px;color:var(--ink-2);white-space:nowrap}
+  #acctSuffix{width:190px;max-width:100%;font:inherit;font-family:var(--mono);font-size:14px;padding:8px 11px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink)}
+  #acctSuffix:disabled{opacity:.45}
+  .hint{font-size:12px;color:var(--ink-3);margin:10px 0 0;line-height:1.6}
+  .hint .pv{font-family:var(--mono);color:var(--ink-2);font-weight:600}
+
+  .foot{margin-top:30px;font-size:12px;color:var(--ink-3);line-height:1.7}
+  .foot code{font-family:var(--mono);font-size:11.5px}
+
+  .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(16px);background:var(--accent);color:var(--accent-ink);font-size:13.5px;font-weight:600;padding:10px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media (max-width:480px){
+    .wrap{padding-top:38px}
+    .suffix-wrap{margin-left:0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>随机账号 · 密码 · 名字</h1>
+    <p class="sub">一次生成一整套：单个英文词名字、不超过 10 位的短账号、特殊字符只有「.」的 16 位密码。</p>
+  </header>
+
+  <main id="results" aria-label="生成结果"></main>
+
+  <button class="gen-btn" id="btnGen" type="button">生成新组合</button>
+
+  <section class="settings" aria-label="账号设置">
+    <div class="set-row">
+      <label class="toggle"><input type="checkbox" id="ckAcct" checked /> 生成账号</label>
+      <div class="suffix-wrap">
+        <label for="acctSuffix">自定义后缀</label>
+        <input type="text" id="acctSuffix" maxlength="20" placeholder="如 @gmail.com、_pro、#01" autocomplete="off" autocapitalize="off" spellcheck="false" />
+      </div>
+    </div>
+    <p class="hint" id="suffixHint">后缀原样拼在每个账号末尾，字母、数字和符号都可以，最长 20 位；账号主体仍不超过 10 位。</p>
+  </section>
+
+  <p class="foot">密码由浏览器 <code>crypto.getRandomValues</code> 在本地生成，不经过服务器；结果只存在于当前页面，刷新即消失。</p>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 加密随机 ---------- */
+  function randInt(max){ // [0, max) 无偏随机整数
+    var arr = new Uint32Array(1);
+    var limit = Math.floor(4294967296 / max) * max;
+    var x;
+    do { crypto.getRandomValues(arr); x = arr[0]; } while (x >= limit);
+    return x % max;
+  }
+  function pick(arr){ return arr[randInt(arr.length)]; }
+  function shuffle(a){
+    for (var i = a.length - 1; i > 0; i--){
+      var j = randInt(i + 1);
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  /* ---------- 名字：单个英文词 ---------- */
+  var NAMES = ["Emma","Olivia","Ava","Sophia","Isabella","Mia","Evelyn","Harper","Luna","Camila","Ella","Chloe","Penelope","Layla","Nora","Zoey","Mila","Aubrey","Hannah","Lily","Addison","Eleanor","Natalie","Brooklyn","Leah","Savannah","Audrey","Skylar","Bella","Claire","Lucy","Paisley","Everly","Anna","Caroline","Nova","Emilia","Stella","Aurora","Liam","Noah","Oliver","Elijah","James","William","Benjamin","Lucas","Henry","Theodore","Jack","Levi","Alexander","Jackson","Mateo","Daniel","Michael","Mason","Sebastian","Ethan","Logan","Owen","Samuel","Jacob","Asher","Aiden","John","Joseph","Wyatt","David","Leo","Luke","Julian","Hudson","Grayson","Matthew","Ezra","Gabriel","Carter","Isaac","Ryan","Anthony","Dylan"];
+
+  /* ---------- 状态 ---------- */
+  var BATCH = 3;      // 每次固定生成 3 组
+  var PW_LEN = 16;    // 密码固定 16 位
+  var state = { combos: [], includeAcct: true, suffix: "" };
+
+  /* ---------- 生成 ---------- */
+  function sanitizeSuffix(raw){
+    // 后缀原样保留：字母、数字和符号都可输入，只去掉空白和控制字符
+    return (raw || "").replace(/[\s\u0000-\u001f\u007f]/g, "").slice(0, 20);
+  }
+  function genAccount(name){
+    // 账号主体 = 名字小写 + 数字，总长 ≤ 10；后缀原样拼在末尾，不占主体长度
+    var suffix = state.suffix || "";
+    var digits = String(100 + randInt(900));
+    var room = Math.max(1, 10 - digits.length);
+    return name.toLowerCase().slice(0, room) + digits + suffix;
+  }
+  function genPassword(){
+    var sets = [
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "abcdefghijklmnopqrstuvwxyz",
+      "0123456789",
+      "." // 特殊字符只有点
+    ];
+    var pool = sets.join("");
+    var chars = sets.map(function(s){ return s[randInt(s.length)]; }); // 每类至少一个
+    while (chars.length < PW_LEN) chars.push(pool[randInt(pool.length)]);
+    return shuffle(chars).join("");
+  }
+  function genCombo(){
+    var name = pick(NAMES);
+    return {
+      name: name,
+      account: state.includeAcct ? genAccount(name) : null,
+      password: genPassword()
+    };
+  }
+
+  /* ---------- 渲染 ---------- */
+  var resultsEl = document.getElementById("results");
+  function esc(s){
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+  function render(){
+    resultsEl.innerHTML = state.combos.map(function(c, i){
+      var acctRow = (state.includeAcct && c.account)
+        ? '<div class="row"><span class="k">账号</span><span class="v">' + esc(c.account) + '</span><button type="button" class="copy-btn" data-copy="' + esc(c.account) + '">复制</button></div>'
+        : '';
+      return '' +
+      '<article class="combo">' +
+        '<div class="combo-head">' +
+          '<span class="combo-name">' + esc(c.name) + '</span>' +
+          '<span class="combo-idx">No. ' + (i + 1) + '</span>' +
+          '<button type="button" class="combo-copy" data-action="copy-combo" data-idx="' + i + '">复制整组</button>' +
+        '</div>' +
+        acctRow +
+        '<div class="row"><span class="k">密码</span><span class="v">' + esc(c.password) + '</span><button type="button" class="copy-btn" data-copy="' + esc(c.password) + '">复制</button></div>' +
+      '</article>';
+    }).join("");
+  }
+  function comboText(c){
+    var lines = ["名字：" + c.name];
+    if (state.includeAcct && c.account) lines.push("账号：" + c.account);
+    lines.push("密码：" + c.password);
+    return lines.join("\n");
+  }
+
+  /* ---------- 复制 / 提示 ---------- */
+  var toastEl = document.getElementById("toast");
+  var toastTimer = null;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove("show"); }, 1800);
+  }
+  function copyText(text, btn){
+    function done(){
+      toast("已复制到剪贴板");
+      if (btn){ btn.classList.add("copied"); var old = btn.textContent; btn.textContent = "已复制"; setTimeout(function(){ btn.classList.remove("copied"); btn.textContent = old; }, 1400); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(fallback);
+    } else { fallback(); }
+    function fallback(){
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch(e){ toast("复制失败，请长按手动复制"); }
+      document.body.removeChild(ta);
+    }
+  }
+
+  /* ---------- 交互 ---------- */
+  function generate(){
+    state.combos = [];
+    for (var i = 0; i < BATCH; i++) state.combos.push(genCombo());
+    render();
+  }
+  document.getElementById("btnGen").addEventListener("click", generate);
+
+  resultsEl.addEventListener("click", function(e){
+    var copyBtn = e.target.closest("[data-copy]");
+    if (copyBtn){ copyText(copyBtn.getAttribute("data-copy"), copyBtn); return; }
+    var actBtn = e.target.closest("[data-action='copy-combo']");
+    if (actBtn){
+      var idx = parseInt(actBtn.getAttribute("data-idx"), 10);
+      copyText(comboText(state.combos[idx]), actBtn);
+    }
+  });
+
+  /* 账号开关 + 自定义后缀：只重掷账号，名字和密码不动 */
+  var ckAcct = document.getElementById("ckAcct");
+  var suffixInput = document.getElementById("acctSuffix");
+  var suffixHint = document.getElementById("suffixHint");
+  var suffixTimer = null;
+  var HINT_DEFAULT = "后缀原样拼在每个账号末尾，字母、数字和符号都可以，最长 20 位；账号主体仍不超过 10 位。";
+  function rerollAccounts(){
+    if (!state.combos.length) return;
+    if (state.includeAcct){
+      state.combos.forEach(function(c){ c.account = genAccount(c.name); });
+    }
+    render();
+  }
+  function refreshSuffixHint(){
+    if (!state.suffix){ suffixHint.textContent = HINT_DEFAULT; return; }
+    suffixHint.innerHTML = '已启用后缀，效果示例：<span class="pv">' + esc("emma482" + state.suffix) + '</span>（后缀原样拼在主体末尾）';
+  }
+  ckAcct.addEventListener("change", function(){
+    state.includeAcct = ckAcct.checked;
+    suffixInput.disabled = !state.includeAcct;
+    if (state.includeAcct) rerollAccounts(); else render();
+  });
+  suffixInput.addEventListener("input", function(){
+    var clean = sanitizeSuffix(suffixInput.value);
+    if (clean !== suffixInput.value) suffixInput.value = clean;
+    state.suffix = clean;
+    refreshSuffixHint();
+    clearTimeout(suffixTimer);
+    suffixTimer = setTimeout(rerollAccounts, 600);
+  });
+
+  generate(); // 首次打开自动生成
+})();
+</script>
+</body>
+</html>
