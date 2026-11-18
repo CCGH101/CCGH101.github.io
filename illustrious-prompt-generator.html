@@ -1,0 +1,1881 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Illustrious 插画系提示词生成工具</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet" />
+    <style>
+      button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) { min-height: 2rem; }
+      * { box-sizing: border-box; }
+      :root{
+        --bg:#f4f1ea; --panel:#fffdf8; --panel2:#eee8da; --ink:#23201b; --ink-soft:#5d5546;
+        --line:#d9d0ba; --accent:#2e6f6a; --accent-ink:#f4fffc; --accent-soft:#d9ebe6;
+        --gold:#96690f; --chip:#fffdf8; --chip-on:#2e6f6a; --shadow:0 10px 30px rgba(50,48,28,.12);
+        --ok:#3e7d32; --ok-bg:#e7f0e0; --warn:#8a5d10; --warn-bg:#f7ecd2; --hard:#b23a1e; --hard-bg:#f9e3da;
+        color-scheme: light dark;
+      }
+      @media (prefers-color-scheme: dark){
+        :root{
+          --bg:#14161a; --panel:#1d2026; --panel2:#262a31; --ink:#ece7da; --ink-soft:#b3ab99;
+          --line:#3d4149; --accent:#57b8ac; --accent-ink:#0d1a17; --accent-soft:#1e3833;
+          --gold:#d9a84e; --chip:#22252c; --chip-on:#57b8ac; --shadow:0 10px 30px rgba(0,0,0,.45);
+          --ok:#9ccb8a; --ok-bg:#2c3a24; --warn:#e3b95e; --warn-bg:#40351c; --hard:#f0835f; --hard-bg:#472a20;
+        }
+      }
+      html{ scroll-behavior:smooth; }
+      body{
+        margin:0; background:var(--bg); color:var(--ink);
+        font-family:"Noto Sans SC", system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-size:15px; line-height:1.65;
+      }
+      .wrap{ max-width:1240px; margin:0 auto; padding:20px 16px 64px; }
+      header.top{ padding:10px 2px 4px; }
+      h1{
+        font-family:"Noto Serif SC", serif; font-weight:900; font-size:clamp(26px,4.5vw,38px);
+        margin:0 0 6px; letter-spacing:.02em;
+      }
+      h1 .en{ font-size:.45em; font-weight:600; color:var(--gold); letter-spacing:.14em; text-transform:uppercase; margin-left:10px; vertical-align:middle; }
+      h1 .ver{
+        display:inline-block; font-size:12px; font-weight:700; color:var(--accent);
+        border:1.5px solid var(--accent); border-radius:999px; padding:1px 9px;
+        margin-left:10px; vertical-align:middle; letter-spacing:.05em; white-space:nowrap;
+      }
+      .card{ background:var(--panel); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); }
+      .top-controls{ padding:16px; margin-top:18px; }
+      label.flabel{ display:block; font-size:13px; font-weight:700; margin-bottom:5px; }
+      label.flabel span{ color:var(--ink-soft); font-weight:400; }
+      input[type="text"], input[type="search"]{
+        width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:9px;
+        background:var(--bg); color:var(--ink); font:inherit; font-size:14px;
+      }
+      input:focus{ outline:2px solid var(--accent); outline-offset:1px; border-color:transparent; }
+      .btn{
+        appearance:none; border:1px solid var(--line); background:var(--panel2); color:var(--ink);
+        border-radius:999px; padding:7px 14px; font:inherit; font-size:13.5px; font-weight:500;
+        cursor:pointer; min-height:36px; display:inline-flex; align-items:center; gap:6px;
+      }
+      .btn:hover{ border-color:var(--accent); }
+      .btn.primary{ background:var(--accent); border-color:var(--accent); color:var(--accent-ink); font-weight:700; }
+      .btn.ghost{ background:transparent; }
+      .btn:active{ transform:translateY(1px); }
+      .action-row{ display:flex; flex-wrap:wrap; gap:8px; }
+      .search-row{ margin-top:14px; }
+      .search-row input{ background:var(--panel); }
+      .fill-hint{ font-size:12.5px; color:var(--ink-soft); margin:10px 0 0; line-height:1.6; }
+      .fill-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:2px 0 6px; }
+      .fill-row .fill-note{ font-size:12.5px; color:var(--ink-soft); }
+      .trigger-block{ margin-top:16px; border-top:1px dashed var(--line); padding-top:14px; }
+      .trigger-block input{ background:var(--panel); }
+
+      .shell{ display:flex; flex-direction:column; gap:16px; margin-top:16px; }
+      .cat-nav{
+        padding:10px 12px;
+        display:flex; flex-direction:row; flex-wrap:nowrap; gap:6px; align-items:center;
+        overflow-x:auto; overflow-y:hidden; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+      }
+      .cat-nav::-webkit-scrollbar{ display:none; }
+      .cat-nav .nlabel{ flex:none; font-size:12px; font-weight:700; color:var(--ink-soft); letter-spacing:.08em; padding:2px 6px 2px 2px; }
+      .nav-item{
+        appearance:none; border:1px solid var(--line); background:var(--panel); color:var(--ink);
+        border-radius:999px; padding:7px 12px; font:inherit; font-size:13.5px; cursor:pointer;
+        min-height:36px; display:inline-flex; align-items:center; gap:7px; text-align:center; width:auto;
+        flex:0 0 auto; white-space:nowrap;
+      }
+      .nav-item .nt{ flex:none; font-weight:500; white-space:nowrap; }
+      .nav-item .badge{
+        min-width:20px; height:20px; border-radius:999px; padding:0 6px;
+        background:var(--accent); color:var(--accent-ink); font-size:11.5px; font-weight:700;
+        display:none; align-items:center; justify-content:center; line-height:1;
+      }
+      .nav-item.has-sel .badge{ display:inline-flex; }
+      .nav-item:hover{ background:var(--panel2); }
+      .nav-item.active{ background:var(--accent); color:var(--accent-ink); }
+      .nav-item.active .nt{ font-weight:700; }
+      .nav-item.active .badge{ background:var(--accent-ink); color:var(--accent); }
+      .nav-item .cdot{ display:none; width:8px; height:8px; border-radius:50%; flex:none; }
+      .nav-item.has-conflict .cdot{ display:inline-block; background:var(--warn); }
+      .nav-item.has-hard .cdot{ background:var(--hard); }
+
+      .cat-panel{ display:none; padding:20px; scroll-margin-top:16px; }
+      .cat-panel.active{ display:block; }
+      .panel-foot{
+        display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+        margin-top:18px; border-top:1px dashed var(--line); padding-top:14px;
+      }
+      .panel-foot .mini-btn{ font-size:13.5px; padding:7px 14px; min-height:38px; border-radius:999px; }
+      .panel-foot .next-btn{ border-color:var(--accent); color:var(--accent); font-weight:700; }
+      .shell.searching .cat-panel{ display:block; margin-bottom:14px; }
+      .shell.searching .cat-panel.no-hit{ display:none; }
+      .cat-head{ display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
+      .cat-head h2{ font-family:"Noto Serif SC", serif; font-size:20px; font-weight:900; margin:0; }
+      .cat-head .cen{ color:var(--gold); font-size:12px; letter-spacing:.12em; text-transform:uppercase; font-weight:700; }
+      .cat-head .mode{ font-size:12px; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:1px 8px; font-weight:700; }
+      .cat-head .count{ font-size:12.5px; color:var(--ink-soft); }
+      .cat-head .spacer{ flex:1; }
+      .mini-btn{
+        appearance:none; border:1px solid var(--line); background:transparent; color:var(--ink-soft);
+        border-radius:8px; padding:4px 10px; font:inherit; font-size:12.5px; cursor:pointer; min-height:32px;
+      }
+      .mini-btn:hover{ color:var(--accent); border-color:var(--accent); }
+      .cat-desc{ font-size:13px; color:var(--ink-soft); margin:0 0 12px; }
+      .cat-picked{ font-size:13px; margin:0 0 12px; color:var(--ink-soft); display:none; }
+      .cat-picked b{ color:var(--accent); }
+
+      .options-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(215px, 1fr)); gap:10px; }
+      .opt{
+        appearance:none; border:1px solid var(--line); background:var(--chip); color:var(--ink);
+        border-radius:12px; padding:10px 12px 22px; font:inherit; text-align:left; cursor:pointer;
+        position:relative; display:flex; flex-direction:column; gap:2px; min-height:44px; width:100%;
+      }
+      .opt:hover{ border-color:var(--accent); }
+      .opt .ocn{ font-size:14px; font-weight:600; line-height:1.4; }
+      .opt .oen{ font-size:12px; color:var(--ink-soft); line-height:1.45; font-family:ui-monospace, Menlo, Consolas, monospace; word-break:break-word; }
+      .opt.on{ background:var(--chip-on); border-color:var(--chip-on); color:var(--accent-ink); }
+      .opt.on .oen{ color:var(--accent-ink); opacity:.85; }
+      .opt.hidden{ display:none; }
+      .opt .cflag{ display:none; position:absolute; bottom:6px; right:8px; font-size:10.5px; font-weight:800; }
+      .opt.conflict-hard{ border-color:var(--hard); box-shadow:inset 0 0 0 1.5px var(--hard); }
+      .opt.conflict-warn{ border-color:var(--warn); box-shadow:inset 0 0 0 1px var(--warn); }
+      .opt.conflict-hard .cflag{ display:block; color:var(--hard); }
+      .opt.conflict-warn .cflag{ display:block; color:var(--warn); }
+      .no-match{ display:none; font-size:13px; color:var(--ink-soft); padding:8px 2px; }
+
+      aside.output{ padding:20px; }
+      aside.output h2{ font-family:"Noto Serif SC", serif; font-size:20px; font-weight:900; margin:0 0 4px; }
+      .out-meta{ font-size:12.5px; color:var(--ink-soft); margin-bottom:10px; }
+      .out-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:14px; }
+      @media (max-width:760px){ .out-grid{ grid-template-columns:1fr; } }
+      .out-label{ display:flex; align-items:baseline; gap:8px; margin-bottom:6px; flex-wrap:wrap; }
+      .out-label b{ font-size:14px; }
+      .out-label .tag{ font-size:11px; font-weight:700; color:var(--gold); letter-spacing:.08em; }
+      .prompt-box{
+        border:1px solid var(--line); border-radius:10px; background:var(--bg);
+        padding:12px 13px; font-size:13.5px; line-height:1.7; min-height:76px; white-space:pre-wrap; word-break:break-word;
+      }
+      .prompt-box.en{ font-family:ui-monospace, Menlo, Consolas, monospace; font-size:13px; }
+      .prompt-box.empty{ color:var(--ink-soft); font-family:inherit; }
+      .prompt-box.neg{ border-style:dashed; }
+      .copy-row{ display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+      .tip{ font-size:12.8px; color:var(--ink-soft); line-height:1.7; margin:16px 0 0; }
+      .tip b{ color:var(--ink); }
+      .params-box{ margin-top:16px; border-top:1px dashed var(--line); padding-top:12px; font-size:12.8px; color:var(--ink-soft); line-height:1.75; }
+      .params-box b{ color:var(--ink); }
+      .params-box code{ font-family:ui-monospace, Menlo, Consolas, monospace; font-size:12.3px; background:var(--panel2); border-radius:5px; padding:1px 5px; color:var(--ink); }
+
+      .conflict-panel{ border:1px solid var(--line); border-radius:12px; padding:12px 14px; background:var(--panel2); margin-top:6px; }
+      .conflict-panel.ok{ border-color:var(--ok); background:var(--ok-bg); }
+      .conflict-panel.has-warn{ border-color:var(--warn); background:var(--warn-bg); }
+      .conflict-panel.has-hard{ border-color:var(--hard); background:var(--hard-bg); }
+      .conflict-head{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+      .conflict-head b{ font-size:14px; }
+      .conflict-count{ font-size:12px; font-weight:700; color:var(--ink-soft); }
+      .conflict-head .spacer{ flex:1; }
+      .conflict-ok-line{ font-size:13px; margin:8px 0 0; line-height:1.6; }
+      .conflict-list{ margin:10px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
+      .conflict-item{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:9px 11px; font-size:13px; line-height:1.55; }
+      .conflict-item .sev{ font-size:11px; font-weight:800; border-radius:999px; padding:1px 7px; margin-right:6px; white-space:nowrap; }
+      .conflict-item.hard .sev{ background:var(--hard); color:#fff; }
+      .conflict-item.warn .sev{ background:var(--warn); color:#fff; }
+      .conflict-item .ct{ font-weight:700; }
+      .conflict-item .cd{ color:var(--ink-soft); display:block; margin-top:2px; }
+      .conflict-item .fix-btn{ margin-top:6px; border-color:var(--accent); color:var(--accent); font-weight:700; background:var(--panel); }
+      .conflict-note{ font-size:12.3px; color:var(--ink-soft); margin:9px 0 0; line-height:1.6; }
+
+      /* ===== LoRA 配套推荐 ===== */
+      .lora-section{ margin-top:18px; border-top:1px solid var(--line); padding-top:16px; }
+      .lora-head{ display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+      .lora-head h3{ font-family:"Noto Serif SC", serif; font-size:17px; margin:0; font-weight:900; }
+      .lora-head .lora-sub{ font-size:12.5px; color:var(--ink-soft); }
+      .lora-head .spacer{ flex:1; }
+      .lora-empty{ font-size:13.5px; color:var(--ink-soft); background:var(--bg); border:1px dashed var(--line); border-radius:10px; padding:12px 13px; margin-top:10px; line-height:1.6; }
+      .lora-stack-note{ font-size:12.5px; color:var(--ink-soft); background:var(--panel2); border-radius:8px; padding:8px 10px; margin-top:10px; line-height:1.6; }
+      .lora-stack-note b{ color:var(--ink); }
+      .lora-stack-note code{ font-family:ui-monospace, Menlo, Consolas, monospace; font-size:12px; background:var(--bg); border-radius:5px; padding:1px 5px; }
+      .lora-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+      @media (max-width:700px){ .lora-grid{ grid-template-columns:1fr; } }
+      .lora-card{ border:1px solid var(--line); border-radius:12px; padding:12px 13px; background:var(--panel); display:flex; flex-direction:column; gap:6px; cursor:pointer; }
+      .lora-card.top{ border-color:var(--accent); box-shadow:inset 0 0 0 1px var(--accent); }
+      .lora-card.off{ opacity:.55; border-style:dashed; box-shadow:none; }
+      .lora-card.off .lora-name .ln{ text-decoration:line-through; }
+      .lora-top{ display:flex; align-items:flex-start; gap:8px; }
+      .lora-rank{ flex:none; width:22px; height:22px; border-radius:50%; background:var(--accent); color:var(--accent-ink); font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+      .lora-card:not(.top) .lora-rank{ background:var(--panel2); color:var(--ink-soft); border:1px solid var(--line); }
+      .lora-name{ font-weight:700; font-size:14px; line-height:1.35; flex:1; }
+      .lora-name small{ display:block; font-weight:400; font-size:11px; color:var(--ink-soft); margin-top:1px; }
+      .lora-type{ flex:none; font-size:11px; font-weight:700; color:var(--gold); border:1px solid var(--line); background:var(--bg); padding:2px 7px; border-radius:999px; white-space:nowrap; }
+      .lora-desc{ font-size:12.8px; color:var(--ink-soft); line-height:1.55; margin:0; }
+      .lora-meta{ display:flex; flex-wrap:wrap; gap:6px; font-size:12px; }
+      .lora-meta span{ background:var(--bg); border:1px solid var(--line); border-radius:999px; padding:2px 8px; }
+      .lora-meta span b{ color:var(--accent); }
+      .lora-why{ font-size:12.3px; color:var(--ink); background:var(--accent-soft); border-radius:8px; padding:6px 8px; line-height:1.5; }
+      .lora-actions{ display:flex; gap:8px; margin-top:2px; flex-wrap:wrap; }
+      .lora-actions .mini-btn{ font-size:12.5px; }
+      .lora-actions a.mini-btn{ text-decoration:none; display:inline-flex; align-items:center; }
+      .lora-actions .dl-btn{ border-color:var(--accent); color:var(--accent); font-weight:700; }
+      .lora-actions .toggle-btn{ font-weight:700; min-height:32px; }
+      .lora-actions .toggle-btn.on{ border-color:var(--ok); color:var(--ok); }
+      .lora-actions .toggle-btn.off{ border-color:var(--accent); color:var(--accent); background:var(--accent-soft); }
+      .lora-more{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+      .lora-count{ font-size:12.5px; color:var(--ink-soft); }
+      .lora-picked-bar{ margin-top:12px; background:var(--panel2); border-radius:10px; padding:10px 12px; font-size:13px; line-height:1.65; }
+      .lora-picked-bar b{ color:var(--accent); }
+      .lora-picked-bar .off-names{ color:var(--ink-soft); text-decoration:line-through; }
+      .lora-picked-bar code{ font-family:ui-monospace, Menlo, Consolas, monospace; font-size:12px; word-break:break-all; }
+      .lora-verified-tag{ font-size:11px; font-weight:700; color:var(--ok); border:1px solid var(--ok); border-radius:999px; padding:2px 8px; background:var(--ok-bg); white-space:nowrap; }
+      .lora-file{ font-size:12px; color:var(--ink-soft); font-family:ui-monospace, Menlo, Consolas, monospace; word-break:break-all; background:var(--bg); border:1px dashed var(--line); border-radius:8px; padding:5px 8px; line-height:1.5; }
+      .lora-file b{ color:var(--ink); }
+      .lora-on-tag{ font-size:11px; font-weight:700; color:var(--ok); border:1px solid var(--ok); border-radius:999px; padding:2px 8px; background:var(--ok-bg); }
+      .lora-off-tag{ font-size:11px; font-weight:700; color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:2px 8px; background:var(--panel2); }
+      .lora-alt-wrap{ margin-top:16px; border-top:1px dashed var(--line); padding-top:12px; }
+      .lora-alt-title{ font-weight:700; font-size:14px; font-family:"Noto Serif SC", serif; }
+      .lora-alt-title span{ font-weight:400; font-size:12.5px; color:var(--ink-soft); font-family:"Noto Sans SC", sans-serif; }
+      .lora-alt-group{ margin-top:12px; }
+      .lora-alt-head{ font-size:12.5px; font-weight:700; color:var(--gold); margin-bottom:6px; letter-spacing:.04em; }
+      .lora-alt-list{ display:flex; flex-wrap:wrap; gap:8px; }
+      .lora-alt-chip{ display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); background:var(--panel); border-radius:999px; padding:4px 4px 4px 12px; font-size:12.8px; max-width:100%; flex-wrap:wrap; }
+      .lora-alt-chip .an{ font-weight:600; }
+      .lora-alt-chip .am{ color:var(--ink-soft); font-size:11.8px; white-space:nowrap; }
+      .lora-alt-chip .swap-btn{ border-radius:999px; border-color:var(--accent); color:var(--accent); font-weight:700; min-height:28px; padding:2px 10px; }
+      .lora-conflict-tag{ font-size:11px; font-weight:700; color:var(--hard); border:1px solid var(--hard); border-radius:999px; padding:2px 8px; background:var(--hard-bg); }
+      .lora-card.lora-conflict{ border-color:var(--hard); box-shadow:inset 0 0 0 1px var(--hard); }
+
+      footer.note{ margin-top:26px; font-size:12.5px; color:var(--ink-soft); text-align:center; }
+      .toast{
+        position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px);
+        background:var(--ink); color:var(--bg); font-size:13.5px; font-weight:600;
+        padding:9px 18px; border-radius:999px; opacity:0; pointer-events:none; transition:opacity .25s, transform .25s;
+        z-index:50; max-width:90vw; text-align:center;
+      }
+      .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+      @media (prefers-reduced-motion: reduce){
+        html{ scroll-behavior:auto; } .toast{ transition:none; } .btn:active{ transform:none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <h1>提示词生成工具<span class="en">Illustrious Prompt Builder</span><span class="ver">插画系 · 版本 v1</span></h1>
+      </header>
+
+      <section class="card top-controls" aria-label="操作">
+        <div class="action-row">
+          <button class="btn primary" id="randomAllBtn" type="button">🎲 智能随机一组（不打架）</button>
+          <button class="btn" id="fillMissingBtn" type="button">🧩 智能补齐未选类别</button>
+          <button class="btn" id="fixAllBtn" type="button">🛡 一键修复冲突</button>
+          <button class="btn" id="clearAllBtn" type="button">清空全部选择</button>
+        </div>
+        <p class="fill-hint">这是 <b>Illustrious（插画系 SDXL 底模）</b>版：输出是 Danbooru（标签库）风格的<b>英文标签串</b>，不是自然语言句子 — Illustrious 吃标签，标签顺序按 画质 → 主体 → 外貌 → 服装 → 动作 → 场景 → 光线 → 收尾 排好，复制即可喂进 ComfyUI（工作流界面）/ WebUI。随机和补齐是<b>冲突感知</b>的：逐类生成、每挑一条先过冲突检查；「智能补齐」以你已选内容为锚，只补未选类别。负面提示词（Negative Prompt，负面词）单独成区 — Illustrious 靠负面词压画质崩坏，和 Krea 系的正向改写不是一回事。</p>
+        <div class="search-row">
+          <input type="search" id="searchInput" placeholder="搜索词条（中文或标签关键词，如：逆光 / backlighting / 双马尾 / twintails）" aria-label="搜索词条" />
+        </div>
+      </section>
+
+      <div class="shell" id="shell">
+        <nav class="card cat-nav" id="catNav" aria-label="分类导航">
+          <span class="nlabel">分类 · 点选切换</span>
+        </nav>
+        <div class="panels" id="builderCol"></div>
+
+        <aside class="card output" aria-label="生成结果">
+          <h2>生成的提示词</h2>
+          <div class="out-meta" id="outMeta">已选 0 项</div>
+          <div class="fill-row" id="fillRow" style="display:none">
+            <button class="btn" id="fillMissingBtnOut" type="button">🧩 智能补齐未选类别</button>
+            <span class="fill-note" id="fillNote"></span>
+          </div>
+
+          <div class="conflict-panel ok" id="conflictPanel" aria-label="匹配检查">
+            <div class="conflict-head">
+              <b>匹配检查</b>
+              <span class="conflict-count" id="conflictCount">未开始</span>
+              <span class="spacer"></span>
+              <button class="btn" id="fixAllBtnPanel" type="button" style="display:none">🛡 一键修复全部冲突</button>
+            </div>
+            <p class="conflict-ok-line" id="conflictOkLine">先选几项，这里会实时检查标签之间有没有互相打架（人数、瞳色、场景与天气光线、取景裁切、LoRA 叠加…）。</p>
+            <ul class="conflict-list" id="conflictList" style="display:none"></ul>
+            <p class="conflict-note">检查范围：主体人数与「单人」类标签是否重复计数、瞳色 / 发色是否重复指定、闭眼与发光瞳类标签是否并存、场景（室内外）与天气 / 光线时段是否对得上（飘雪 ✕ 夏日海滩、月光 ✕ 正午场景等）、世界观与服装 / 场景是否一致（仙侠 ✕ 现代教室等）、取景是否裁掉已选内容（脸部特写 ✕ 鞋袜）、手部道具与动作是否冲突（双手持物 ✕ 趴睡等）、画风标签是否堆叠过量、负面词是否误伤正向内容（如负面里写了 blurry 又选了浅景深虚化），以及下方 LoRA 组合的总权重与画风互斥。<b>硬冲突</b>是逻辑上不可能同时成立的，建议先修；<b>提醒</b>多半能出图，但容易糊脸、串色或跳戏。</p>
+          </div>
+
+          <div class="out-grid">
+            <div class="out-col">
+              <div class="out-label"><b>标签版 · 给 Illustrious 用</b><span class="tag">TAGS · PRIMARY</span></div>
+              <div class="prompt-box en empty" id="promptEn">还没有选择。点任意词条，或点随机组合。</div>
+              <div class="copy-row">
+                <button class="btn primary" id="copyEnBtn" type="button">复制标签提示词</button>
+              </div>
+            </div>
+            <div class="out-col">
+              <div class="out-label"><b>中文版 · 核对用</b><span class="tag">中文 · 对照</span></div>
+              <div class="prompt-box empty" id="promptCn">还没有选择。</div>
+              <div class="copy-row">
+                <button class="btn" id="copyCnBtn" type="button">复制中文提示词</button>
+                <button class="btn ghost" id="copyBothBtn" type="button">正向＋负面一起复制</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="out-grid" style="margin-top:4px">
+            <div class="out-col">
+              <div class="out-label"><b>负面提示词 Negative</b><span class="tag">NEGATIVE</span></div>
+              <div class="prompt-box en neg empty" id="promptNeg">还没有选择负面词。到下方「负面提示词」分类里选，或点这里用默认压崩坏组合。</div>
+              <div class="copy-row">
+                <button class="btn" id="negDefaultBtn" type="button">填入默认负面组合</button>
+                <button class="btn" id="copyNegBtn" type="button">复制负面提示词</button>
+              </div>
+            </div>
+            <div class="out-col">
+              <div class="out-label"><b>出图参数参考</b><span class="tag">ILLUSTRIOUS XL</span></div>
+              <div class="params-box" style="border-top:none;margin-top:0;padding-top:0">
+                Sampler（采样器）：<code>euler_ancestral</code> 或 <code>dpmpp_2m_sde karras</code> · Steps（步数）<code>28–32</code> · CFG（提示词相关性）<code>5–7</code>（挂风格 LoRA 时 4.5–6）<br />
+                尺寸：竖图 <code>832×1216</code> · 方图 <code>1024×1024</code> · 横图 <code>1216×832</code>；Hires Fix（高清修复）潜空间 ×1.5、第二遍 Denoise（去噪强度）0.35–0.45。<br />
+                画质词打头是 Illustrious 的惯例：<code>masterpiece, best quality, very aesthetic, absurdres</code> 已在「画质规格」类里，默认帮你选好。
+              </div>
+            </div>
+          </div>
+
+          <div class="trigger-block">
+            <label class="flabel" for="triggerInput">触发词 Trigger Word <span>— 只放这次实际挂的 LoRA 触发词，原样不翻译，会自动拼到标签串最前面</span></label>
+            <input type="text" id="triggerInput" placeholder="例如 748cmstyle, addmicrodetails（没挂 LoRA 就留空）" autocomplete="off" />
+          </div>
+
+          <div class="lora-section" id="loraSection" aria-label="LoRA 配套推荐">
+            <div class="lora-head">
+              <h3>LoRA 配套推荐</h3>
+              <span class="lora-sub">主组合只用 <b>31 个已核实的真实 Illustrious LoRA</b>（2026-11-18 经 Civitai 官方 API 逐条核对模型 ID / 版本 ID / 真实文件名 / 触发词，下载量为当日 API 数据）· 卡片上有真实文件名＋Civitai 下载链接，照着就能找到 · 每个 LoRA 都是<b>可选的</b>：点卡片（或卡上的开关）就能取消，取消的不计入复制 / 导出，再点一次恢复 · 同类其他已验证 LoRA 列在下方可替换</span>
+              <span class="spacer"></span>
+              <span class="lora-count" id="loraCount"></span>
+            </div>
+            <div class="lora-empty" id="loraEmpty">已选内容里还没有「媒介画风」或「主体」类词条 — 先选其中一项，这里会自动按匹配度排出最适合挂的<b>已验证真实 Illustrious LoRA</b>（带真实文件名和 Civitai 下载链接）、推荐权重和触发词（Trigger Word，触发词）。</div>
+            <div id="loraBody" style="display:none">
+              <p class="lora-stack-note"><b>Illustrious 挂 LoRA 的规矩：</b>画风类只挂 1 个（两个画风 LoRA 对冲会糊）；细节 / 光影 / 滑杆类可以叠，但总权重建议 ≤ 2.5。滑杆类（Slider，滑杆 LoRA）权重可正可负：正数往一头推、负数往反方向推。复制出去的清单每条带 <code>&lt;lora:文件名:权重&gt;</code> 语法，粘到正向提示词末尾或 ComfyUI 的 LoRA 加载节点都能用；带触发词的卡点「填入触发词」会自动写到上方触发词框。</p>
+              <div class="lora-grid" id="loraGrid"></div>
+              <div class="lora-picked-bar" id="loraPickedBar"></div>
+              <div class="lora-more">
+                <button class="btn primary" id="copyLoraNamesBtn" type="button">复制已选 LoRA（文件名＋下载链接）</button>
+                <button class="btn" id="exportLoraBtn" type="button">导出已选清单 (.txt)</button>
+                <button class="btn ghost" id="copyLoraBtn" type="button">复制完整配置</button>
+                <span class="lora-count" id="loraHint">复制 / 导出只包含已加入的已验证 LoRA，每条带真实文件名＋Civitai 下载链接</span>
+              </div>
+              <div class="lora-alt-wrap" id="loraAltWrap">
+                <div class="lora-alt-title">可替换备选 <span>— 同一类里其他也匹配的<b>已验证真实</b> LoRA，按匹配度排在后面，点「换上」替换主组合里同类的那一个</span></div>
+                <div id="loraAltList"></div>
+              </div>
+            </div>
+          </div>
+
+          <p class="tip"><b>用法提醒：</b>Illustrious 是标签模型：画质词只放开头一串、主体人数先定（1girl / solo 别和多人标签混着写）、发色瞳色各只写一个，写重了模型会折中出怪色；服装要精确到底 — 整套选一套、鞋袜分开选、配饰写清件数，模型对「类别名」没有想象力，只认标签。负面词别贪多，默认组合够压住崩手和低画质；负面里放了 <code>blurry</code> 就别再选浅景深虚化。出图前先看一眼上方「匹配检查」：硬冲突清零再复制，翻车率会低很多。</p>
+        </aside>
+      </div>
+
+      <footer class="note">词条库按 Illustrious XL 的 Danbooru 标签体系与社区创作经验整理 · 英文标签均为可直接喂给 Illustrious 的标准标签 · LoRA 数据 2026-11-18 经 Civitai 官方 API 核对 · 当前页面版本 v1（插画系）</footer>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite">已复制</div>
+
+    <script>
+    /* ============ 词条库：[id, 中文, 英文标签] — Illustrious 吃 Danbooru 标签，顺序即输出顺序 ============ */
+    var CATS = [
+      { id:"quality", title:"画质规格", en:"Quality", mode:"multi",
+        desc:"Illustrious 的惯例：画质词打头，决定整体完成度上限。默认已选基础四件套，一般不用改；想要官方图 / 年代感再往里加。",
+        options:[
+          ["masterpiece","杰作级（masterpiece）","masterpiece"],
+          ["best-quality","最佳画质（best quality）","best quality"],
+          ["very-aesthetic","高美感（very aesthetic）","very aesthetic"],
+          ["absurdres","超高分辨率（absurdres）","absurdres"],
+          ["highres","高分辨率（highres）","highres"],
+          ["official-art","官方美术图（official art）","official art"],
+          ["ultra-detailed","极致细节（ultra-detailed）","ultra-detailed"],
+          ["perfect-anatomy","完美人体结构","perfect anatomy"],
+          ["sharp-focus","焦点锐利（sharp focus）","sharp focus"],
+          ["newest","最新画风年代（newest）","newest"],
+          ["year-2024","2024 年代标签","year 2024"],
+          ["year-2025","2025 年代标签","year 2025"],
+          ["safe-rating","全年龄评级（safe）","rating: safe"],
+          ["sensitive-rating","轻微敏感评级","rating: sensitive"]
+        ]},
+      { id:"medium", title:"媒介画风", en:"Medium", mode:"single",
+        desc:"这张图是用什么「画」出来的 — 只选一个，决定渲染方式。不选时模型按默认动漫插画出。",
+        options:[
+          ["anime-illustration","标准动漫插画","anime coloring, clean lineart"],
+          ["painterly-thick","厚涂绘画（颜料感）","impasto, painterly, thick paint texture"],
+          ["thin-paint","薄涂（轻盈水润）","thin painting, translucent coloring, watery rendering"],
+          ["cel-shading","赛璐璐平涂","cel shading, flat color, bold outline"],
+          ["flat-illustration","扁平插画风","flat illustration, minimal shading, bold shapes"],
+          ["semi-realistic","半写实","semi-realistic, detailed skin texture, soft realistic shading"],
+          ["watercolor","水彩（传统媒介）","watercolor (medium), traditional media, soft washes"],
+          ["digital-watercolor","数字水彩","digital watercolor, translucent layered washes"],
+          ["gouache","水粉 / 不透明水彩","gouache (medium), matte opaque color"],
+          ["manga-bw","黑白漫画（网点纸）","monochrome, manga style, screentones, ink drawing"],
+          ["shoujo-manga","少女漫画风","shoujo manga style, sparkles, delicate lineart"],
+          ["chibi","Q 版（超级变形）","chibi, super deformed, cute proportions"],
+          ["pixel-art","像素画","pixel art, dithered pixels"],
+          ["pencil-sketch","铅笔素描","pencil sketch, graphite shading, sketch"],
+          ["colored-pencil","彩铅手绘","colored pencil (medium), paper texture"],
+          ["ink-wash","水墨画","ink wash painting, sumi-e, expressive brush strokes"],
+          ["ukiyoe","浮世绘","ukiyo-e, woodblock art, flat color"],
+          ["anime-screencap","动画截图风","anime screencap, anime coloring, 2020s (style)"],
+          ["retro-90s-anime","90 年代复古动画","1990s (style), retro artstyle, anime screencap"],
+          ["retro-game-cg","复古视觉小说 CG","visual novel cg, soft gradient shading, game cg"],
+          ["picture-book","绘本童书风","children's book illustration, storybook style, whimsical"],
+          ["art-nouveau","新艺术装饰风","art nouveau, flowing lines, floral ornament"],
+          ["3d-render","3D 渲染（动漫风）","3d render, stylized 3d, smooth shading"],
+          ["lineart-flat","线稿平涂","clean lineart, flat color, minimal shading"],
+          ["oil-painting","油画","oil painting (medium), canvas texture, visible brushstrokes"]
+        ]},
+      { id:"style", title:"风格基调", en:"Style & Mood Tags", mode:"single",
+        desc:"做成什么味 — 只选一个主风格标签组，和媒介叠加，别贪多。",
+        options:[
+          ["niji","Niji 风（唯美梦幻）","niji style, dreamy, luminous, soft glow"],
+          ["modern-clean","现代清新","modern anime style, clean, bright"],
+          ["healing","治愈日常","healing, warm, slice of life, cozy"],
+          ["dark-gothic","阴郁哥特","gothic, dark atmosphere, ornate details"],
+          ["dreamy-pastel","梦幻粉彩","pastel colors, dreamy, soft focus, ethereal"],
+          ["fairytale","童话幻想","fairytale, storybook, whimsical, magical"],
+          ["dark-fairytale","暗黑童话","dark fairytale, eerie, bittersweet"],
+          ["epic","史诗宏大","epic, grand scale, dramatic composition"],
+          ["luxurious","华丽宫廷","luxurious, baroque, ornate, golden details"],
+          ["minimalist","极简留白","minimalism, negative space, simple composition"],
+          ["cyberpunk","赛博朋克","cyberpunk, neon lights, futuristic"],
+          ["steampunk","蒸汽朋克","steampunk, brass gears, victorian"],
+          ["vaporwave","蒸汽波","vaporwave, retro grid, sunset gradient"],
+          ["lofi","Lo-fi 慵懒","lo-fi, film grain, laid-back, indie"],
+          ["horror","诡谲恐怖","horror (theme), eerie, unsettling"],
+          ["guofeng","国风新中式","chinese style, guofeng, elegant oriental"],
+          ["french","法式浪漫","french style, romantic, parisian charm"],
+          ["clear-sky","清透蓝天风","clear sky, luminous, fresh blue palette"],
+          ["summer-fresh","夏日清爽","summer, fresh, breezy, bright sunlight"],
+          ["autumn-nostalgia","秋日怀旧","autumn, nostalgic, amber light, falling leaves"],
+          ["royal-academy","学院古典","classical academy, refined, scholarly"],
+          ["idol-pop","偶像流行","idol, pop, glossy, energetic"],
+          ["zen","禅意空灵","zen, serene, spacious, tranquil"],
+          ["retro-showa","昭和复古","showa era, retro japanese, nostalgic look"],
+          ["dreamcore","梦核（超现实日常）","dreamcore, surreal, liminal space"]
+        ]},
+      { id:"era", title:"世界观与时代", en:"World & Era", mode:"single",
+        desc:"故事发生在哪个世界 — 和服装、场景联动，选错会跳戏（匹配检查会盯）。",
+        options:[
+          ["modern-city","现代都市","modern day, contemporary city"],
+          ["modern-school","现代校园","modern school setting, present day"],
+          ["xianxia","仙侠修真","xianxia, chinese fantasy, cultivation world"],
+          ["wuxia","武侠江湖","wuxia, ancient china, martial arts world"],
+          ["ancient-china","古代中国","ancient china, traditional chinese setting"],
+          ["ancient-japan","古代日本","ancient japan, edo period"],
+          ["medieval-fantasy","中世纪幻想","medieval fantasy, sword and sorcery"],
+          ["victorian","维多利亚时代","victorian era, 19th century england"],
+          ["taisho","大正浪漫","taisho era, 1920s japan, retro modern"],
+          ["near-future","近未来科幻","near future, sci-fi, advanced technology"],
+          ["post-apocalyptic","末世废土","post-apocalypse, ruined world, overgrown ruins"],
+          ["steampunk-world","蒸汽朋克世界","steampunk world, airships, brass machinery"],
+          ["cyber-city","赛博都市","cyberpunk city, dystopian future"],
+          ["fairytale-world","童话王国","fairytale kingdom, storybook world"],
+          ["mythology","神话传说","mythology, divine realm, ancient legends"],
+          ["space","深空宇宙","outer space, space station, zero gravity"],
+          ["underwater-world","海底世界","underwater world, deep sea kingdom"],
+          ["magic-academy","魔法学院","magic academy, fantasy school"],
+          ["shrine-temple","神社寺庙","shinto shrine setting, sacred grounds"]
+        ]},
+      { id:"subject", title:"主体", en:"Subject", mode:"single",
+        desc:"画面主角是谁 — 人数标签是 Illustrious 最先认的东西，只选一个。",
+        options:[
+          ["1girl-solo","一名少女（单人）","1girl, solo"],
+          ["1girl","一名少女（可有他人）","1girl"],
+          ["2girls","两名少女","2girls"],
+          ["3girls","三名少女","3girls"],
+          ["multiple-girls","多名少女","multiple girls"],
+          ["1boy-solo","一名少年（单人）","1boy, solo"],
+          ["1boy","一名少年","1boy"],
+          ["1girl-1boy","少女与少年","1girl, 1boy"],
+          ["mature-female","成熟女性","1girl, solo, mature female"],
+          ["loli-girl","幼态少女","1girl, solo, petite, young girl"],
+          ["chibi-girl","Q 版少女","1girl, solo, chibi"],
+          ["cat","一只猫","cat, solo, animal focus"],
+          ["girl-and-cat","少女与猫","1girl, cat, animal on lap"],
+          ["dragon-girl","龙娘","1girl, solo, dragon girl"],
+          ["no-human","无人物（纯场景 / 静物）","no humans, scenery focus"]
+        ]},
+      { id:"occupation", title:"职业与身份", en:"Role & Occupation", mode:"single",
+        desc:"她在故事里是干什么的 — 会顺带暗示服装和道具，和服装类对不上时匹配检查会提醒。",
+        options:[
+          ["student","学生","school girl, student"],
+          ["miko","巫女","miko, shrine maiden"],
+          ["maid","女仆","maid"],
+          ["idol","偶像歌手","idol, singer, pop star"],
+          ["witch","魔女","witch, magic user"],
+          ["knight","骑士","knight, armor bearer"],
+          ["swordswoman","剑士","swordswoman, sword user"],
+          ["cultivator","修仙者","cultivator, taoist"],
+          ["princess","公主","princess, royalty"],
+          ["nurse","护士","nurse"],
+          ["office-lady","职场女性","office lady, businesswoman"],
+          ["postwoman","邮递员","postwoman, mail carrier"],
+          ["librarian","图书管理员","librarian"],
+          ["artist","画家","artist, painter"],
+          ["musician","乐手","musician"],
+          ["barista","咖啡师","barista, cafe worker"],
+          ["chef","厨师","chef, cook"],
+          ["detective","侦探","detective"],
+          ["magical-girl","魔法少女","magical girl"],
+          ["shrine-priestess","神社神主之女","shrine priestess"],
+          ["traveler","旅人","traveler, wanderer"],
+          ["alchemist","炼金术士","alchemist"],
+          ["necromancer","死灵法师","necromancer, dark mage"],
+          ["elf-ranger","精灵游侠","elf ranger, archer"]
+        ]},
+      { id:"fantasy", title:"幻想 / 非人特征", en:"Fantasy Traits", mode:"multi",
+        desc:"耳朵、角、翅膀、尾巴这类非人件 — 可多选，但和帽子、发型抢位置时要注意。",
+        options:[
+          ["cat-ears","猫耳","cat ears, animal ears"],
+          ["fox-ears","狐耳","fox ears, animal ears"],
+          ["bunny-ears","兔耳","rabbit ears, animal ears"],
+          ["elf-ears","精灵耳（长耳）","elf, pointy ears, long ears"],
+          ["horns","双角","horns, demon horns"],
+          ["single-horn","独角","single horn"],
+          ["angel-wings","天使翅膀","angel wings, feathered wings, white wings"],
+          ["demon-wings","恶魔翅膀","demon wings, bat wings"],
+          ["fairy-wings","妖精翅膀（透明）","fairy wings, transparent wings"],
+          ["cat-tail","猫尾巴","cat tail, tail"],
+          ["fox-tail","狐尾（蓬松）","fox tail, fluffy tail"],
+          ["multiple-tails","多尾","multiple tails"],
+          ["halo","光环","halo"],
+          ["glowing-eyes-trait","发光瞳（异能感）","glowing eyes, luminous pupils"],
+          ["heterochromia","异色瞳","heterochromia"],
+          ["fangs","小虎牙 / 獠牙","fangs, fang"],
+          ["pointy-teeth","尖牙","pointy teeth, sharp teeth"],
+          ["dragon-horns","龙角","dragon horns"],
+          ["antlers","鹿角","antlers"],
+          ["mermaid-tail","人鱼尾","mermaid, fishtail, scales"],
+          ["mechanical-arms","机械义肢","mechanical arms, prosthetic arm"],
+          ["animal-ear-fluff","耳内绒毛","animal ear fluff"],
+          ["third-eye","额间竖瞳 / 天眼","third eye, forehead mark"],
+          ["tattoo-marks","发光纹身 / 魔纹","glowing tattoo, magic markings, facial mark"]
+        ]},
+      { id:"hair", title:"发型发色", en:"Hair", mode:"single",
+        desc:"一颗头只能一种发色一个发型 — 整条选（发色＋发型已配好），别再去别处叠发色。",
+        options:[
+          ["pink-twintails","粉色高双马尾","bubblegum-pink hair, twintails, high twintails, long hair"],
+          ["pink-long","粉色长直发","pink hair, long hair, straight hair"],
+          ["black-long-hime","黑长直（姬发式）","black hair, long hair, hime cut, straight hair"],
+          ["silver-long","银白长发","silver hair, white hair, long hair, flowing hair"],
+          ["blonde-drill","金发双钻头卷","blonde hair, drill hair, twintails, curly hair"],
+          ["blonde-long-wavy","金色波浪长发","blonde hair, long hair, wavy hair"],
+          ["brown-ponytail","棕发单马尾","brown hair, ponytail, medium hair"],
+          ["red-long","红发长发","red hair, long hair, ahoge"],
+          ["blue-short-bob","蓝发波波头","blue hair, short hair, bob cut"],
+          ["blue-long","蓝发长发","blue hair, long hair, gradient hair"],
+          ["purple-long","紫发长发","purple hair, long hair, straight hair"],
+          ["green-twintails","绿发双马尾","green hair, twintails, long hair"],
+          ["white-short","白发短发","white hair, short hair, messy hair"],
+          ["black-short-messy","黑发凌乱短发","black hair, short hair, messy hair"],
+          ["orange-side-ponytail","橙发侧马尾","orange hair, side ponytail, medium hair"],
+          ["pink-short","粉色短发","pink hair, short hair, bob cut"],
+          ["twintails-low","低双马尾（通用）","twintails, low twintails, long hair"],
+          ["single-braid","单麻花辫","single braid, braided ponytail, long hair"],
+          ["double-buns","双丸子头","double bun, hair bun, chinese style"],
+          ["ahoge-long-black","黑发呆毛长发","black hair, long hair, ahoge"],
+          ["gradient-pink-blue","粉蓝渐变发","gradient hair, pink hair, blue hair, long hair"],
+          ["wet-hair","湿发","wet hair, damp hair, water droplets on hair"],
+          ["hair-over-eyes","发丝遮眼","hair over one eye, hair between eyes"],
+          ["very-long-hair","及地超长发","very long hair, absurdly long hair, hair flowing"]
+        ]},
+      { id:"face", title:"眼睛与表情", en:"Eyes & Expression", mode:"multi",
+        desc:"瞳色只留一个；表情可以叠（害羞＋微笑很常见），互相矛盾的组合匹配检查会标。",
+        options:[
+          ["blue-eyes","蓝瞳","blue eyes"],
+          ["red-eyes","红瞳","red eyes"],
+          ["green-eyes","绿瞳","green eyes"],
+          ["purple-eyes","紫瞳","purple eyes"],
+          ["amber-eyes","琥珀金瞳","amber eyes, golden eyes"],
+          ["pink-eyes","粉瞳","pink eyes"],
+          ["cyan-glowing-eyes","青色发光无瞳眼","glowing eyes, cyan eyes, no pupils, light spilling on cheeks"],
+          ["heart-pupils","爱心瞳","heart-shaped pupils"],
+          ["star-pupils","星星瞳","star-shaped pupils, sparkling eyes"],
+          ["sparkling-eyes","闪亮大眼睛","sparkling eyes, shiny eyes"],
+          ["half-closed","半垂眼（慵懒）","half-closed eyes, sleepy eyes"],
+          ["closed-eyes","闭眼","closed eyes"],
+          ["wink","单眼眨眼","wink, one eye closed"],
+          ["smile","微笑","smile, gentle smile"],
+          ["open-smile","开心大笑","open mouth, laughing, happy"],
+          ["blush","脸红","blush, embarrassed"],
+          ["teary","含泪欲哭","tearing up, teary eyes, glistening eyes, on the verge of crying"],
+          ["pout","鼓腮嘟嘴","pout, puffed cheeks, :t"],
+          ["surprised","惊讶","surprised, :o, wide eyes"],
+          ["serious","严肃凝视","serious expression, looking at viewer"],
+          ["sleepy","困倦","sleepy, yawning, tired"],
+          ["smug","得意坏笑","smug, smirk, v-shaped eyebrows"],
+          ["angry","生气","angry, pout, furrowed brow"],
+          ["shy","害羞躲闪","shy, averting eyes, blush"],
+          ["tongue-out","吐舌头","tongue out, playful"],
+          ["drooling-sleep","睡颜流口水","sleeping face, drooling, peaceful"]
+        ]}
+    ];
+
+    CATS.push(
+      { id:"outfit", title:"服装", en:"Outfit", mode:"single",
+        desc:"整套只选一套 — Illustrious 只认标签，写「和风服饰」这种类别名必然乱配，要精确到件。",
+        options:[
+          ["miko-outfit","巫女服（白衣绯袴）","miko outfit, white kimono top, wide sleeves, red hakama, pleated hakama, red sash"],
+          ["school-uniform","校服（水手服）","school uniform, serafuku, pleated skirt, neckerchief"],
+          ["blazer-uniform","西式校服（西装外套）","school uniform, blazer, tie, pleated skirt"],
+          ["maid-outfit","女仆装","maid outfit, maid headdress, apron, frills"],
+          ["magical-girl-outfit","魔法少女服","magical girl outfit, frilled dress, ribbon, puffy sleeves"],
+          ["white-dress","白色连衣裙","white dress, sundress, sleeveless dress"],
+          ["gothic-lolita","哥特洛丽塔","gothic lolita, black dress, lace, frills, corset"],
+          ["sweet-lolita","甜美洛丽塔","sweet lolita, pink dress, lace, bows, frills"],
+          ["kimono","和服（振袖）","kimono, furisode, obi, floral pattern"],
+          ["yukata","浴衣","yukata, summer kimono, obi sash"],
+          ["hanfu","汉服","hanfu, chinese traditional clothing, flowing sleeves"],
+          ["xianxia-robes","仙侠白袍","white flowing robes, xianxia clothing, jade pendant, wide sleeves"],
+          ["cheongsam","旗袍","cheongsam, china dress, side slit"],
+          ["princess-gown","公主礼服长裙","princess gown, ballgown, layered skirt, jewels"],
+          ["knight-armor","骑士铠甲","knight armor, breastplate, gauntlets, cape"],
+          ["witch-robe","魔女袍＋尖顶帽套装","witch robe, purple dress, pointy hat, cloak"],
+          ["idol-costume","偶像舞台服","idol costume, stage outfit, frills, ribbons, microphone-ready"],
+          ["nurse-outfit","护士服","nurse outfit, nurse cap, white uniform"],
+          ["office-suit","职业套装","business suit, office outfit, pencil skirt, blazer"],
+          ["postwoman-uniform","邮递员制服","postwoman uniform, canvas mail satchel, cap, jacket"],
+          ["sailor-dress","水手风连衣裙","sailor dress, navy collar, white dress"],
+          ["summer-casual","夏日休闲装","casual summer clothes, t-shirt, shorts, sandals"],
+          ["winter-coat","冬日大衣＋围巾","winter coat, scarf, gloves, warm clothes"],
+          ["pajamas","睡衣","pajamas, sleepwear, loose shirt"],
+          ["swimsuit-school","学校泳装","school swimsuit, one-piece swimsuit"],
+          ["swimsuit-bikini","比基尼","bikini, summer swimsuit"],
+          ["shrine-suit","神社巫女改良装","modern miko outfit, cropped top, hakama skirt"],
+          ["detective-coat","侦探风衣","detective coat, trench coat, fedora"],
+          ["apron-cafe","咖啡店围裙装","cafe uniform, apron, blouse, skirt"],
+          ["tracksuit","运动服","tracksuit, sportswear, sneakers-ready"]
+        ]},
+      { id:"footwear", title:"鞋袜", en:"Footwear & Socks", mode:"multi",
+        desc:"袜一双鞋一双，分开选 — 选了两双鞋或两种袜，模型会叠穿出怪物。",
+        options:[
+          ["black-thighhighs","黑色过膝袜","black thighhighs, over-knee socks, ribbed top"],
+          ["white-thighhighs","白色过膝袜","white thighhighs, over-knee socks"],
+          ["striped-thighhighs","条纹过膝袜","striped thighhighs"],
+          ["kneehighs","及膝袜","kneehighs, knee socks"],
+          ["white-socks","白色短袜","white socks, ankle socks"],
+          ["black-pantyhose","黑色连裤袜","black pantyhose, tights"],
+          ["lace-socks","蕾丝花边袜","lace-trimmed socks, frilled socks"],
+          ["loose-socks","泡泡袜","loose socks"],
+          ["tabi","足袋（和风分趾袜）","tabi, white socks"],
+          ["barefoot","赤脚","barefoot, bare feet"],
+          ["oxford-shoes","黑色牛津鞋","black oxford shoes, leather shoes, laces"],
+          ["mary-janes","玛丽珍鞋","mary janes, black shoes, strap shoes"],
+          ["loafers","乐福鞋（校服鞋）","loafers, brown shoes"],
+          ["high-heels","高跟鞋","high heels, stiletto heels"],
+          ["boots-long","长靴","knee boots, leather boots"],
+          ["boots-ankle","短靴","ankle boots"],
+          ["sneakers","运动鞋","sneakers, running shoes"],
+          ["sandals","凉鞋","sandals"],
+          ["geta","木屐","geta, wooden sandals"],
+          ["zouri","草履（和服鞋）","zouri, japanese sandals"],
+          ["slippers","拖鞋","slippers, indoor shoes"],
+          ["ballet-shoes","芭蕾舞鞋","ballet shoes, pointe shoes, ribbons"]
+        ]},
+      { id:"accessories", title:"配饰", en:"Accessories", mode:"multi",
+        desc:"逐件选，位置已写进标签（左腕 / 颈间 / 发间）— 只写类别名模型必然乱戴。",
+        options:[
+          ["hair-ribbon-red","红色发带蝴蝶结","red ribbon, hair ribbon, bow"],
+          ["hair-flower","发间花饰","hair flower, hair ornament"],
+          ["hairpin-star","星星发夹","star hairpin, hairclip"],
+          ["ahoge-pin","呆毛发饰","hair ornament, hairpin"],
+          ["choker","颈链项圈","choker, black choker, bell choker"],
+          ["necklace-jade","玉佩项链","jade pendant, necklace"],
+          ["necklace-cross","十字架项链","cross necklace, silver pendant"],
+          ["gold-armband","左上臂金臂环","gold armband, upper arm band, armlet"],
+          ["bracelet-left","左腕手链","bracelet, left wrist"],
+          ["watch-left","左腕手表","watch, wristwatch, left wrist"],
+          ["ring-thumb-bell","拇指自行车铃铛戒指","bell ring, thumb ring, bicycle bell"],
+          ["earrings","耳环","earrings, dangling earrings"],
+          ["glasses","眼镜","glasses, round glasses"],
+          ["sunglasses","墨镜","sunglasses"],
+          ["lace-gloves-white","白色蕾丝短手套","white lace gloves, short gloves"],
+          ["gloves-black","黑色手套","black gloves"],
+          ["scarf-red","红色围巾","red scarf, neck scarf"],
+          ["hat-witch","魔女尖顶帽","witch hat, pointy hat"],
+          ["hat-beret","贝雷帽","beret, artist hat"],
+          ["hat-straw","草帽","straw hat, sun hat"],
+          ["headphones","耳机","headphones, head-mounted display"],
+          ["cat-ear-headband","猫耳发箍","cat ear headband, fake animal ears"],
+          ["maid-headdress","女仆头饰","maid headdress"],
+          ["veil","头纱","veil, bridal veil"],
+          ["eyepatch","眼罩","eyepatch, medical eyepatch"],
+          ["bag-satchel","斜挎帆布邮包","canvas satchel, shoulder bag, crossbody bag"],
+          ["bag-school","书包","school bag, randoseru"],
+          ["umbrella-acc","雨伞","holding umbrella, umbrella"]
+        ]},
+      { id:"props", title:"道具与伴随物", en:"Props & Companions", mode:"multi",
+        desc:"手里拿的、身边放的 — 和动作联动：选了「双手持物」的道具就别再选趴睡类动作。",
+        options:[
+          ["star-wand","星杖（星形尖端法杖）","star-tipped wand, holding wand, magical staff"],
+          ["sword-light","光剑 / 飞剑","glowing sword, flying sword, sword light"],
+          ["letters-bundle","一捆信件（系绳）","bundle of letters, tied letters, holding envelope"],
+          ["envelope-single","一封信","holding envelope, letter"],
+          ["book-open","打开的书","open book, holding book"],
+          ["teacup","茶杯","teacup, holding cup"],
+          ["globe-lamp","地球仪台灯","globe lamp, glowing lamp on desk, amber continents"],
+          ["candle","蜡烛","candle, candlelight, holding candle"],
+          ["lantern","灯笼","lantern, paper lantern, glowing lantern"],
+          ["cat-companion","脚边小猫","cat beside feet, small cat, curled up cat"],
+          ["cat-on-lap","膝上猫","cat on lap"],
+          ["black-cat","黑猫伙伴","black cat, familiar"],
+          ["bird-companion","肩头小鸟","bird on shoulder, small bird"],
+          ["teddy-bear","抱着的泰迪熊","teddy bear, holding stuffed toy"],
+          ["bamboo-wishes","七夕竹枝短册","bamboo branches, paper wish strips, tanzaku"],
+          ["umbrella-prop","撑开的伞","open umbrella"],
+          ["bicycle","自行车","bicycle, bike bell"],
+          ["broom-flying","飞行扫帚","flying broom, broom"],
+          ["staff-wood","木质法杖","wooden staff, magic staff"],
+          ["crystal-ball","水晶球","crystal ball, fortune telling"],
+          ["potion-bottles","药水瓶组","potion bottles, alchemy flasks"],
+          ["scroll","卷轴","scroll, rolled parchment"],
+          ["fan-folding","折扇","folding fan, holding fan"],
+          ["guitar","吉他","guitar, holding instrument"],
+          ["camera-prop","相机","camera, holding camera"],
+          ["flowers-bouquet","花束","bouquet, holding flowers"],
+          ["sakura-branch","手持樱花枝","cherry blossom branch, holding branch"],
+          ["teapot-set","茶壶茶具","teapot, tea set, steam"]
+        ]},
+      { id:"pose", title:"动作姿势", en:"Pose & Action", mode:"single",
+        desc:"身体在干什么 — 只选一个主动作，手的占用情况决定道具能不能共存。",
+        options:[
+          ["standing","站立","standing, full body pose"],
+          ["standing-wave","站立挥手","standing, waving, greeting"],
+          ["sitting-chair","坐椅子","sitting on chair, sitting"],
+          ["sitting-ground","席地而坐","sitting on ground, seiza"],
+          ["seiza","正坐","seiza, kneeling"],
+          ["lying-sleep-desk","趴桌睡（头枕手臂）","sleeping on desk, head on folded arms, asleep"],
+          ["lying-grass","躺草地","lying on grass, lying on back"],
+          ["walking","行走","walking, mid-stride"],
+          ["running","奔跑","running, dynamic motion"],
+          ["dancing","跳舞","dancing, twirling, dress flowing"],
+          ["reaching-out","向镜头伸手","reaching out, hand towards viewer, pov hands"],
+          ["holding-hands-pose","双手捧物","holding with both hands, cupped hands"],
+          ["one-hand-item","单手持物","holding item in one hand"],
+          ["hands-on-hips","双手叉腰","hands on hips, confident pose"],
+          ["finger-heart","比心","finger heart, heart hands"],
+          ["peace-sign","剪刀手","peace sign, v sign"],
+          ["looking-back","回眸","looking back, over shoulder"],
+          ["hair-flip","撩发","flipping hair, hand in hair"],
+          ["stretching","伸懒腰","stretching, arms up, yawning pose"],
+          ["reading-pose","看书","reading, holding book, focused"],
+          ["singing","唱歌","singing, holding microphone, stage pose"],
+          ["sword-stance","持剑架势","sword stance, holding sword, battle pose"],
+          ["casting-spell","施法手势","casting spell, magic circle, hand gesture"],
+          ["floating","漂浮","floating, weightless, hair floating"],
+          ["curtsy","提裙行礼","curtsy, skirt hold, bow"]
+        ]},
+      { id:"festival", title:"节日与活动", en:"Festival & Event", mode:"single",
+        desc:"正在过什么节 / 参加什么活动 — 季节要和天气对得上，匹配检查会盯。",
+        options:[
+          ["tanabata","七夕","tanabata, bamboo decorations, paper wish strips, star ornaments, milky way"],
+          ["christmas","圣诞节","christmas, christmas tree, santa hat, presents, snow season"],
+          ["new-year","新年 / 初诣","new year, first shrine visit, hatsumoude"],
+          ["halloween","万圣节","halloween, pumpkin, costume party, bats"],
+          ["valentine","情人节","valentine's day, chocolate, hearts"],
+          ["school-festival","学园祭","school festival, cultural festival, stalls"],
+          ["summer-festival","夏日祭","summer festival, festival stalls, fireworks, night festival"],
+          ["fireworks-show","烟花大会","fireworks display, night sky fireworks"],
+          ["cherry-viewing","赏樱","hanami, cherry blossom viewing, picnic"],
+          ["moon-viewing","赏月","moon viewing, tsukimi, full moon night"],
+          ["birthday","生日派对","birthday party, cake, candles, balloons"],
+          ["wedding","婚礼","wedding, ceremony, flower shower"],
+          ["tea-party","茶会","tea party, garden party, afternoon tea"],
+          ["concert-live","演唱会 / Live","live concert, stage performance, audience lights"],
+          ["sports-day","运动会","sports festival, athletics day, relay"],
+          ["beach-day","海边度假","beach vacation, summer holiday"],
+          ["ski-trip","滑雪旅行","ski trip, winter sports"],
+          ["harvest","秋收祭","harvest festival, autumn celebration"],
+          ["lantern-festival","灯会 / 元宵","lantern festival, floating lanterns, night market"]
+        ]},
+      { id:"background", title:"背景场景", en:"Background & Setting", mode:"single",
+        desc:"人在哪 — 只选一个主场景，室内外决定天气和光线能不能成立。",
+        options:[
+          ["terraced-fields-dawn","黎明梯田（谷间雾）","terraced rice fields, dawn, mist in valley, rural landscape"],
+          ["shrine-grounds","神社境内","shinto shrine, shrine grounds, torii gate, stone lanterns"],
+          ["cherry-road","樱花路","cherry blossom road, sakura trees, petals falling"],
+          ["bamboo-forest","竹林","bamboo forest, green bamboo, dappled light"],
+          ["mountain-cloud-sea","山巅云海","mountain peaks, sea of clouds, high altitude"],
+          ["classroom","教室","classroom, school desk, chalkboard, window light"],
+          ["library","图书馆","library, bookshelves, reading room"],
+          ["cafe-interior","咖啡店内","cafe interior, coffee shop, warm interior"],
+          ["bedroom","卧室","bedroom, bed, window, cozy room"],
+          ["desk-study","书桌前（室内）","study desk, books and lamp, indoor"],
+          ["city-street-day","白天城市街道","city street, daytime, urban"],
+          ["city-street-night","夜晚霓虹街道","city street at night, neon signs, wet pavement"],
+          ["beach-summer","夏日海滩","beach, summer, ocean, sandy shore"],
+          ["seaside-cliff","海边悬崖灯塔","seaside cliff, lighthouse, ocean view"],
+          ["meadow-flowers","花海草原","flower meadow, grassland, wildflowers"],
+          ["forest-path","林间小径","forest path, tall trees, sunbeams"],
+          ["autumn-park","秋日公园","autumn park, maple trees, fallen leaves"],
+          ["snow-field","雪原","snow field, snowy landscape, winter"],
+          ["rainy-street","雨夜街道","rainy street, night, reflections, wet ground"],
+          ["starry-sky","星空旷野","starry sky, open field, milky way, night"],
+          ["sunset-rooftop","黄昏天台","rooftop at sunset, city skyline, dusk"],
+          ["underwater","水下","underwater, bubbles, light rays in water"],
+          ["castle-hall","城堡大厅","castle hall, grand staircase, chandeliers"],
+          ["magic-forest","魔法森林","magical forest, glowing mushrooms, fireflies"],
+          ["aquarium","水族馆","aquarium, large tank, whale shark, blue water"],
+          ["train-interior","电车车厢","train interior, window view, seats"],
+          ["onsen","温泉","hot spring, onsen, steam, rocks"],
+          ["market-street","古风市集街道","old market street, stalls, lanterns, ancient town"],
+          ["sky-clouds","云端之上","above the clouds, sky, floating islands"],
+          ["simple-bg","纯色简约背景","simple background, gradient background, studio background"]
+        ]},
+      { id:"weather", title:"天气与季节", en:"Weather & Season", mode:"single",
+        desc:"什么时候、什么天 — 和场景、光线三方要对得上。",
+        options:[
+          ["clear-day","晴朗白天","clear sky, sunny day, blue sky"],
+          ["dawn","黎明","dawn, sunrise, early morning light"],
+          ["golden-hour","黄昏黄金时刻","golden hour, sunset, warm evening light"],
+          ["dusk","暮色","dusk, twilight, fading light"],
+          ["night-stars","星夜","night, starry sky, milky way"],
+          ["night-moon","月夜","night, full moon, moonlight"],
+          ["overcast","阴天","overcast, cloudy sky, diffused light"],
+          ["rain","下雨","rain, rainy day, wet"],
+          ["snow","飘雪","snow, snowing, snowflakes falling, winter"],
+          ["heavy-snow","大雪纷飞","heavy snow, blizzard, deep snow"],
+          ["spring-breeze","春风","spring, gentle breeze, petals in wind"],
+          ["summer-heat","盛夏","summer, intense sunlight, cicadas season"],
+          ["autumn-clear","秋高气爽","autumn, clear air, maple season"],
+          ["fog","浓雾","fog, mist, foggy"],
+          ["after-rain","雨后初晴","after rain, rainbow, wet ground, clearing sky"]
+        ]},
+      { id:"lighting", title:"光线", en:"Lighting", mode:"multi",
+        desc:"光从哪来 — 可以叠两种（如逆光＋体积光），第三种起匹配检查会提醒；时段类光线只留一个。",
+        options:[
+          ["backlighting","逆光","backlighting, rim light, silhouette edge"],
+          ["sidelighting","侧光","sidelighting, chiaroscuro"],
+          ["soft-window-light","窗边柔光","soft window light, natural light, gentle shadows"],
+          ["sunbeam","林间光束（丁达尔）","sunbeams, god rays, light shafts through trees"],
+          ["volumetric","体积光","volumetric lighting, light rays, atmosphere"],
+          ["moonlight","月光（清冷）","moonlight, cool blue light, night glow"],
+          ["candlelight","烛光（暖·私密）","candlelight, warm glow, deep shadows, intimate light"],
+          ["lantern-light","灯笼光","lantern light, warm orange glow"],
+          ["neon-light","霓虹光","neon lighting, colorful glow, cyberpunk light"],
+          ["golden-light","金色暖光","golden light, warm sunlight, glowing"],
+          ["dappled-light","斑驳光影（叶隙光）","dappled light, light through leaves"],
+          ["underwater-light","水下光纹","underwater light, caustics, blue light rays"],
+          ["starlight","星光","starlight, faint cool light"],
+          ["firefly-light","萤火点点光","fireflies, tiny glowing lights"],
+          ["lens-flare","镜头光晕","lens flare, light bloom"],
+          ["dramatic-light","戏剧性强光影","dramatic lighting, strong contrast, deep shadows"],
+          ["soft-diffused","柔和漫射光","soft diffused light, even lighting, low contrast"],
+          ["sunset-glow","晚霞余晖","sunset glow, orange sky light"]
+        ]},
+      { id:"palette", title:"配色", en:"Color Palette", mode:"single",
+        desc:"整张图的颜色走向 — 只选一个，和黑白媒介、季节打架时匹配检查会标。",
+        options:[
+          ["coral-apricot-violet","珊瑚·杏·暮紫渐变","coral and apricot palette, dusky violet gradient, warm-cool gradient"],
+          ["pastel-soft","粉彩柔和","pastel palette, soft colors, low saturation"],
+          ["vivid-saturated","鲜艳高饱和","vivid colors, high saturation, vibrant"],
+          ["muted-earthy","低饱和大地色","muted earthy tones, desaturated, warm browns"],
+          ["cool-blue","清冷蓝调","cool blue palette, cyan tones, clear"],
+          ["warm-amber","暖琥珀调","warm amber palette, golden tones"],
+          ["pink-white","粉白甜美","pink and white palette, sweet colors"],
+          ["black-red-gold","黑红金（华丽）","black red and gold palette, luxurious contrast"],
+          ["monochrome-blue","单色蓝","monochrome blue, blue tones only"],
+          ["monochrome-sepia","怀旧棕褐","sepia tones, vintage palette"],
+          ["green-nature","自然绿意","green palette, nature tones, fresh"],
+          ["sunset-gradient","晚霞渐变","sunset gradient palette, orange to purple"],
+          ["midnight-indigo","午夜靛蓝","deep indigo palette, midnight tones"],
+          ["candy","糖果色","candy colors, sweet saturated palette"],
+          ["ink-black-white","水墨黑白灰","ink black and white, grayscale with ink tones"]
+        ]},
+      { id:"mood", title:"氛围情绪", en:"Mood & Atmosphere", mode:"single",
+        desc:"图给人的感觉 — 只选一个主氛围，和风格基调打架时（如恐怖 ✕ 治愈）会提醒。",
+        options:[
+          ["nostalgic","怀旧（远方的夏天）","nostalgic atmosphere, distant summer memory, bittersweet"],
+          ["healing-calm","治愈平静","healing, calm, peaceful atmosphere"],
+          ["romantic","浪漫","romantic atmosphere, tender, dreamy mood"],
+          ["melancholic","忧郁感伤","melancholic, wistful, lonely mood"],
+          ["joyful","欢快明朗","joyful, cheerful, bright mood"],
+          ["mysterious","神秘","mysterious atmosphere, enigmatic"],
+          ["epic-solemn","史诗庄严","epic, solemn, awe-inspiring"],
+          ["cozy-intimate","温馨私密","cozy, intimate, warm atmosphere"],
+          ["lonely-quiet","孤寂安静","lonely, quiet, solitary mood"],
+          ["tense","紧张压迫","tense atmosphere, dramatic tension"],
+          ["playful","俏皮活泼","playful, lively, fun mood"],
+          ["ethereal","空灵出尘","ethereal, otherworldly, transcendent"],
+          ["dark-eerie","阴森诡异","dark, eerie, unsettling mood"],
+          ["hopeful","希望感（黎明感）","hopeful, dawn of hope, uplifting"]
+        ]},
+      { id:"framing", title:"构图取景", en:"Framing & Composition", mode:"single",
+        desc:"镜头看多远、从哪看 — 取景裁掉的部位别再选对应词条（特写 ✕ 鞋袜）。",
+        options:[
+          ["full-body","全身","full body, whole figure visible"],
+          ["upper-body","上半身","upper body, waist up"],
+          ["cowboy-shot","七分身（膝上）","cowboy shot, knees up"],
+          ["portrait-closeup","面部特写","close-up portrait, face focus"],
+          ["face-and-shoulders","头肩像","head and shoulders, bust shot"],
+          ["from-above","俯视","from above, high angle"],
+          ["from-below","仰视","from below, low angle"],
+          ["dutch-angle","荷兰角（倾斜构图）","dutch angle, tilted frame, dynamic tension"],
+          ["side-view","侧面视角","side view, profile"],
+          ["from-behind","背影","from behind, back view"],
+          ["pov","第一人称视角","pov, first-person view"],
+          ["wide-shot","远景大全景","wide shot, scenery focus, small figure"],
+          ["birds-eye","鸟瞰","bird's eye view, aerial view"],
+          ["symmetrical","对称构图","symmetrical composition, centered"],
+          ["rule-of-thirds","三分法构图","rule of thirds composition, off-center subject"],
+          ["depth-of-field","浅景深虚化","shallow depth of field, blurry background, bokeh"]
+        ]},
+      { id:"finish", title:"质感收尾", en:"Texture & Finish", mode:"multi",
+        desc:"最后的表面质感 — 叠 1–2 个就够，堆多了互相污染，匹配检查会提醒。",
+        options:[
+          ["detailed-hair","发丝精细","intricately detailed hair strands, fine hair details"],
+          ["cross-hatching","阴影排线","cross-hatching in shadows, engraved shading"],
+          ["film-grain","胶片颗粒","film grain, high-iso grain, gritty texture"],
+          ["halation","红色光晕（胶片）","red halation around highlights, cine film glow"],
+          ["soft-glow","柔光辉光","soft glow, bloom, gentle radiance"],
+          ["paper-texture","纸张纹理","paper texture, traditional media feel"],
+          ["canvas-texture","画布纹理","canvas texture, oil paint feel"],
+          ["watercolor-bleed","水彩晕染边缘","watercolor bleeding edges, wet-on-wet"],
+          ["sparkle-effects","闪光星芒","sparkle effects, glitter, star sparkles"],
+          ["petal-particles","花瓣粒子飘散","falling petals, particles in air"],
+          ["snow-particles","雪粒附着","snowflakes on hair and shoulders, settled snow"],
+          ["light-particles","光尘粒子","light particles, dust motes in light"],
+          ["sharp-lineart","锐利线条","sharp lineart, crisp outlines"],
+          ["soft-edges","柔边梦幻","soft edges, dreamy blending"],
+          ["rich-details","繁复细节","richly detailed, intricate ornaments, dense details"]
+        ]},
+      { id:"negative", title:"负面提示词", en:"Negative Prompt", mode:"multi",
+        desc:"Illustrious 靠负面词压崩坏 — 这里选的词进下方负面框，不进正向标签串。别贪多：负面里写了 blurry 就别选浅景深。",
+        options:[
+          ["worst-quality","最差画质","worst quality"],
+          ["low-quality","低画质","low quality"],
+          ["lowres","低分辨率","lowres"],
+          ["bad-anatomy","人体结构错误","bad anatomy"],
+          ["bad-hands","手部崩坏","bad hands"],
+          ["bad-feet","脚部崩坏","bad feet"],
+          ["extra-fingers","多指","extra fingers"],
+          ["missing-fingers","缺指","missing fingers"],
+          ["fused-fingers","手指粘连","fused fingers"],
+          ["extra-limbs","多余肢体","extra limbs, extra arms"],
+          ["missing-limbs","缺失肢体","missing limbs"],
+          ["mutated","肢体畸变","mutated hands, deformed"],
+          ["bad-face","面部崩坏","bad face, distorted face"],
+          ["cross-eyed","斗鸡眼","cross-eyed"],
+          ["blurry-neg","模糊","blurry"],
+          ["jpeg-artifacts","压缩噪点","jpeg artifacts"],
+          ["watermark","水印","watermark"],
+          ["signature","签名","signature"],
+          ["text-neg","文字","text, letters"],
+          ["logo-neg","标志","logo"],
+          ["cropped-neg","裁切出框","cropped, out of frame"],
+          ["ugly","丑陋","ugly"],
+          ["duplicate","重复人物","duplicate, clone"],
+          ["error","错误元素","error"],
+          ["username","用户名水印","username"],
+          ["bad-proportions","比例失调","bad proportions"],
+          ["gross-proportions","怪异比例","gross proportions"],
+          ["long-neck","长脖子","long neck"],
+          ["extra-head","多头","extra head"],
+          ["poorly-drawn","绘制粗糙","poorly drawn face, poorly drawn hands"]
+        ]}
+    );
+
+    /* ============ LoRA 配套库（已验证真实 Illustrious LoRA） ============ */
+    /* 2026-11-18 经 Civitai 官方 API 逐条核对：file = 真实 .safetensors 文件名；ver = Civitai 版本 ID（下载链接由此拼出）；dl = 当日 API 下载量；words = 该版本 trainedWords */
+    var LORA_DB = [
+      { n:"748cm 氛围画风", en:"748cm Style for Illustrious", type:"画风", w:0.80, desc:"社区最常用的 Illustrious 打底画风之一，线条干净、空气感强，唯美日常和窗边光感图都稳。", match:{ medium:["anime-illustration","lineart-flat"], style:["modern-clean","niji","healing"] } },
+      { n:"薄涂 USNR 风", en:"USNR STYLE (Thin Painting)", type:"画风", w:0.80, desc:"日系薄涂（薄塗り）：水润通透的上色和柔和边缘，适合清透感的少女插画。", match:{ medium:["thin-paint","digital-watercolor","semi-realistic"] } },
+      { n:"平涂 Flat Color", en:"Flat Color - Style", type:"画风", w:0.85, desc:"强化平涂色块、弱化线条存在感，动画感和立绘感一起上来。", match:{ medium:["cel-shading","flat-illustration","lineart-flat"] } },
+      { n:"动画截图风", en:"Fine Anime Screencap XL", type:"画风", w:0.80, desc:"把画面拉回 TV 动画截图质感：赛璐璐上色＋干净描边，叙事感强。", match:{ medium:["anime-screencap","retro-90s-anime","retro-game-cg"] } },
+      { n:"MeMaXL 平涂动画风", en:"MeMaXL Flat Anime Style", type:"画风", w:0.80, desc:"杂志系平涂动画风，色块利落、面部干净，适合角色图和截图感画面。", match:{ medium:["cel-shading","anime-illustration"], style:["modern-clean"] } },
+      { n:"像素风", en:"Illustrious Pixel Art XL", type:"画风", w:0.90, desc:"把 Illustrious 输出转成像素画质感，游戏素材和头像图专用。", match:{ medium:["pixel-art"] } },
+      { n:"Niji 半写实", en:"Niji Semi Realism", type:"画风", w:0.70, desc:"Niji 系的半写实面部和柔光皮肤，唯美但不完全照片化。", match:{ medium:["semi-realistic"], style:["niji"] } },
+      { n:"迪士尼动画风", en:"Disney Animation", type:"画风", w:0.80, desc:"经典迪士尼手绘动画的造型和上色，童话、绘本向画面专用。", match:{ medium:["picture-book"], style:["fairytale"] } },
+      { n:"暗黑吉卜力童话", en:"Dark Ghibli Fairytales", type:"画风", w:0.80, desc:"吉卜力式手绘感叠上暗黑童话氛围，甜美表面下带一点诡异。", match:{ style:["dark-fairytale","fairytale"], medium:["picture-book","watercolor"] } },
+      { n:"碧蓝幻想风", en:"Granblue Fantasy Style", type:"画风", w:0.80, desc:"碧蓝幻想式的日系幻想 RPG 画风：华丽装备、明亮天空、冒险感。", match:{ era:["medieval-fantasy","magic-academy"], style:["epic"] } },
+      { n:"Citron 混沌风", en:"CAT - Citron Styles", type:"画风", w:0.80, desc:"平涂＋局部色彩强调的个性画风，构图张力强，适合动态和撞色画面。", match:{ medium:["flat-illustration"], framing:["dutch-angle"] } },
+      { n:"Niji Sweet Spot", en:"Niji Sweet Spot (sw33t)", type:"画风", w:0.70, desc:"Niji 甜点位：柔焦背景＋通透人物，梦幻粉彩和浅景深画面特别搭。", match:{ style:["niji","dreamy-pastel"], framing:["depth-of-field"] } },
+      { n:"People's Works 画风", en:"People's Works: SDXL", type:"画风", w:0.70, desc:"社区作品集蒸馏的综合画风，带 masterpiece 系画质词，通用打底。", match:{ quality:["masterpiece","official-art"] }, base:1 },
+      { n:"微细节增强 IL 版", en:"Add Micro Details (Illustrious)", type:"细节增强", w:0.50, desc:"AddMicroDetails 的 Illustrious 版：给发丝、服饰纹样和背景小物补微观细节，权重 0.5 起步。", match:{ finish:["rich-details","detailed-hair"], quality:["ultra-detailed"] } },
+      { n:"画质修饰 Masterpiece", en:"Aesthetic Quality Modifiers - Masterpiece", type:"细节增强", w:0.70, desc:"把 masterpiece / best quality / very aesthetic 这组画质词做成 LoRA 强化，画质规格类选得越多越搭。", match:{ quality:["masterpiece","best-quality","very-aesthetic"] } },
+      { n:"稳定器 Stabilizer", en:"Stabilizer IL/NAI/CK", type:"细节增强", w:0.50, desc:"Illustrious 通用稳定器：压构图漂移和面部波动，出图稳定性优先时挂它。", match:{}, base:2 },
+      { n:"细节滑杆 Detail Slider", en:"Detail Slider LoRA (Illustrious)", type:"细节增强", w:0.80, slider:true, desc:"滑杆类：正权重加细节密度，负权重做减法变干净，按画面需要双向推。", match:{ finish:["rich-details"], quality:["ultra-detailed","sharp-focus"] } },
+      { n:"Detailer IL", en:"Detailer IL", type:"细节增强", w:0.60, desc:"Illustrious 专用细节补强，线条和局部纹理更利落。", match:{ finish:["rich-details","sharp-lineart"] } },
+      { n:"加细节滑杆 Add Detail", en:"Add Detail - Slider", type:"细节增强", w:0.60, slider:true, desc:"经典 Add Detail 的 Illustrious 适配滑杆版，整体细节量一键增减。", match:{ quality:["highres","absurdres"] } },
+      { n:"手部强化 Hands XL", en:"Hands XL (Illustrious)", type:"细节增强", w:0.70, desc:"专攻手部：手指结构和手部特写的完成度，选了手部动作或在负面里压了 bad hands 时最该挂。", match:{ negative:["bad-hands"], pose:["holding-hands-pose","one-hand-item","finger-heart","peace-sign","casting-spell"] } },
+      { n:"背景细节增强", en:"Background Detail Enhancer (Illustrious)", type:"细节增强", w:0.60, desc:"zy_ 系列的 Illustrious 背景细节版：专补场景纵深和小物密度，人物特写时不用挂。", match:{}, bgDetail:true },
+      { n:"画质升级 Image Upgrader", en:"Image Upgrader / Detail Maximizer (IL)", type:"细节增强", w:0.50, desc:"低 CFG 下的细节和对比修复，顺带抬整体完成度。", match:{ quality:["highres","absurdres","ultra-detailed"] } },
+      { n:"S1 戏剧光影", en:"S1 Dramatic Lighting", type:"光影", w:0.70, desc:"戏剧化布光：强明暗对比和舞台感光影，逆光、史诗感画面专用。", match:{ lighting:["dramatic-light","backlighting"] } },
+      { n:"明暗滑杆 Lighting Slider", en:"Lighting / Darkness Slider", type:"光影", w:0.60, slider:true, desc:"滑杆类：整体明暗一键推，负数提亮、正数压暗做夜景，按画面曝光需要调。", match:{ lighting:["moonlight","starlight"], weather:["night-stars","night-moon"] } },
+      { n:"色温滑杆 Color Temp", en:"IL Color Temperature / Saturation Slider", type:"光影", w:0.50, slider:true, desc:"滑杆类：色温、饱和、亮度三合一微调，暖调冷调不用重抽。", match:{ palette:["warm-amber","cool-blue","sunset-gradient"], lighting:["golden-light"] } },
+      { n:"完美眼睛 Eyes", en:"Eyes for Illustrious (Perfect Anime Eyes)", type:"角色外貌", w:0.60, desc:"专攻眼睛：瞳孔高光和虹膜细节，选了星星瞳 / 闪亮眼这类词条时最搭。", match:{ face:["sparkling-eyes","star-pupils","heart-pupils"] } },
+      { n:"体型滑杆 Body Type Slider", en:"Body Type Slider - Illustrious", type:"角色外貌", w:0.50, slider:true, desc:"滑杆类：体型胖瘦双向推，配合成熟 / 幼态主体标签微调比例。", match:{ subject:["mature-female","loli-girl"] } },
+      { n:"年龄滑杆 Age Slider", en:"Age Slider LoRA (Illustrious)", type:"角色外貌", w:0.50, slider:true, desc:"滑杆类：年龄感双向推，正数更成熟、负数更年幼，幅度别推满。", match:{ subject:["loli-girl","mature-female"] } },
+      { n:"绪儿厚涂", en:"Xu Er Thick Paint / Light & Texture", type:"质感媒介", w:0.70, desc:"厚涂构图光影质感增强：颜料堆叠感和光影层次一起抬，厚涂媒介专用。", match:{ medium:["painterly-thick","oil-painting"], finish:["canvas-texture"] } },
+      { n:"写实滑杆 Realism Slider", en:"Illustrious Realism Slider", type:"质感媒介", w:0.50, slider:true, desc:"滑杆类：写实度双向推，半写实媒介时微调皮肤和材质的真实感。", match:{ medium:["semi-realistic"] } },
+      { n:"动态姿势滑杆", en:"Dynamic Poses Slider (IL)", type:"构图氛围", w:0.60, desc:"把动作幅度推大：透视缩短（Foreshortening，前缩透视）和极端视角更敢画，动态姿势专用。", match:{ pose:["running","dancing","sword-stance"], framing:["dutch-angle"] } }
+    ];
+    var LORA_VERIFIED = [
+      { file:"748cmSDXL.safetensors", ver:1056404, dl:68444, words:["748cmstyle"] },
+      { file:"USNR_STYLE_ILL_V1_lokr3-000024.safetensors", ver:1552087, dl:95342, words:["usnr"] },
+      { file:"illustrious_flat_color_v2.safetensors", ver:1311848, dl:56712, words:["flat color","no lineart"] },
+      { file:"anime_screencap-IL-NOOB_v3.safetensors", ver:2553688, dl:62508, words:["anime screencap","anime coloring"] },
+      { file:"MeMaXL4 Type D.safetensors", ver:1389510, dl:63733, words:[] },
+      { file:"pixel-Illustrius.safetensors", ver:1352325, dl:56131, words:["pixel"] },
+      { file:"Niji_Semi_realism_F_N_R_epoch_10.safetensors", ver:2854725, dl:61201, words:["SemiFrealism"] },
+      { file:"Disney_Animation_v5-V7.safetensors", ver:1416874, dl:36817, words:["DISNEY_ANIMATION"] },
+      { file:"DarkGhibliMJ7Illustrious.safetensors", ver:1774391, dl:26884, words:["Studio Ghibli Dark Fairytale"] },
+      { file:"granblue-ill.safetensors", ver:2321241, dl:26973, words:["granblue fantasy"] },
+      { file:"CitronChaosStyle_IXL_v2.safetensors", ver:3416861, dl:109119, words:["c1tr0nCh0s"] },
+      { file:"lora.TA_trained.safetensors", ver:2926779, dl:37067, words:["sw33t"] },
+      { file:"People'sWorks_v10.5_Illusv1.0.safetensors", ver:3299580, dl:67809, words:["ppw"] },
+      { file:"AddMicroDetails_Illustrious_v7.safetensors", ver:3206748, dl:114971, words:["addmicrodetails"] },
+      { file:"illustrious_masterpieces_v3.safetensors", ver:2247497, dl:186791, words:["masterpiece","best quality","very aesthetic"] },
+      { file:"illustriousXLv01_stabilizer_v1.198.safetensors", ver:2055853, dl:161866, words:[] },
+      { file:"StS-Illustrious-Detail-Slider-v1.0.safetensors", ver:1122976, dl:46047, words:[] },
+      { file:"DetailerILv2-000008.safetensors", ver:1736373, dl:39360, words:["Jeddtl02"] },
+      { file:"Add_Details_v1.2.safetensors", ver:1506032, dl:63249, words:[] },
+      { file:"detailed hand focus style illustriousXL v1.1.safetensors", ver:2212079, dl:314863, words:[] },
+      { file:"zy_background-detail-enhancer-illustrious.safetensors", ver:3429571, dl:28959, words:[] },
+      { file:"aidmaImageUpgrader-v0.3-IL.safetensors", ver:1405178, dl:65867, words:["aidmaimageupgrader"] },
+      { file:"S1 Dramatic Lighting Illustrious_V2.safetensors", ver:2209882, dl:63897, words:["s1_dram"] },
+      { file:"lightingSlider.safetensors", ver:1444863, dl:52038, words:[] },
+      { file:"il_color_temp_slider_d1.safetensors", ver:1227713, dl:40739, words:[] },
+      { file:"Eyes_for_Illustrious_Lora_Perfect_anime_eyes.safetensors", ver:2066663, dl:30524, words:["perfect eyes"] },
+      { file:"Body Type Slider - Illustrious_alpha1.0_rank4_noxattn_last.safetensors", ver:1845953, dl:78078, words:[] },
+      { file:"StS_Age_Slider_Illustrious_v1.safetensors", ver:1150298, dl:61439, words:[] },
+      { file:"绪儿 厚涂构图光影质感增强V3.safetensors", ver:1278054, dl:38737, words:["XUER guangying"] },
+      { file:"ILXL_Realism_Slider_V.1.safetensors", ver:1681903, dl:56430, words:[] },
+      { file:"DynamicPoseIL2att_alpha1.0_rank4_noxattn_900steps.safetensors", ver:1607510, dl:47598, words:["dynamic pose","foreshortening","extreme perspective"] }
+    ];
+    var LORA_TYPE_ORDER = ["画风","角色外貌","光影","质感媒介","构图氛围","细节增强"];
+
+    /* ============ 状态与渲染 ============ */
+    var state = {};
+    CATS.forEach(function(c){ state[c.id] = new Set(); });
+    var builderCol = document.getElementById("builderCol");
+    var catNav = document.getElementById("catNav");
+    var shellEl = document.getElementById("shell");
+    var chipEls = {}, navEls = {}, panelEls = {};
+    var activeCat = CATS[0].id;
+    var lastEn = "", lastCn = "", lastNeg = "", lastConflicts = [], lastLoraPicks = [];
+    var loraPick = {}, loraOff = {};
+
+    function setActiveCat(id){
+      activeCat = id;
+      CATS.forEach(function(c){
+        navEls[c.id].classList.toggle("active", c.id === id);
+        panelEls[c.id].classList.toggle("active", c.id === id);
+      });
+      var btn = navEls[id];
+      if (btn){
+        var br = btn.getBoundingClientRect(), nr = catNav.getBoundingClientRect();
+        var target = catNav.scrollLeft + (br.left - nr.left) - (catNav.clientWidth - br.width) / 2;
+        catNav.scrollTo({ left: Math.max(0, target), behavior: "smooth" });
+      }
+    }
+
+    CATS.forEach(function(cat){
+      var navBtn = document.createElement("button");
+      navBtn.type = "button"; navBtn.className = "nav-item";
+      var nt = document.createElement("span"); nt.className = "nt"; nt.textContent = cat.title;
+      var bd = document.createElement("span"); bd.className = "badge"; bd.textContent = "0";
+      var dot = document.createElement("span"); dot.className = "cdot"; dot.title = "本类有冲突，见下方匹配检查";
+      navBtn.appendChild(nt); navBtn.appendChild(bd); navBtn.appendChild(dot);
+      navBtn.addEventListener("click", function(){
+        document.getElementById("searchInput").value = "";
+        shellEl.classList.remove("searching");
+        CATS.forEach(function(c){
+          c.options.forEach(function(o){ chipEls[c.id][o[0]].classList.remove("hidden"); });
+          document.getElementById("nomatch-" + c.id).style.display = "none";
+          panelEls[c.id].classList.remove("no-hit");
+        });
+        setActiveCat(cat.id);
+        panelEls[cat.id].scrollIntoView({ block:"start" });
+      });
+      catNav.appendChild(navBtn);
+      navEls[cat.id] = navBtn;
+
+      var sec = document.createElement("section");
+      sec.className = "card cat-panel";
+      sec.id = "cat-" + cat.id;
+      panelEls[cat.id] = sec;
+      var head = document.createElement("div");
+      head.className = "cat-head";
+      head.innerHTML = "<h2></h2><span class='cen'></span><span class='mode'></span><span class='count'></span><span class='spacer'></span>";
+      head.querySelector("h2").textContent = cat.title;
+      head.querySelector(".cen").textContent = cat.en;
+      head.querySelector(".mode").textContent = cat.mode === "single" ? "单选" : "可多选";
+      head.querySelector(".count").textContent = "共 " + cat.options.length + " 条";
+      var dice = document.createElement("button");
+      dice.type = "button"; dice.className = "mini-btn"; dice.textContent = "🎲 随机一条";
+      dice.setAttribute("aria-label", "随机选择" + cat.title);
+      dice.addEventListener("click", function(){ randomizeCat(cat); });
+      var clr = document.createElement("button");
+      clr.type = "button"; clr.className = "mini-btn"; clr.textContent = "清空本类";
+      clr.setAttribute("aria-label", "清空" + cat.title);
+      clr.addEventListener("click", function(){ state[cat.id].clear(); syncCat(cat); render(); });
+      head.appendChild(dice); head.appendChild(clr);
+      sec.appendChild(head);
+      var pickedLine = document.createElement("p");
+      pickedLine.className = "cat-picked"; pickedLine.id = "picked-" + cat.id;
+      sec.appendChild(pickedLine);
+      var desc = document.createElement("p");
+      desc.className = "cat-desc"; desc.textContent = cat.desc;
+      sec.appendChild(desc);
+      var grid = document.createElement("div");
+      grid.className = "options-grid";
+      chipEls[cat.id] = {};
+      cat.options.forEach(function(opt){
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "opt";
+        b.setAttribute("aria-pressed", "false");
+        var label = document.createElement("span"); label.className = "ocn"; label.textContent = opt[1];
+        var small = document.createElement("span"); small.className = "oen"; small.textContent = opt[2];
+        var cflag = document.createElement("span"); cflag.className = "cflag"; cflag.textContent = "⚠ 冲突";
+        b.appendChild(label); b.appendChild(small); b.appendChild(cflag);
+        b.addEventListener("click", function(){
+          if (cat.mode === "single"){
+            if (state[cat.id].has(opt[0])) state[cat.id].delete(opt[0]);
+            else { state[cat.id].clear(); state[cat.id].add(opt[0]); }
+          } else {
+            if (state[cat.id].has(opt[0])) state[cat.id].delete(opt[0]);
+            else state[cat.id].add(opt[0]);
+          }
+          syncCat(cat); render();
+        });
+        grid.appendChild(b);
+        chipEls[cat.id][opt[0]] = b;
+      });
+      sec.appendChild(grid);
+      var nm = document.createElement("div");
+      nm.className = "no-match"; nm.textContent = "没有匹配当前搜索的词条。";
+      nm.id = "nomatch-" + cat.id;
+      sec.appendChild(nm);
+      var foot = document.createElement("div");
+      foot.className = "panel-foot";
+      var catIdx = CATS.indexOf(cat);
+      if (catIdx > 0){
+        var prevBtn = document.createElement("button");
+        prevBtn.type = "button"; prevBtn.className = "mini-btn";
+        prevBtn.textContent = "← 上一类：" + CATS[catIdx - 1].title;
+        (function(prevId){
+          prevBtn.addEventListener("click", function(){ setActiveCat(prevId); panelEls[prevId].scrollIntoView({ block:"start" }); });
+        })(CATS[catIdx - 1].id);
+        foot.appendChild(prevBtn);
+      } else {
+        foot.appendChild(document.createElement("span"));
+      }
+      var nextBtn = document.createElement("button");
+      nextBtn.type = "button"; nextBtn.className = "mini-btn next-btn";
+      if (catIdx < CATS.length - 1){
+        nextBtn.textContent = "下一类：" + CATS[catIdx + 1].title + " →";
+        (function(nextId){
+          nextBtn.addEventListener("click", function(){ setActiveCat(nextId); panelEls[nextId].scrollIntoView({ block:"start" }); });
+        })(CATS[catIdx + 1].id);
+      } else {
+        nextBtn.textContent = "选完了 ↓ 看生成的提示词";
+        nextBtn.addEventListener("click", function(){ document.querySelector("aside.output").scrollIntoView({ block:"start", behavior:"smooth" }); });
+      }
+      foot.appendChild(nextBtn);
+      sec.appendChild(foot);
+      builderCol.appendChild(sec);
+    });
+
+    function syncCat(cat){
+      cat.options.forEach(function(opt){
+        var b = chipEls[cat.id][opt[0]];
+        var on = state[cat.id].has(opt[0]);
+        b.classList.toggle("on", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      var n = state[cat.id].size;
+      var nav = navEls[cat.id];
+      nav.classList.toggle("has-sel", n > 0);
+      nav.querySelector(".badge").textContent = n;
+      var line = document.getElementById("picked-" + cat.id);
+      if (n > 0){
+        var names = picked(cat).map(function(o){ return o[1]; }).join("、");
+        line.innerHTML = "本类已选：<b></b>";
+        line.querySelector("b").textContent = names;
+        line.style.display = "block";
+      } else line.style.display = "none";
+    }
+    function syncAll(){ CATS.forEach(syncCat); }
+    function optOf(cat, id){
+      for (var i = 0; i < cat.options.length; i++) if (cat.options[i][0] === id) return cat.options[i];
+      return null;
+    }
+    function catById(id){
+      for (var i = 0; i < CATS.length; i++) if (CATS[i].id === id) return CATS[i];
+      return null;
+    }
+    function picked(cat){
+      var out = [];
+      cat.options.forEach(function(o){ if (state[cat.id].has(o[0])) out.push(o); });
+      return out;
+    }
+    function pick1(id){ var p = picked(catById(id)); return p.length ? p[0] : null; }
+    function selIds(catId){ return picked(catById(catId)).map(function(o){ return o[0]; }); }
+    function sel1(catId){ var p = pick1(catId); return p ? p[0] : null; }
+    function nameOf(catId, optId){ var c = catById(catId); var o = c ? optOf(c, optId) : null; return o ? o[1] : optId; }
+    function removeOpt(catId, optId){ if (state[catId].has(optId)){ state[catId].delete(optId); syncCat(catById(catId)); } }
+
+    /* ============ 组装提示词（标签串） ============ */
+    function buildEn(){
+      var trigger = document.getElementById("triggerInput").value.trim();
+      var parts = [];
+      if (trigger) parts.push(trigger);
+      CATS.forEach(function(cat){
+        if (cat.id === "negative") return;
+        picked(cat).forEach(function(o){ parts.push(o[2]); });
+      });
+      return parts.join(", ");
+    }
+    function buildCn(){
+      var parts = [];
+      CATS.forEach(function(cat){
+        if (cat.id === "negative") return;
+        picked(cat).forEach(function(o){ parts.push(o[1]); });
+      });
+      return parts.join("，");
+    }
+    function buildNeg(){
+      return picked(catById("negative")).map(function(o){ return o[2]; }).join(", ");
+    }
+
+    /* ============ 冲突检查 ============ */
+    function fixRemove(catId, optId){
+      return { label:"取消「" + nameOf(catId, optId) + "」", run:function(){ removeOpt(catId, optId); } };
+    }
+    function fixClear(catId, label){
+      return { label:label, run:function(){ state[catId].clear(); syncCat(catById(catId)); } };
+    }
+    function detectConflicts(opts){
+      opts = opts || {};
+      var out = [];
+      function add(sev, title, detail, cats, optPairs, fix){ out.push({ sev:sev, title:title, detail:detail, cats:cats, opts:optPairs, fix:fix || null }); }
+      function has(arr, id){ return arr.indexOf(id) >= 0; }
+      var subject = sel1("subject"), medium = sel1("medium"), era = sel1("era"),
+          outfit = sel1("outfit"), occupation = sel1("occupation"), pose = sel1("pose"),
+          bg = sel1("background"), weather = sel1("weather"), palette = sel1("palette"),
+          framing = sel1("framing"), festival = sel1("festival");
+      var face = selIds("face"), fantasy = selIds("fantasy"), footwear = selIds("footwear"),
+          accessories = selIds("accessories"), props = selIds("props"), lighting = selIds("lighting"),
+          finish = selIds("finish"), negative = selIds("negative");
+
+      /* 无人物 × 人物部件 */
+      if (subject === "no-human"){
+        ["hair","face","outfit","footwear","accessories","occupation"].forEach(function(cid){
+          if (state[cid].size) add("hard", "无人物场景却选了人物部件", "主体是「无人物（纯场景）」，但「" + catById(cid).title + "」里还有选择 — 标签会互相拉扯，要么去掉无人物，要么清掉人物部件。", ["subject", cid], [["subject","no-human"]], fixRemove("subject","no-human"));
+        });
+      }
+      /* 瞳色 / 眼部状态 */
+      var EYE_COLORS = ["blue-eyes","red-eyes","green-eyes","purple-eyes","amber-eyes","pink-eyes"];
+      var eyeColors = face.filter(function(id){ return EYE_COLORS.indexOf(id) >= 0; });
+      if (eyeColors.length >= 2) add("warn", "瞳色写了两个", "「" + eyeColors.map(function(id){ return nameOf("face", id); }).join("」和「") + "」同时出现，模型会折中出怪色或串色 — 瞳色只留一个。", ["face"], eyeColors.map(function(id){ return ["face", id]; }), fixRemove("face", eyeColors[1]));
+      if (has(face, "cyan-glowing-eyes") && eyeColors.length) add("warn", "发光无瞳眼又叠了瞳色", "「青色发光无瞳眼」本身已定义眼睛形态，再叠普通瞳色会被稀释 — 二选一。", ["face"], [["face","cyan-glowing-eyes"],["face",eyeColors[0]]], fixRemove("face", eyeColors[0]));
+      var eyeDetail = face.filter(function(id){ return EYE_COLORS.concat(["cyan-glowing-eyes","heart-pupils","star-pupils","sparkling-eyes"]).indexOf(id) >= 0; });
+      if (has(face, "closed-eyes") && eyeDetail.length) add("hard", "闭眼却又指定了瞳色 / 瞳型", "闭着眼时瞳色、爱心瞳、发光瞳都画不出来，标签互相否定 — 要么睁眼，要么去掉瞳部词条。", ["face"], [["face","closed-eyes"]].concat(eyeDetail.map(function(id){ return ["face", id]; })), fixRemove("face","closed-eyes"));
+      if (has(face, "closed-eyes") && has(face, "wink")) add("hard", "闭眼和眨眼同时出现", "wink 是一只眼闭一只眼睁，和双眼闭合矛盾。", ["face"], [["face","closed-eyes"],["face","wink"]], fixRemove("face","wink"));
+      if (has(face, "teary") && has(face, "open-smile")) add("warn", "含泪欲哭又开心大笑", "两个表情方向相反，模型多半折中成怪脸 — 哭和笑留一个。", ["face"], [["face","teary"],["face","open-smile"]], fixRemove("face","open-smile"));
+      /* 取景裁切 × 鞋袜 */
+      if ((framing === "portrait-closeup" || framing === "face-and-shoulders") && footwear.length)
+        add("warn", "特写取景看不到脚", "当前取景是「" + nameOf("framing", framing) + "」，鞋袜根本不在画面里，选了也白选，还会把构图往下拉。", ["framing","footwear"], [["framing",framing]].concat(footwear.map(function(id){ return ["footwear", id]; })), fixClear("footwear","清空鞋袜选择"));
+      /* 场景 × 天气 */
+      var INDOOR = ["classroom","library","cafe-interior","bedroom","desk-study","train-interior","aquarium","castle-hall"];
+      var OUT_WEATHER = ["rain","snow","heavy-snow","spring-breeze","summer-heat","autumn-clear","fog","after-rain"];
+      if (bg && INDOOR.indexOf(bg) >= 0 && weather && OUT_WEATHER.indexOf(weather) >= 0)
+        add("warn", "室内场景配了室外天气", "「" + nameOf("background", bg) + "」是室内，「" + nameOf("weather", weather) + "」是室外天气 — 除非想画窗外天气，否则去掉天气。", ["background","weather"], [["background",bg],["weather",weather]], fixRemove("weather", weather));
+      if (bg === "beach-summer" && (weather === "snow" || weather === "heavy-snow"))
+        add("hard", "夏日海滩在飘雪", "海滩和飘雪季节完全相反，模型会强行缝合出怪图。", ["background","weather"], [["background",bg],["weather",weather]], fixRemove("weather", weather));
+      if (bg === "underwater" && weather)
+        add("warn", "水下场景不需要天气", "水下世界自成体系，「" + nameOf("weather", weather) + "」会被忽略或画成怪异的水面天气。", ["background","weather"], [["background",bg],["weather",weather]], fixRemove("weather", weather));
+      if (bg === "simple-bg" && weather)
+        add("warn", "纯色背景没有天气", "简约背景是棚拍式构图，天气标签无处安放。", ["background","weather"], [["background",bg],["weather",weather]], fixRemove("weather", weather));
+      if (bg === "starry-sky" && weather && ["clear-day","dawn","golden-hour","dusk"].indexOf(weather) >= 0)
+        add("warn", "星空旷野配了白天时段", "星空只在夜里成立，和「" + nameOf("weather", weather) + "」的时段冲突。", ["background","weather"], [["background",bg],["weather",weather]], fixRemove("weather", weather));
+      /* 天气时段 × 光线 */
+      var DAY_LIGHT_BAD = ["moonlight","starlight"], NIGHT_LIGHT_BAD = ["sunbeam","golden-light","soft-window-light","sunset-glow","dappled-light"];
+      if (weather && ["night-stars","night-moon"].indexOf(weather) >= 0)
+        lighting.forEach(function(id){ if (NIGHT_LIGHT_BAD.indexOf(id) >= 0) add("warn", "夜里没有这种光", "时段是「" + nameOf("weather", weather) + "」，「" + nameOf("lighting", id) + "」是日间光线 — 换成月光 / 星光 / 烛光更自洽。", ["weather","lighting"], [["weather",weather],["lighting",id]], fixRemove("lighting", id)); });
+      if (weather && ["clear-day","dawn","golden-hour"].indexOf(weather) >= 0)
+        lighting.forEach(function(id){ if (DAY_LIGHT_BAD.indexOf(id) >= 0) add("warn", "白天配了夜间光线", "时段是「" + nameOf("weather", weather) + "」，「" + nameOf("lighting", id) + "」只在夜里成立。", ["weather","lighting"], [["weather",weather],["lighting",id]], fixRemove("lighting", id)); });
+      /* 世界观 × 服装 */
+      var OLD_WORLD = ["xianxia","wuxia","ancient-china","ancient-japan","medieval-fantasy","victorian"];
+      var MODERN_OUTFIT = ["school-uniform","blazer-uniform","office-suit","swimsuit-school","tracksuit","idol-costume"];
+      if (era && OLD_WORLD.indexOf(era) >= 0 && outfit && MODERN_OUTFIT.indexOf(outfit) >= 0)
+        add("warn", "世界观和服装不是一个时代", "「" + nameOf("era", era) + "」的世界里出现「" + nameOf("outfit", outfit) + "」会很跳戏 — 除非是穿越题材。", ["era","outfit"], [["era",era],["outfit",outfit]], fixRemove("outfit", outfit));
+      var NEW_WORLD = ["modern-city","modern-school","near-future","cyber-city"];
+      var OLD_OUTFIT = ["xianxia-robes","hanfu","knight-armor"];
+      if (era && NEW_WORLD.indexOf(era) >= 0 && outfit && OLD_OUTFIT.indexOf(outfit) >= 0)
+        add("warn", "现代世界穿了古代装束", "「" + nameOf("era", era) + "」配「" + nameOf("outfit", outfit) + "」— 是 cosplay 设定就忽略这条，否则换一套。", ["era","outfit"], [["era",era],["outfit",outfit]], fixRemove("outfit", outfit));
+      /* 身份 × 服装 */
+      var ROLE_OUTFIT = { "miko":["miko-outfit","shrine-suit","kimono"], "maid":["maid-outfit"], "nurse":["nurse-outfit"], "knight":["knight-armor"], "postwoman":["postwoman-uniform"], "magical-girl":["magical-girl-outfit"], "witch":["witch-robe"], "cultivator":["xianxia-robes","hanfu"], "student":["school-uniform","blazer-uniform"] };
+      if (occupation && ROLE_OUTFIT[occupation] && outfit && ROLE_OUTFIT[occupation].indexOf(outfit) < 0)
+        add("warn", "身份和服装对不上", "身份是「" + nameOf("occupation", occupation) + "」，服装却是「" + nameOf("outfit", outfit) + "」— 模型会优先听服装的，身份感会丢。", ["occupation","outfit"], [["occupation",occupation],["outfit",outfit]], fixRemove("occupation", occupation));
+      /* 动作 × 道具 / 表情 */
+      var HELD = ["star-wand","sword-light","letters-bundle","envelope-single","book-open","teacup","candle","fan-folding","guitar","camera-prop","flowers-bouquet","sakura-branch"];
+      if (pose === "lying-sleep-desk"){
+        props.forEach(function(id){ if (HELD.indexOf(id) >= 0) add("warn", "趴睡时手里还拿着东西", "「趴桌睡」时双手垫在头下，「" + nameOf("props", id) + "」没有手拿 — 换动作或放下道具。", ["pose","props"], [["pose",pose],["props",id]], fixRemove("props", id)); });
+        face.forEach(function(id){ if (["open-smile","surprised","wink"].indexOf(id) >= 0) add("warn", "睡着了表情却很醒", "趴睡配「" + nameOf("face", id) + "」不成立 — 睡颜类表情更合适。", ["pose","face"], [["pose",pose],["face",id]], fixRemove("face", id)); });
+      }
+      /* 头部配饰 × 非人特征 */
+      var HEAD_ACC = ["hat-witch","hat-beret","hat-straw","maid-headdress","cat-ear-headband","veil"];
+      var HEAD_TRAIT = ["cat-ears","fox-ears","bunny-ears","horns","antlers","dragon-horns","single-horn"];
+      accessories.forEach(function(a){ if (HEAD_ACC.indexOf(a) >= 0) fantasy.forEach(function(f){ if (HEAD_TRAIT.indexOf(f) >= 0) add("warn", "头顶位置打架", "「" + nameOf("accessories", a) + "」和「" + nameOf("fantasy", f) + "」都占头顶 — 容易穿模或互相遮挡。", ["accessories","fantasy"], [["accessories",a],["fantasy",f]], fixRemove("fantasy", f)); }); });
+      /* 鞋袜内部 */
+      var SOCKS = ["black-thighhighs","white-thighhighs","striped-thighhighs","kneehighs","white-socks","black-pantyhose","lace-socks","loose-socks","tabi"];
+      var SHOES = ["oxford-shoes","mary-janes","loafers","high-heels","boots-long","boots-ankle","sneakers","sandals","geta","zouri","slippers","ballet-shoes"];
+      var shoesPicked = footwear.filter(function(id){ return SHOES.indexOf(id) >= 0; });
+      var socksPicked = footwear.filter(function(id){ return SOCKS.indexOf(id) >= 0; });
+      if (shoesPicked.length >= 2) add("hard", "选了两双鞋", "「" + shoesPicked.map(function(id){ return nameOf("footwear", id); }).join("」和「") + "」不能同时穿 — 鞋只留一双。", ["footwear"], shoesPicked.map(function(id){ return ["footwear", id]; }), fixRemove("footwear", shoesPicked[1]));
+      if (socksPicked.length >= 2) add("warn", "选了两种袜子", "袜子叠穿会画出奇怪的层次 — 只留一双。", ["footwear"], socksPicked.map(function(id){ return ["footwear", id]; }), fixRemove("footwear", socksPicked[1]));
+      if (has(footwear, "barefoot") && footwear.length > 1) add("hard", "赤脚又穿了鞋袜", "「赤脚」和鞋袜不能共存。", ["footwear"], footwear.map(function(id){ return ["footwear", id]; }), fixRemove("footwear","barefoot"));
+      if (has(fantasy, "mermaid-tail") && footwear.length) add("warn", "人鱼没有脚", "选了人鱼尾还选鞋袜，模型会给鱼尾巴套上袜子。", ["fantasy","footwear"], [["fantasy","mermaid-tail"]].concat(footwear.map(function(id){ return ["footwear", id]; })), fixClear("footwear","清空鞋袜选择"));
+      /* 媒介 × 配色 / 收尾 */
+      if (medium === "manga-bw" && palette && ["ink-black-white","monochrome-blue","monochrome-sepia"].indexOf(palette) < 0)
+        add("hard", "黑白漫画配了彩色配色", "媒介是黑白漫画，「" + nameOf("palette", palette) + "」的色彩无处落 — 换单色配色或换媒介。", ["medium","palette"], [["medium",medium],["palette",palette]], fixRemove("palette", palette));
+      if (medium === "pixel-art") finish.forEach(function(id){ if (["film-grain","halation","canvas-texture"].indexOf(id) >= 0) add("warn", "像素画不需要照片 / 画布质感", "「" + nameOf("finish", id) + "」会污染像素边缘的干净感。", ["medium","finish"], [["medium",medium],["finish",id]], fixRemove("finish", id)); });
+      /* 堆叠量 */
+      if (lighting.length >= 3) add("warn", "光线叠了三种以上", "光线标签互相抢主导，画面容易脏 — 留最想要的两种。", ["lighting"], lighting.map(function(id){ return ["lighting", id]; }), fixRemove("lighting", lighting[lighting.length - 1]));
+      if (finish.length >= 4) add("warn", "质感收尾堆太多", "收尾标签超过 3 个会互相污染表面质感 — 留 1–2 个最关键的。", ["finish"], finish.map(function(id){ return ["finish", id]; }), null);
+      /* 负面 × 正向 */
+      if (has(negative, "blurry-neg") && framing === "depth-of-field")
+        add("warn", "负面 blurry 会压掉浅景深", "正向选了「浅景深虚化」，负面又写了 blurry — 模型会把背景虚化也当错误压掉。", ["negative","framing"], [["negative","blurry-neg"],["framing",framing]], fixRemove("negative","blurry-neg"));
+      if (has(negative, "text-neg") && bg === "classroom")
+        add("warn", "负面 text 会抹掉黑板字", "教室场景的黑板天然有字，负面里禁文字可能把黑板画糊 — 是故意要干净黑板就忽略。", ["negative","background"], [["negative","text-neg"],["background",bg]], null);
+      /* 多人 × 单一发型 */
+      if (subject && ["2girls","3girls","multiple-girls","1girl-1boy"].indexOf(subject) >= 0 && state["hair"].size)
+        add("warn", "多人共用一套发型发色标签", "Illustrious 会把同一套发色发型复制到每个人头上，容易全员同色 — 多人图建议发色差异靠 LoRA 或后期分区，别只靠这一组标签。", ["subject","hair"], [["subject",subject]], null);
+      /* 节日 × 季节天气 */
+      if (festival === "christmas" && weather && ["summer-heat","spring-breeze"].indexOf(weather) >= 0)
+        add("warn", "圣诞节配了夏 / 春天气", "圣诞在冬季，和「" + nameOf("weather", weather) + "」的季节对不上（南半球设定除外）。", ["festival","weather"], [["festival",festival],["weather",weather]], fixRemove("weather", weather));
+      if (festival === "summer-festival" && weather && ["snow","heavy-snow"].indexOf(weather) >= 0)
+        add("hard", "夏日祭在下雪", "夏日祭是盛夏活动，飘雪完全反季节。", ["festival","weather"], [["festival",festival],["weather",weather]], fixRemove("weather", weather));
+      if (festival === "tanabata" && weather && ["snow","heavy-snow"].indexOf(weather) >= 0)
+        add("warn", "七夕配了雪天", "七夕是夏季节日，雪景会让短册和竹枝的季节感错乱。", ["festival","weather"], [["festival",festival],["weather",weather]], fixRemove("weather", weather));
+      /* LoRA 侧 */
+      if (opts.lora !== false) out = out.concat(computeLoraIssues());
+      return out;
+    }
+    function computeLoraIssues(){
+      var out = [];
+      var act = activeLoraPicks();
+      if (!act.length) return out;
+      var totalW = 0;
+      act.forEach(function(p){ totalW += p.r.L.w; });
+      if (totalW > 3.0) out.push({ sev:"warn", title:"LoRA 总权重偏高（" + totalW.toFixed(1) + "）", detail:"已加入的 LoRA 权重加起来超过 3.0，Illustrious 容易过饱和、糊脸或风格打架 — 取消一两个次要的，或把滑杆类权重压低。", cats:[], opts:[], fix:null });
+      var medium = sel1("medium");
+      act.forEach(function(p){
+        var idx = p.r.idx, L = p.r.L;
+        if (idx === 2 && (medium === "painterly-thick" || medium === "oil-painting")) out.push({ sev:"warn", title:"平涂 LoRA 和厚涂媒介对冲", detail:"「平涂 Flat Color」会把厚涂的颜料感压平 — 媒介和 LoRA 选一边。", cats:["medium"], opts:[["medium", medium]], fix:null });
+        if (idx === 29 && medium && ["pixel-art","chibi","manga-bw"].indexOf(medium) >= 0) out.push({ sev:"warn", title:"写实滑杆和非写实媒介打架", detail:"「写实滑杆 Realism Slider」会把像素 / Q 版 / 黑白漫画往照片感拉，效果多半怪异。", cats:["medium"], opts:[["medium", medium]], fix:null });
+        if (idx === 25 && selIds("face").indexOf("closed-eyes") >= 0) out.push({ sev:"warn", title:"眼睛 LoRA 遇上闭眼", detail:"「完美眼睛 Eyes」强化的是睁眼的瞳部细节，闭眼时基本不起作用 — 换睁眼表情或取消这个 LoRA。", cats:["face"], opts:[["face","closed-eyes"]], fix:null });
+        if (idx === 20 && sel1("framing") === "portrait-closeup") out.push({ sev:"warn", title:"背景增强 LoRA 遇上面部特写", detail:"特写里背景只剩虚化色块，「背景细节增强」没有发挥空间。", cats:["framing"], opts:[["framing","portrait-closeup"]], fix:null });
+      });
+      return out;
+    }
+    function renderConflicts(){
+      var panel = document.getElementById("conflictPanel");
+      var countEl = document.getElementById("conflictCount");
+      var okLine = document.getElementById("conflictOkLine");
+      var listEl = document.getElementById("conflictList");
+      var fixBtn = document.getElementById("fixAllBtnPanel");
+      var total = 0;
+      CATS.forEach(function(c){ total += state[c.id].size; });
+      lastConflicts = total ? detectConflicts({}) : [];
+      var hard = lastConflicts.filter(function(c){ return c.sev === "hard"; }).length;
+      var warn = lastConflicts.length - hard;
+      CATS.forEach(function(c){
+        c.options.forEach(function(o){
+          var b = chipEls[c.id][o[0]];
+          b.classList.remove("conflict-hard"); b.classList.remove("conflict-warn");
+        });
+        navEls[c.id].classList.remove("has-conflict"); navEls[c.id].classList.remove("has-hard");
+      });
+      lastConflicts.forEach(function(cf){
+        cf.opts.forEach(function(pair){
+          var b = chipEls[pair[0]] && chipEls[pair[0]][pair[1]];
+          if (!b) return;
+          if (cf.sev === "hard"){ b.classList.add("conflict-hard"); b.classList.remove("conflict-warn"); }
+          else if (!b.classList.contains("conflict-hard")) b.classList.add("conflict-warn");
+        });
+        cf.cats.forEach(function(catId){
+          if (!navEls[catId]) return;
+          navEls[catId].classList.add("has-conflict");
+          if (cf.sev === "hard") navEls[catId].classList.add("has-hard");
+        });
+      });
+      panel.classList.remove("ok","has-hard","has-warn");
+      if (!total){
+        panel.classList.add("ok");
+        countEl.textContent = "未开始";
+        okLine.style.display = "block";
+        okLine.textContent = "先选几项，这里会实时检查标签之间有没有互相打架（人数、瞳色、场景与天气光线、取景裁切、LoRA 叠加…）。";
+        listEl.style.display = "none"; listEl.innerHTML = "";
+        fixBtn.style.display = "none";
+        return;
+      }
+      if (!lastConflicts.length){
+        panel.classList.add("ok");
+        countEl.textContent = "✓ 无冲突";
+        okLine.style.display = "block";
+        okLine.innerHTML = "<b>✓ 当前组合自洽</b> — 标签和 LoRA 之间没有检测到冲突，可以放心复制去跑图。";
+        listEl.style.display = "none"; listEl.innerHTML = "";
+        fixBtn.style.display = "none";
+        return;
+      }
+      panel.classList.add(hard ? "has-hard" : "has-warn");
+      countEl.textContent = (hard ? "硬冲突 " + hard + " 处" : "") + (hard && warn ? " · " : "") + (warn ? "提醒 " + warn + " 处" : "");
+      okLine.style.display = "none";
+      listEl.style.display = "flex"; listEl.innerHTML = "";
+      lastConflicts.forEach(function(cf){
+        var li = document.createElement("li");
+        li.className = "conflict-item " + cf.sev;
+        var sev = document.createElement("span"); sev.className = "sev"; sev.textContent = cf.sev === "hard" ? "硬冲突" : "提醒";
+        var ct = document.createElement("span"); ct.className = "ct"; ct.textContent = cf.title;
+        var cd = document.createElement("span"); cd.className = "cd"; cd.textContent = cf.detail;
+        li.appendChild(sev); li.appendChild(ct); li.appendChild(cd);
+        if (cf.fix){
+          var fb = document.createElement("button"); fb.type = "button"; fb.className = "mini-btn fix-btn"; fb.textContent = "🛠 " + cf.fix.label;
+          (function(fix){ fb.addEventListener("click", function(){ fix.run(); render(); showToast("已修复一项冲突"); }); })(cf.fix);
+          li.appendChild(fb);
+        }
+        listEl.appendChild(li);
+      });
+      fixBtn.style.display = lastConflicts.some(function(c){ return c.fix; }) ? "" : "none";
+    }
+    function fixAllConflicts(){
+      var before = detectConflicts({ lora:false }).length;
+      if (!before){ showToast("当前没有检测到冲突"); return; }
+      for (var round = 0; round < 4; round++){
+        var list = detectConflicts({ lora:false });
+        var acted = false;
+        list.forEach(function(cf){ if (cf.fix){ cf.fix.run(); acted = true; } });
+        if (!acted) break;
+        if (!detectConflicts({ lora:false }).some(function(c){ return c.fix; })) break;
+      }
+      syncAll(); render();
+      var remain = lastConflicts.length;
+      showToast(remain ? ("已自动修复可处理的冲突，还剩 " + remain + " 处需要手动取舍") : "冲突已全部修复");
+    }
+
+    /* ============ LoRA 推荐 ============ */
+    function loraVerified(idx){ return LORA_VERIFIED[idx] || null; }
+    function loraDlUrl(v){ return "https://civitai.com/api/download/models/" + v.ver; }
+    function fmtDl(n){ return n >= 10000 ? (Math.round(n / 1000) / 10) + " 万" : String(n); }
+    function loraFullLine(p, i){
+      var L = p.r.L, v = loraVerified(p.r.idx);
+      var s = (i + 1) + ". " + L.n + " (" + L.en + ") · " + L.type + " · 权重 " + L.w.toFixed(2) + (L.slider ? "（滑杆，可负）" : "") + " · 触发词 " + (v && v.words.length ? v.words.join(", ") : "无");
+      if (v) s += " · 文件 " + v.file + " · Civitai 下载 " + loraDlUrl(v);
+      return s;
+    }
+    function activeLoraPicks(){ return lastLoraPicks.filter(function(p){ return !loraOff[p.r.idx]; }); }
+    function scoreLora(L, idx){
+      var score = 0, hits = [];
+      var gate = state["subject"].size > 0 || state["medium"].size > 0;
+      if (L.bgDetail){
+        var b = sel1("background");
+        if (b && b !== "simple-bg"){ score += 3; hits.push("背景场景"); }
+        return { score:score, hits:hits };
+      }
+      Object.keys(L.match || {}).forEach(function(cid){
+        L.match[cid].forEach(function(oid){
+          if (state[cid] && state[cid].has(oid)){ score += 2; hits.push(nameOf(cid, oid)); }
+        });
+      });
+      if (L.base && gate) score += L.base;
+      return { score:score, hits:hits };
+    }
+    function recommendLoras(){
+      var scored = LORA_DB.map(function(L, idx){
+        var s = scoreLora(L, idx);
+        return { idx:idx, L:L, score:s.score, hits:s.hits };
+      }).filter(function(r){ return r.score > 0; });
+      scored.sort(function(a, b){ return b.score - a.score; });
+      var picks = [], alts = [];
+      LORA_TYPE_ORDER.forEach(function(type){
+        var group = scored.filter(function(r){ return r.L.type === type; });
+        if (!group.length) return;
+        var chosen = group[0];
+        if (loraPick[type] != null){
+          var forced = group.filter(function(r){ return r.idx === loraPick[type]; })[0];
+          if (forced) chosen = forced;
+        }
+        picks.push({ r:chosen, main:true });
+        group.forEach(function(r){ if (r.idx !== chosen.idx) alts.push({ r:r, type:type }); });
+      });
+      return { picks:picks, alts:alts };
+    }
+    function toggleLora(idx, name){
+      if (loraOff[idx]){ delete loraOff[idx]; showToast("已重新加入 LoRA：" + name); }
+      else { loraOff[idx] = true; showToast("已取消 LoRA：" + name + "（不计入复制 / 导出）"); }
+      render();
+    }
+    function renderLoras(){
+      var total = 0;
+      CATS.forEach(function(c){ if (c.id !== "negative") total += state[c.id].size; });
+      var ready = total > 0 && (state["medium"].size > 0 || state["subject"].size > 0);
+      var emptyEl = document.getElementById("loraEmpty");
+      var bodyEl = document.getElementById("loraBody");
+      var countEl = document.getElementById("loraCount");
+      if (!ready){
+        lastLoraPicks = [];
+        emptyEl.style.display = "block"; bodyEl.style.display = "none";
+        emptyEl.innerHTML = total === 0
+          ? "还没有选择词条 — 先在上面选几项（至少选画风媒介或主体），这里会自动按匹配度排出最适合挂的<b>已验证真实 Illustrious LoRA</b>（带真实文件名和 Civitai 下载链接）、推荐权重和触发词（Trigger Word，触发词）。"
+          : "已选内容里还没有「媒介画风」或「主体」类词条 — 先选其中一项，这里会自动按匹配度排出最适合挂的<b>已验证真实 Illustrious LoRA</b>（带真实文件名和 Civitai 下载链接）、推荐权重和触发词（Trigger Word，触发词）。";
+        countEl.textContent = "";
+        return;
+      }
+      var rec = recommendLoras();
+      lastLoraPicks = rec.picks;
+      if (!rec.picks.length){
+        emptyEl.style.display = "block"; bodyEl.style.display = "none";
+        emptyEl.innerHTML = "当前选择还没有匹配上的已验证 LoRA — 换个画风媒介或加几项细节 / 光线词条再看看。";
+        countEl.textContent = "";
+        return;
+      }
+      emptyEl.style.display = "none"; bodyEl.style.display = "block";
+      var grid = document.getElementById("loraGrid");
+      grid.innerHTML = "";
+      rec.picks.forEach(function(p, i){
+        var L = p.r.L, v = loraVerified(p.r.idx), off = !!loraOff[p.r.idx];
+        var card = document.createElement("div");
+        card.className = "lora-card" + (i === 0 ? " top" : "") + (off ? " off" : "");
+        var top = document.createElement("div"); top.className = "lora-top";
+        var rank = document.createElement("span"); rank.className = "lora-rank"; rank.textContent = i + 1;
+        var nm = document.createElement("div"); nm.className = "lora-name";
+        var ln = document.createElement("span"); ln.className = "ln"; ln.textContent = L.n;
+        var small = document.createElement("small"); small.textContent = L.en;
+        nm.appendChild(ln); nm.appendChild(small);
+        var tp = document.createElement("span"); tp.className = "lora-type"; tp.textContent = L.type;
+        top.appendChild(rank); top.appendChild(nm); top.appendChild(tp);
+        card.appendChild(top);
+        var tags = document.createElement("div");
+        var vt = document.createElement("span"); vt.className = "lora-verified-tag"; vt.textContent = "✓ 已验证真实";
+        var st = document.createElement("span"); st.className = off ? "lora-off-tag" : "lora-on-tag"; st.textContent = off ? "已取消" : "✓ 已加入";
+        tags.appendChild(vt); tags.appendChild(document.createTextNode(" ")); tags.appendChild(st);
+        card.appendChild(tags);
+        var d = document.createElement("p"); d.className = "lora-desc"; d.textContent = L.desc;
+        card.appendChild(d);
+        var meta = document.createElement("div"); meta.className = "lora-meta";
+        var m1 = document.createElement("span"); m1.innerHTML = "推荐权重 <b></b>"; m1.querySelector("b").textContent = L.w.toFixed(2) + (L.slider ? "（滑杆可负）" : "");
+        var m2 = document.createElement("span"); m2.innerHTML = "触发词 <b></b>"; m2.querySelector("b").textContent = (v && v.words.length) ? v.words.join(", ") : "无";
+        var m3 = document.createElement("span"); m3.innerHTML = "Civitai 下载量 <b></b>"; m3.querySelector("b").textContent = v ? fmtDl(v.dl) : "-";
+        meta.appendChild(m1); meta.appendChild(m2); meta.appendChild(m3);
+        card.appendChild(meta);
+        if (v){
+          var fl = document.createElement("div"); fl.className = "lora-file";
+          fl.innerHTML = "文件 <b></b>"; fl.querySelector("b").textContent = v.file;
+          card.appendChild(fl);
+        }
+        if (p.r.hits.length){
+          var why = document.createElement("div"); why.className = "lora-why";
+          why.textContent = "匹配你选的：" + p.r.hits.slice(0, 4).join("、");
+          card.appendChild(why);
+        }
+        var acts = document.createElement("div"); acts.className = "lora-actions";
+        var tg = document.createElement("button"); tg.type = "button"; tg.className = "mini-btn toggle-btn " + (off ? "off" : "on");
+        tg.textContent = off ? "重新加入" : "✓ 已加入 · 点击取消";
+        (function(idx, name){ tg.addEventListener("click", function(e){ e.stopPropagation(); toggleLora(idx, name); }); })(p.r.idx, L.n);
+        acts.appendChild(tg);
+        if (v){
+          var dl = document.createElement("a"); dl.className = "mini-btn dl-btn"; dl.href = loraDlUrl(v); dl.target = "_blank"; dl.rel = "noopener";
+          dl.textContent = "Civitai 下载";
+          dl.addEventListener("click", function(e){ e.stopPropagation(); });
+          acts.appendChild(dl);
+        }
+        if (v && v.words.length){
+          var tf = document.createElement("button"); tf.type = "button"; tf.className = "mini-btn"; tf.textContent = "填入触发词";
+          (function(words){ tf.addEventListener("click", function(e){
+            e.stopPropagation();
+            var inp = document.getElementById("triggerInput");
+            var cur = inp.value.trim();
+            var addW = words.join(", ");
+            inp.value = cur ? (cur.indexOf(addW) >= 0 ? cur : cur + ", " + addW) : addW;
+            render(); showToast("触发词已填入");
+          }); })(v.words);
+          acts.appendChild(tf);
+        }
+        card.appendChild(acts);
+        (function(idx, name){ card.addEventListener("click", function(){ toggleLora(idx, name); }); })(p.r.idx, L.n);
+        grid.appendChild(card);
+      });
+      var act = activeLoraPicks();
+      var bar = document.getElementById("loraPickedBar");
+      var totalW = 0;
+      act.forEach(function(p){ totalW += p.r.L.w; });
+      var syntax = act.map(function(p){ var v = loraVerified(p.r.idx); return v ? ("<lora:" + v.file.replace(/\.safetensors$/i, "") + ":" + p.r.L.w.toFixed(2) + ">") : ""; }).filter(Boolean).join(" ");
+      var offNames = lastLoraPicks.filter(function(p){ return loraOff[p.r.idx]; }).map(function(p){ return p.r.L.n; });
+      bar.innerHTML = "已加入 <b></b> 个 LoRA · 总权重 <b></b>" + (syntax ? "<br />挂载语法：<code></code>" : "") + (offNames.length ? "<br />已取消（不计入）：<span class='off-names'></span>" : "");
+      var bs = bar.querySelectorAll("b");
+      bs[0].textContent = act.length; bs[1].textContent = totalW.toFixed(2);
+      if (syntax) bar.querySelector("code").textContent = syntax;
+      if (offNames.length) bar.querySelector(".off-names").textContent = offNames.join("、");
+      countEl.textContent = "主组合 " + rec.picks.length + " 个 · 备选 " + rec.alts.length + " 个";
+      var altWrap = document.getElementById("loraAltWrap");
+      var altList = document.getElementById("loraAltList");
+      altList.innerHTML = "";
+      if (rec.alts.length){
+        altWrap.style.display = "block";
+        LORA_TYPE_ORDER.forEach(function(type){
+          var group = rec.alts.filter(function(a){ return a.type === type; });
+          if (!group.length) return;
+          var g = document.createElement("div"); g.className = "lora-alt-group";
+          var h = document.createElement("div"); h.className = "lora-alt-head"; h.textContent = type;
+          var list = document.createElement("div"); list.className = "lora-alt-list";
+          group.slice(0, 4).forEach(function(a){
+            var chip = document.createElement("span"); chip.className = "lora-alt-chip";
+            var an = document.createElement("span"); an.className = "an"; an.textContent = a.r.L.n;
+            var am = document.createElement("span"); am.className = "am"; am.textContent = "权重 " + a.r.L.w.toFixed(2);
+            var sw = document.createElement("button"); sw.type = "button"; sw.className = "mini-btn swap-btn"; sw.textContent = "换上";
+            (function(tp, idx){ sw.addEventListener("click", function(){ loraPick[tp] = idx; delete loraOff[idx]; render(); showToast("已换上备选 LoRA"); }); })(type, a.r.idx);
+            chip.appendChild(an); chip.appendChild(am); chip.appendChild(sw);
+            list.appendChild(chip);
+          });
+          g.appendChild(h); g.appendChild(list);
+          altList.appendChild(g);
+        });
+      } else altWrap.style.display = "none";
+    }
+
+    /* ============ 主渲染 ============ */
+    var promptEnEl = document.getElementById("promptEn");
+    var promptCnEl = document.getElementById("promptCn");
+    var promptNegEl = document.getElementById("promptNeg");
+    var outMeta = document.getElementById("outMeta");
+    function render(){
+      lastEn = buildEn(); lastCn = buildCn(); lastNeg = buildNeg();
+      var total = 0;
+      CATS.forEach(function(c){ total += state[c.id].size; });
+      if (lastEn){
+        promptEnEl.textContent = lastEn;
+        promptEnEl.classList.remove("empty");
+      } else {
+        promptEnEl.textContent = "还没有选择。点任意词条，或点随机组合。";
+        promptEnEl.classList.add("empty");
+      }
+      if (lastCn){
+        promptCnEl.textContent = lastCn;
+        promptCnEl.classList.remove("empty");
+      } else {
+        promptCnEl.textContent = "还没有选择。";
+        promptCnEl.classList.add("empty");
+      }
+      if (lastNeg){
+        promptNegEl.textContent = lastNeg;
+        promptNegEl.classList.remove("empty");
+      } else {
+        promptNegEl.textContent = "还没有选择负面词。到下方「负面提示词」分类里选，或点这里用默认压崩坏组合。";
+        promptNegEl.classList.add("empty");
+      }
+      outMeta.textContent = "已选 " + total + " 项" + (lastEn ? " · 标签串 " + lastEn.length + " 字符" : "");
+      var miss = missingCats();
+      var fillRow = document.getElementById("fillRow");
+      if (miss.length){
+        fillRow.style.display = "flex";
+        document.getElementById("fillNote").textContent = "还有 " + miss.length + " 个类别未选：" + miss.map(function(c){ return c.title; }).join("、") + " — 可一键智能补齐，只挑不和已选打架的";
+      } else fillRow.style.display = "none";
+      renderLoras();
+      renderConflicts();
+      if (total && lastConflicts.length){
+        var nh = lastConflicts.filter(function(c){ return c.sev === "hard"; }).length;
+        outMeta.textContent += " · ⚠ " + (nh ? "硬冲突 " + nh + " 处" : "") + (nh && lastConflicts.length - nh ? "＋" : "") + (lastConflicts.length - nh ? "提醒 " + (lastConflicts.length - nh) + " 处" : "") + "（见下方匹配检查）";
+      } else if (total){
+        outMeta.textContent += " · ✓ 无冲突";
+      }
+    }
+
+    /* ============ 随机 / 补齐（冲突感知） ============ */
+    function shuffled(arr){
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+      return a;
+    }
+    function tryAdd(cat, optId, blockWarn){
+      state[cat.id].add(optId);
+      var bad = detectConflicts({ lora:false }).some(function(cf){
+        return cf.cats.indexOf(cat.id) >= 0 && (blockWarn || cf.sev === "hard");
+      });
+      if (bad){ state[cat.id].delete(optId); return false; }
+      return true;
+    }
+    function pickCompatible(cat, candidateIds){
+      var cands = shuffled(candidateIds.filter(function(id){ return !state[cat.id].has(id); }));
+      var i;
+      for (i = 0; i < cands.length; i++) if (tryAdd(cat, cands[i], true)) return cands[i];
+      for (i = 0; i < cands.length; i++) if (tryAdd(cat, cands[i], false)) return cands[i];
+      if (cands.length){ state[cat.id].add(cands[0]); return cands[0]; }
+      return null;
+    }
+    function pickN(cat, candidateIds, n){
+      var pool = candidateIds.slice(), got = 0, guard = 0;
+      while (got < n && pool.length && guard < 40){
+        guard++;
+        var before = state[cat.id].size;
+        var pickedId = pickCompatible(cat, pool);
+        if (!pickedId) break;
+        pool = pool.filter(function(id){ return id !== pickedId; });
+        if (state[cat.id].size > before) got++;
+        else break;
+      }
+    }
+    var SOCK_IDS = ["black-thighhighs","white-thighhighs","striped-thighhighs","kneehighs","white-socks","black-pantyhose","lace-socks","loose-socks","tabi","barefoot"];
+    var SHOE_IDS = ["oxford-shoes","mary-janes","loafers","high-heels","boots-long","boots-ankle","sneakers","sandals","geta","zouri","slippers","ballet-shoes"];
+    var EYE_IDS = ["blue-eyes","red-eyes","green-eyes","purple-eyes","amber-eyes","pink-eyes","cyan-glowing-eyes","heart-pupils","star-pupils","sparkling-eyes"];
+    var EXPR_IDS = ["smile","open-smile","blush","teary","pout","surprised","serious","sleepy","smug","shy"];
+    var QUALITY_DEFAULTS = ["masterpiece","best-quality","very-aesthetic","absurdres"];
+    var NEGATIVE_DEFAULTS = ["worst-quality","low-quality","lowres","bad-anatomy","bad-hands","extra-fingers","missing-fingers","mutated","watermark","signature","text-neg","jpeg-artifacts","cropped-neg"];
+    function randomizeCat(cat){
+      if (cat.id === "quality"){
+        state[cat.id].clear();
+        QUALITY_DEFAULTS.forEach(function(id){ state[cat.id].add(id); });
+        if (Math.random() < 0.5) state[cat.id].add("highres");
+        syncCat(cat); render();
+        return;
+      }
+      state[cat.id].clear();
+      var ids = cat.options.map(function(o){ return o[0]; });
+      if (cat.mode === "single") pickCompatible(cat, ids);
+      else if (cat.id === "footwear"){
+        pickCompatible(cat, SOCK_IDS);
+        pickCompatible(cat, SHOE_IDS);
+      } else if (cat.id === "face"){
+        pickCompatible(cat, EYE_IDS);
+        pickN(cat, EXPR_IDS, 1 + Math.floor(Math.random() * 2));
+      } else if (cat.id === "fantasy"){
+        if (Math.random() < 0.65) pickN(cat, ids, 1 + Math.floor(Math.random() * 2));
+      } else if (cat.id === "lighting" || cat.id === "finish"){
+        pickN(cat, ids, 1 + Math.floor(Math.random() * 2));
+      } else if (cat.id === "accessories"){
+        pickN(cat, ids, 2 + Math.floor(Math.random() * 2));
+      } else if (cat.id === "props"){
+        pickN(cat, ids, 1 + Math.floor(Math.random() * 2));
+      } else {
+        pickN(cat, ids, 1 + Math.floor(Math.random() * 2));
+      }
+      syncCat(cat); render();
+    }
+    function missingCats(){
+      return CATS.filter(function(c){ return c.id !== "negative" && state[c.id].size === 0; });
+    }
+    function fillMissing(){
+      var miss = missingCats();
+      if (!miss.length){ showToast("没有未选的类别了（负面提示词除外）"); return; }
+      miss.forEach(function(cat){ randomizeCat(cat); });
+      showToast("已智能补齐 " + miss.length + " 个未选类别（按已选内容避开冲突）");
+    }
+    document.getElementById("randomAllBtn").addEventListener("click", function(){
+      CATS.forEach(function(cat){ if (cat.id !== "negative") randomizeCat(cat); });
+      var left = detectConflicts({ lora:false }).filter(function(c){ return c.sev === "hard"; }).length;
+      showToast(left ? "已智能随机一组（仍有 " + left + " 处硬冲突，见匹配检查）" : "已智能随机一组，无硬冲突");
+    });
+    document.getElementById("fixAllBtn").addEventListener("click", fixAllConflicts);
+    document.getElementById("fixAllBtnPanel").addEventListener("click", fixAllConflicts);
+    document.getElementById("fillMissingBtn").addEventListener("click", fillMissing);
+    document.getElementById("fillMissingBtnOut").addEventListener("click", fillMissing);
+    document.getElementById("clearAllBtn").addEventListener("click", function(){
+      CATS.forEach(function(c){ state[c.id].clear(); });
+      syncAll(); render();
+    });
+    document.getElementById("negDefaultBtn").addEventListener("click", function(){
+      var cat = catById("negative");
+      state["negative"].clear();
+      NEGATIVE_DEFAULTS.forEach(function(id){ state["negative"].add(id); });
+      syncCat(cat); render();
+      showToast("已填入默认负面组合（压画质＋压崩手）");
+    });
+
+    /* ============ 搜索过滤 ============ */
+    document.getElementById("searchInput").addEventListener("input", function(e){
+      var q = e.target.value.trim().toLowerCase();
+      shellEl.classList.toggle("searching", !!q);
+      CATS.forEach(function(cat){
+        var visible = 0;
+        cat.options.forEach(function(opt){
+          var b = chipEls[cat.id][opt[0]];
+          var hit = !q || opt[1].toLowerCase().indexOf(q) >= 0 || opt[2].toLowerCase().indexOf(q) >= 0;
+          b.classList.toggle("hidden", !hit);
+          if (hit) visible++;
+        });
+        document.getElementById("nomatch-" + cat.id).style.display = (q && !visible) ? "block" : "none";
+        panelEls[cat.id].classList.toggle("no-hit", !!q && !visible);
+      });
+    });
+
+    /* ============ 复制 / 导出 ============ */
+    var toast = document.getElementById("toast");
+    var toastTimer = null;
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toast.classList.remove("show"); }, 1800);
+    }
+    function copyText(text, msg){
+      if (!text){ showToast("还没有可复制的内容"); return; }
+      function done(){ showToast(msg); }
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done, function(){ fallback(); });
+      } else fallback();
+      function fallback(){
+        var ta = document.createElement("textarea");
+        ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); done(); }
+        catch (err) { showToast("复制失败，请长按文本手动复制"); }
+        document.body.removeChild(ta);
+      }
+    }
+    document.getElementById("copyEnBtn").addEventListener("click", function(){ copyText(lastEn, "标签提示词已复制"); });
+    document.getElementById("copyCnBtn").addEventListener("click", function(){ copyText(lastCn, "中文提示词已复制"); });
+    document.getElementById("copyNegBtn").addEventListener("click", function(){ copyText(lastNeg, "负面提示词已复制"); });
+    document.getElementById("copyBothBtn").addEventListener("click", function(){
+      var parts = [];
+      if (lastEn) parts.push("正向 Positive:\n" + lastEn);
+      if (lastNeg) parts.push("负面 Negative:\n" + lastNeg);
+      if (lastCn) parts.push("中文对照：\n" + lastCn);
+      copyText(parts.join("\n\n"), "正向＋负面已一起复制");
+    });
+    document.getElementById("copyLoraNamesBtn").addEventListener("click", function(){
+      var act = activeLoraPicks();
+      if (!act.length){ showToast(lastLoraPicks.length ? "已加入的 LoRA 为空（全被取消了），先点卡片重新加入" : "还没有可复制的 LoRA，先选几项生成提示词"); return; }
+      var names = act.map(function(p){ var v = loraVerified(p.r.idx); return p.r.L.n + " (" + p.r.L.en + ")" + (v ? " · 文件 " + v.file + " · 下载 " + loraDlUrl(v) : ""); });
+      copyText(names.join("\n"), "已选 LoRA 已复制（带真实文件名和下载链接，共 " + names.length + " 个）");
+    });
+    document.getElementById("exportLoraBtn").addEventListener("click", function(){
+      var act = activeLoraPicks();
+      if (!act.length){ showToast(lastLoraPicks.length ? "已加入的 LoRA 为空（全被取消了），先点卡片重新加入" : "还没有可导出的 LoRA，先选几项生成提示词"); return; }
+      var lines = ["LoRA 已选清单（已验证真实 Illustrious LoRA，按叠加顺序）", ""];
+      act.forEach(function(p, i){ lines.push(loraFullLine(p, i)); });
+      lines.push("", "说明：以上均为 2026-11-18 经 Civitai 官方 API 核对的真实 Illustrious LoRA，照文件名或下载链接就能找到。画风类只挂 1 个，总权重建议 ≤ 2.5–3.0。");
+      var blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url; a.download = "illustrious-lora-selection.txt";
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a);
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+      showToast("已导出已选 LoRA 清单");
+    });
+    document.getElementById("copyLoraBtn").addEventListener("click", function(){
+      var act = activeLoraPicks();
+      if (!act.length){ showToast(lastLoraPicks.length ? "已加入的 LoRA 为空（全被取消了），先点卡片重新加入" : "还没有可复制的 LoRA，先选几项生成提示词"); return; }
+      var lines = act.map(function(p, i){ return loraFullLine(p, i); });
+      lines.push("注：以上均为已验证真实 LoRA（带文件名和下载链接）。");
+      copyText("LoRA 已选组合（已验证真实 LoRA，按叠加顺序）\n" + lines.join("\n"), "已选 LoRA 完整配置已复制（带文件名和下载链接）");
+    });
+    document.getElementById("triggerInput").addEventListener("input", render);
+
+    (function init(){
+      QUALITY_DEFAULTS.forEach(function(id){ state["quality"].add(id); });
+      var totalOpts = 0;
+      CATS.forEach(function(c){ totalOpts += c.options.length; });
+      var foot = document.querySelector("footer.note");
+      if (foot) foot.textContent = "词条库按 Illustrious XL 的 Danbooru 标签体系与社区创作经验整理 · 英文标签均为可直接喂给 Illustrious 的标准标签 · 提示词词条共 " + totalOpts + " 条（" + CATS.length + " 类）· LoRA 数据 2026-11-18 经 Civitai 官方 API 核对 · 当前页面版本 v1（插画系）";
+      setActiveCat("medium");
+      syncAll(); render();
+    })();
+    </script>
+  </body>
+</html>

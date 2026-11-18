@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>真实用户生成器</title>
+<style>
+  :root{
+    --bg:#eceff1; --panel:#ffffff; --panel-2:#f4f6f7; --ink:#17242b; --ink-2:#4a5a63; --ink-3:#7c8b93;
+    --line:#d5dde1; --line-strong:#b9c6cc;
+    --accent:#0d6e63; --accent-ink:#ffffff; --accent-soft:#e0f0ed;
+    --warn-bg:#fdf3e0; --warn-ink:#7a5410; --warn-line:#ecd9ac;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",sans-serif;
+    --radius:10px;
+    --shadow:0 1px 2px rgba(23,36,43,.06),0 4px 14px rgba(23,36,43,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#10161a; --panel:#1a2227; --panel-2:#212b31; --ink:#e8eef1; --ink-2:#aebcc3; --ink-3:#7e8f98;
+      --line:#2e3b42; --line-strong:#41525c;
+      --accent:#2aa892; --accent-ink:#0b1512; --accent-soft:#17332e;
+      --warn-bg:#33290f; --warn-ink:#eec27a; --warn-line:#5c4a1c;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+  button,[role="button"],select,summary,input:not([type="checkbox"]){min-height:36px}
+  button{font-family:inherit;cursor:pointer}
+  input,select{font-family:inherit;font-size:15px;color:var(--ink)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:20px 16px 56px}
+
+  /* ---------- 头部 ---------- */
+  header.top{padding:10px 2px 18px}
+  header.top h1{font-size:27px;line-height:1.25;margin:0 0 6px;letter-spacing:.01em;font-weight:800}
+  header.top p{margin:0;color:var(--ink-2);font-size:14.5px;max-width:46em}
+  header.top p b{color:var(--ink)}
+
+  /* ---------- 面板通用 ---------- */
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .panel + .panel{margin-top:16px}
+  .panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 18px 0}
+  .panel-head h2{font-size:16px;margin:0;font-weight:700}
+  .panel-head .hint{font-size:12.5px;color:var(--ink-3)}
+
+  /* ---------- 控制区 ---------- */
+  .controls{padding:6px 18px 18px;display:grid;grid-template-columns:1fr 1fr;gap:18px 28px}
+  @media (max-width:760px){.controls{grid-template-columns:1fr}}
+  .ctl-group{min-width:0}
+  .ctl-label{display:block;font-size:13px;font-weight:700;color:var(--ink-2);margin:10px 0 8px;letter-spacing:.02em}
+  .ctl-label .en{font-weight:400;color:var(--ink-3);font-size:12px}
+
+  .seg{display:flex;flex-wrap:wrap;gap:6px}
+  .seg button{
+    border:1px solid var(--line-strong);background:var(--panel-2);color:var(--ink);
+    border-radius:7px;padding:6px 16px;font-size:14.5px;font-weight:600;min-width:52px;
+  }
+  .seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+  .count-row{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+  .count-row input[type="number"]{width:96px}
+  .count-row span{font-size:13px;color:var(--ink-3)}
+
+  input[type="text"],input[type="number"],select{
+    background:var(--panel);border:1px solid var(--line-strong);border-radius:7px;padding:6px 10px;width:100%;
+  }
+  .seed-row{display:flex;gap:8px}
+  .seed-row input{flex:1;min-width:0;font-family:var(--mono);font-size:13.5px}
+  .seed-row button,.mini-btn{
+    border:1px solid var(--line-strong);background:var(--panel-2);color:var(--ink);
+    border-radius:7px;padding:6px 12px;font-size:13.5px;font-weight:600;white-space:nowrap;
+  }
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .age-row{display:flex;gap:8px;align-items:center}
+  .age-row input{width:100%}
+  .age-row span{color:var(--ink-3)}
+
+  .fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:4px 10px}
+  .fields label{
+    display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:6px;cursor:pointer;
+    font-size:14px;min-height:36px;user-select:none;
+  }
+  .fields label:hover{background:var(--panel-2)}
+  .fields input[type="checkbox"]{width:17px;height:17px;accent-color:var(--accent);flex:none;margin:0}
+  .fields .fld-note{font-size:11.5px;color:var(--ink-3);display:block;line-height:1.3}
+
+  .gen-row{grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px;margin-top:2px}
+  .btn-primary{
+    background:var(--accent);color:var(--accent-ink);border:1px solid var(--accent);
+    font-size:16px;font-weight:700;border-radius:8px;padding:10px 30px;min-height:46px;
+  }
+  .btn-primary:active{transform:translateY(1px)}
+  .gen-meta{font-size:13px;color:var(--ink-2)}
+  .gen-meta code{font-family:var(--mono);background:var(--panel-2);border:1px solid var(--line);border-radius:4px;padding:1px 6px;font-size:12.5px}
+
+  .safe-note{
+    margin:0 18px 16px;background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-ink);
+    border-radius:8px;padding:9px 13px;font-size:13px;line-height:1.6;
+  }
+
+  /* ---------- 结果区 ---------- */
+  .result-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid var(--line)}
+  .tabs{display:flex;gap:4px;flex-wrap:wrap}
+  .tabs button{
+    border:1px solid transparent;background:transparent;color:var(--ink-2);
+    border-radius:7px;padding:6px 14px;font-size:14px;font-weight:600;
+  }
+  .tabs button[aria-selected="true"]{background:var(--accent-soft);color:var(--accent);border-color:var(--line)}
+  @media (prefers-color-scheme: dark){.tabs button[aria-selected="true"]{color:#7fd8c6}}
+  .result-actions{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .result-actions button{
+    border:1px solid var(--line-strong);background:var(--panel);color:var(--ink);
+    border-radius:7px;padding:6px 12px;font-size:13.5px;font-weight:600;
+  }
+  .result-actions button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+  .stat-line{padding:10px 18px 0;font-size:13px;color:var(--ink-2)}
+  .stat-line code{font-family:var(--mono);font-size:12.5px}
+
+  .table-scroll{padding:8px 10px 14px;overflow-x:hidden}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  thead th{
+    text-align:left;font-size:12px;color:var(--ink-3);font-weight:700;letter-spacing:.03em;
+    padding:8px 10px;border-bottom:2px solid var(--line-strong);white-space:nowrap;
+  }
+  tbody td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle;word-break:break-all}
+  tbody tr:last-child td{border-bottom:none}
+  td.mono,th.mono{font-family:var(--mono);font-size:12.5px}
+  td.nowrap{white-space:nowrap;word-break:normal}
+  .person{display:flex;align-items:center;gap:9px;min-width:0}
+  .avatar{
+    width:34px;height:34px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:15px;
+  }
+  .person .nm{font-weight:700;font-size:14.5px}
+  .person .un{font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+  .gender-tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;background:var(--panel-2);border:1px solid var(--line)}
+  .row-copy{
+    border:1px solid var(--line);background:var(--panel-2);color:var(--ink-2);border-radius:6px;
+    font-size:12px;padding:4px 9px;min-height:32px;font-weight:600;white-space:nowrap;
+  }
+
+  pre.code{
+    margin:0;padding:16px 18px 20px;font-family:var(--mono);font-size:12.5px;line-height:1.65;
+    white-space:pre-wrap;word-break:break-all;max-height:560px;overflow:auto;color:var(--ink);
+  }
+  .empty{padding:34px 18px 40px;text-align:center;color:var(--ink-3);font-size:14px}
+
+  /* 手机：表格变卡片 */
+  @media (max-width:760px){
+    header.top h1{font-size:23px}
+    .table-scroll{padding:6px 12px 14px}
+    table,tbody,tr,td{display:block;width:100%}
+    thead{display:none}
+    tbody tr{border:1px solid var(--line);border-radius:9px;margin:10px 0;padding:6px 4px;background:var(--panel)}
+    tbody td{border-bottom:none;padding:5px 12px;display:flex;gap:10px;align-items:flex-start}
+    tbody td::before{
+      content:attr(data-label);flex:0 0 74px;font-size:12px;color:var(--ink-3);font-weight:700;padding-top:2px;
+    }
+    tbody td.cell-person{display:block}
+    tbody td.cell-person::before{display:none}
+    tbody td.cell-action{justify-content:flex-end}
+    tbody td.cell-action::before{display:none}
+    .result-actions{margin-left:0}
+  }
+
+  /* ---------- 用法区 ---------- */
+  .usage{padding:4px 18px 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:760px){.usage{grid-template-columns:1fr}}
+  .usage h3{font-size:14px;margin:8px 0 5px}
+  .usage p{margin:0;font-size:13.5px;color:var(--ink-2)}
+  .usage code{font-family:var(--mono);font-size:12px;background:var(--panel-2);border:1px solid var(--line);border-radius:4px;padding:0 5px}
+
+  footer{margin-top:18px;font-size:12.5px;color:var(--ink-3);text-align:center;line-height:1.7}
+
+  /* toast */
+  #toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(16px);
+    background:var(--ink);color:var(--bg);font-size:14px;font-weight:600;
+    padding:10px 20px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:50;
+    max-width:calc(100vw - 32px);text-align:center;
+  }
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media (prefers-reduced-motion: reduce){#toast{transition:none}.btn-primary:active{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>真实用户生成器</h1>
+    <p>为测试开发批量生成<b>自洽的假用户</b>：同一个人的姓名、用户名、邮箱互相对应，生日与年龄对应，地址的省 / 市 / 区互相对应。填同一个 Seed（随机种子），每次生成的都是同一批人，测出的 bug（程序错误）可以直接复现。</p>
+  </header>
+
+  <!-- ======== 控制区 ======== -->
+  <section class="panel" aria-label="生成设置">
+    <div class="panel-head">
+      <h2>生成设置</h2>
+      <span class="hint">全部在本地浏览器里生成，不经过任何服务器</span>
+    </div>
+    <div class="controls">
+
+      <div class="ctl-group">
+        <span class="ctl-label">生成数量</span>
+        <div class="seg" id="countSeg" role="group" aria-label="快捷数量">
+          <button type="button" data-count="1">1</button>
+          <button type="button" data-count="10" aria-pressed="true">10</button>
+          <button type="button" data-count="50">50</button>
+          <button type="button" data-count="100">100</button>
+        </div>
+        <div class="count-row">
+          <input type="number" id="countInput" min="1" max="500" value="10" aria-label="自定义数量" />
+          <span>条（1 – 500）</span>
+        </div>
+
+        <span class="ctl-label">Seed（随机种子）<span class="en"> — 相同种子 = 相同结果</span></span>
+        <div class="seed-row">
+          <input type="text" id="seedInput" placeholder="留空 = 每次随机" autocomplete="off" spellcheck="false" />
+          <button type="button" id="diceBtn" title="填入一个随机种子">🎲 随机种子</button>
+        </div>
+      </div>
+
+      <div class="ctl-group">
+        <span class="ctl-label">人群</span>
+        <div class="two-col">
+          <select id="genderSel" aria-label="性别">
+            <option value="random">性别：随机</option>
+            <option value="男">性别：全部男</option>
+            <option value="女">性别：全部女</option>
+          </select>
+          <select id="domainSel" aria-label="邮箱域名">
+            <option value="random">邮箱域名：随机</option>
+            <option value="example.com">example.com</option>
+            <option value="example.org">example.org</option>
+          </select>
+        </div>
+        <span class="ctl-label">年龄范围</span>
+        <div class="age-row">
+          <input type="number" id="ageMin" min="1" max="99" value="18" aria-label="最小年龄" />
+          <span>—</span>
+          <input type="number" id="ageMax" min="2" max="100" value="60" aria-label="最大年龄" />
+          <span>岁</span>
+        </div>
+        <span class="ctl-label">密码强度</span>
+        <select id="pwdSel" aria-label="密码强度">
+          <option value="strong">强：12 位，大小写 + 数字 + 符号</option>
+          <option value="medium">中：10 位，大小写 + 数字</option>
+          <option value="simple">简：8 位，小写 + 数字（方便手填）</option>
+        </select>
+      </div>
+
+      <div class="ctl-group" style="grid-column:1/-1">
+        <span class="ctl-label">包含字段 <span class="en">— 取消勾选的字段不会出现在表格和导出里</span></span>
+        <div class="fields" id="fieldBox"></div>
+      </div>
+
+      <div class="gen-row">
+        <button type="button" class="btn-primary" id="genBtn">生成用户</button>
+        <span class="gen-meta" id="genMeta"></span>
+      </div>
+    </div>
+    <p class="safe-note">邮箱只用 <b>example.com / example.org</b> 保留域名（RFC 2606 标准保留，永远不会投递到真人邮箱）；不生成身份证号、银行卡号等证件字段 —— 测注册、登录、列表、导入功能用不到它们。</p>
+  </section>
+
+  <!-- ======== 结果区 ======== -->
+  <section class="panel" aria-label="生成结果">
+    <div class="result-bar">
+      <div class="tabs" role="tablist" aria-label="结果视图">
+        <button type="button" role="tab" data-view="table" aria-selected="true">表格</button>
+        <button type="button" role="tab" data-view="json" aria-selected="false">JSON</button>
+        <button type="button" role="tab" data-view="csv" aria-selected="false">CSV</button>
+        <button type="button" role="tab" data-view="sql" aria-selected="false">SQL</button>
+      </div>
+      <div class="result-actions">
+        <button type="button" id="copyBtn">复制当前视图</button>
+        <button type="button" id="dlJson">下载 JSON</button>
+        <button type="button" id="dlCsv">下载 CSV</button>
+        <button type="button" id="dlSql" class="primary">下载 SQL</button>
+      </div>
+    </div>
+    <div class="stat-line" id="statLine"></div>
+    <div id="viewTable" class="table-scroll"></div>
+    <pre class="code" id="viewCode" hidden></pre>
+    <div class="empty" id="viewEmpty" hidden>还没有数据，点上面的「生成用户」开始。</div>
+  </section>
+
+  <!-- ======== 用法区 ======== -->
+  <section class="panel" aria-label="导出用法">
+    <div class="panel-head"><h2>导出后怎么用</h2></div>
+    <div class="usage">
+      <div>
+        <h3>JSON — 喂接口 / 前端 Mock（模拟数据）</h3>
+        <p>下载后放进项目当夹具（Fixture，测试固定数据），或用 <code>fetch</code> / Postman 批量 POST 到你的注册接口测压测和校验。</p>
+      </div>
+      <div>
+        <h3>CSV — Excel 看 / 后台批量导入</h3>
+        <p>带 UTF-8 BOM（字节顺序标记），Excel 双击打开不乱码；大多数管理后台的「批量导入用户」吃的也是这个格式。</p>
+      </div>
+      <div>
+        <h3>SQL — 直接灌进测试库</h3>
+        <p>生成的是 <code>INSERT INTO users (...)</code> 语句，默认表名 <code>users</code>，在导出文件里改成你的表名即可执行。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>生成逻辑参考 Faker（假数据生成库）的思路在本页内实现，数据池为中文姓名 / 城市 / 职业词库。<br />所有数据均为虚构，与真实个人无关。</footer>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ================= 种子随机数 ================= */
+function hashSeed(str){
+  var h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+  for (var i = 0; i < str.length; i++){
+    var ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (h2 >>> 0) * 4294967296 + (h1 >>> 0);
+}
+function RNG(seedStr){
+  var s = hashSeed(seedStr) % 4294967296;
+  this.next = function(){
+    s = (s + 0x6D2B79F5) >>> 0;
+    var t = s;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+RNG.prototype.int = function(min, max){ return min + Math.floor(this.next() * (max - min + 1)); };
+RNG.prototype.pick = function(arr){ return arr[Math.floor(this.next() * arr.length)]; };
+RNG.prototype.chance = function(p){ return this.next() < p; };
+RNG.prototype.shuffle = function(arr){
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--){
+    var j = Math.floor(this.next() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+};
+
+/* ================= 数据池 ================= */
+var SURNAMES = [
+  ["王","wang"],["李","li"],["张","zhang"],["刘","liu"],["陈","chen"],["杨","yang"],["黄","huang"],["周","zhou"],
+  ["吴","wu"],["徐","xu"],["孙","sun"],["胡","hu"],["朱","zhu"],["高","gao"],["林","lin"],["何","he"],
+  ["郭","guo"],["马","ma"],["罗","luo"],["梁","liang"],["宋","song"],["郑","zheng"],["谢","xie"],["韩","han"],
+  ["唐","tang"],["冯","feng"],["于","yu"],["董","dong"],["萧","xiao"],["程","cheng"],["曹","cao"],["袁","yuan"],
+  ["邓","deng"],["许","xu"],["傅","fu"],["沈","shen"],["曾","zeng"],["彭","peng"],["吕","lv"],["苏","su"],
+  ["卢","lu"],["蒋","jiang"],["蔡","cai"],["贾","jia"],["丁","ding"],["魏","wei"],["薛","xue"],["叶","ye"],
+  ["阎","yan"],["余","yu"],["潘","pan"],["杜","du"],["戴","dai"],["夏","xia"],["钟","zhong"],["汪","wang"]
+];
+var GIVEN_M = [
+  ["伟","wei"],["强","qiang"],["磊","lei"],["洋","yang"],["超","chao"],["勇","yong"],["杰","jie"],["涛","tao"],
+  ["明","ming"],["刚","gang"],["军","jun"],["峰","feng"],["亮","liang"],["文博","wenbo"],["子涵","zihan"],["浩然","haoran"],
+  ["宇航","yuhang"],["天宇","tianyu"],["俊杰","junjie"],["志强","zhiqiang"],["建国","jianguo"],["文杰","wenjie"],["子轩","zixuan"],["一鸣","yiming"],
+  ["嘉豪","jiahao"],["思远","siyuan"],["博文","bowen"],["晨阳","chenyang"],["泽宇","zeyu"],["睿","rui"],["皓","hao"],["凯","kai"]
+];
+var GIVEN_F = [
+  ["娜","na"],["敏","min"],["静","jing"],["丽","li"],["艳","yan"],["娟","juan"],["婷","ting"],["雪","xue"],
+  ["慧","hui"],["琳","lin"],["倩","qian"],["雨桐","yutong"],["子涵","zihan"],["欣怡","xinyi"],["诗涵","shihan"],["梦琪","mengqi"],
+  ["佳怡","jiayi"],["思颖","siying"],["晓彤","xiaotong"],["语嫣","yuyan"],["若曦","ruoxi"],["嘉欣","jiaxin"],["婉婷","wanting"],["梓萱","zixuan"],
+  ["一诺","yinuo"],["可馨","kexin"],["安然","anran"],["晴","qing"],["瑶","yao"],["萱","xuan"],["彤","tong"],["妍","yan"]
+];
+/* d 是 [区, 该区的路] 配对数组：先抽区，再从这个区自己的路里抽，地址才对得上 */
+var CITIES = [
+  {p:"北京市", c:"北京市", d:[["朝阳区",["望京街","建国路","朝阳北路"]],["海淀区",["中关村大街","学院路","万泉河路"]],["西城区",["阜成门外大街","西单北大街","德胜门外大街"]],["东城区",["东直门内大街","崇文门外大街","安定门外大街"]],["丰台区",["丰台北路","南三环西路","看丹路"]],["通州区",["新华大街","运河西大街","玉桥西路"]]]},
+  {p:"上海市", c:"上海市", d:[["浦东新区",["世纪大道","张杨路","金桥路"]],["徐汇区",["漕溪北路","淮海中路","天钥桥路"]],["长宁区",["长宁路","延安西路","天山路"]],["静安区",["南京西路","万航渡路","共和新路"]],["闵行区",["沪闵路","莘庄大道","七莘路"]],["杨浦区",["控江路","四平路","黄兴路"]]]},
+  {p:"广东省", c:"深圳市", d:[["南山区",["科技南路","南海大道","学府路"]],["福田区",["深南大道","华强北路","福华路"]],["罗湖区",["深南东路","东门中路","宝安南路"]],["宝安区",["宝安大道","新安一路","西乡大道"]],["龙岗区",["龙翔大道","龙岗大道","清林路"]],["龙华区",["民治大道","人民路","龙华大道"]]]},
+  {p:"广东省", c:"广州市", d:[["天河区",["天河路","黄埔大道西","天河北路"]],["越秀区",["中山三路","东风中路","环市东路"]],["海珠区",["江南大道","新港西路","昌岗中路"]],["番禺区",["市桥大街","迎宾路","汉溪大道"]],["白云区",["机场路","白云大道南","同和路"]],["黄埔区",["科学大道","开创大道","大沙地东路"]]]},
+  {p:"浙江省", c:"杭州市", d:[["西湖区",["文三路","文二路","古翠路"]],["滨江区",["江南大道","滨和路","月明路"]],["余杭区",["文一西路","五常大道","良睦路"]],["拱墅区",["莫干山路","湖墅南路","登云路"]],["上城区",["解放路","庆春路","望江路"]],["萧山区",["市心路","金城路","建设一路"]]]},
+  {p:"江苏省", c:"南京市", d:[["鼓楼区",["中山路","中央路","汉中路"]],["玄武区",["珠江路","长江路","板仓街"]],["秦淮区",["夫子庙大街","长乐路","中华路"]],["建邺区",["河西大街","江东中路","应天大街"]],["雨花台区",["软件大道","雨花西路","安德门大街"]],["栖霞区",["仙林大道","文苑路","学衡路"]]]},
+  {p:"江苏省", c:"苏州市", d:[["姑苏区",["干将路","人民路","道前街"]],["工业园区",["星海街","苏州大道东","金鸡湖大道"]],["虎丘区",["狮山路","滨河路","何山路"]],["吴中区",["吴中大道","宝带东路","石湖西路"]],["相城区",["相城大道","春申湖西路","黄埭大街"]]]},
+  {p:"四川省", c:"成都市", d:[["武侯区",["武侯祠大街","人民南路四段","高升桥路"]],["锦江区",["红星路","东大街","盐市口大街"]],["青羊区",["顺城大街","青羊大道","金河路"]],["高新区",["天府大道","益州大道","天府二街"]],["成华区",["建设路","双林路","万年场大街"]],["金牛区",["金牛大道","一环路北一段","营门口路"]]]},
+  {p:"湖北省", c:"武汉市", d:[["武昌区",["中南路","武珞路","徐东大街"]],["江汉区",["江汉路","解放大道","新华路"]],["洪山区",["珞喻路","关山大道","雄楚大道"]],["东西湖区",["临空港大道","金山大道","五环大道"]],["汉阳区",["鹦鹉大道","龙阳大道","汉阳大道"]]]},
+  {p:"陕西省", c:"西安市", d:[["雁塔区",["雁塔路","长安中路","小寨西路"]],["碑林区",["南大街","友谊西路","咸宁西路"]],["未央区",["凤城五路","未央路","文景路"]],["莲湖区",["西大街","劳动南路","桃园路"]],["长安区",["长安中路","西长安街","子午大道"]]]},
+  {p:"湖南省", c:"长沙市", d:[["岳麓区",["岳麓大道","枫林一路","麓山南路"]],["芙蓉区",["五一大道","韶山北路","解放西路"]],["天心区",["坡子街","湘江中路","芙蓉中路"]],["开福区",["湘江北路","芙蓉北路","开福寺路"]],["雨花区",["万家丽路","韶山中路","劳动东路"]]]},
+  {p:"河南省", c:"郑州市", d:[["金水区",["花园路","紫荆山路","文化路"]],["二七区",["二七路","大学北路","航海中路"]],["郑东新区",["商务外环路","商务内环路","平安大道"]],["中原区",["中原中路","桐柏路","建设西路"]],["管城区",["紫荆山路南段","城东路","商城路"]]]},
+  {p:"山东省", c:"青岛市", d:[["市南区",["香港中路","山东路","宁夏路"]],["市北区",["台东一路","延吉路","辽宁路"]],["崂山区",["松岭路","苗岭路","深圳路"]],["李沧区",["黑龙江中路","金水路","九水路"]],["黄岛区",["长江中路","香江路","井冈山路"]]]},
+  {p:"福建省", c:"厦门市", d:[["思明区",["湖滨南路","厦禾路","莲前西路"]],["湖里区",["吕岭路","嘉禾路","仙岳路"]],["集美区",["集源路","银江路","印斗路"]],["海沧区",["海沧大道","滨湖北路","嵩屿南路"]],["同安区",["环城西路","城南路","祥平大街"]]]},
+  {p:"重庆市", c:"重庆市", d:[["渝中区",["解放碑步行街","民生路","长江一路"]],["江北区",["观音桥步行街","建新北路","红黄路"]],["南岸区",["南滨路","江南大道","南坪西路"]],["渝北区",["新溉大道","龙溪路","金开大道"]],["九龙坡区",["杨家坪步行街","石杨路","陈家坪大街"]],["沙坪坝区",["三峡广场","小龙坎新街","大学城北路"]]]},
+  {p:"天津市", c:"天津市", d:[["和平区",["南京路","营口道","成都道"]],["南开区",["卫津路","白堤路","南开三马路"]],["河西区",["友谊路","大沽南路","围堤道"]],["滨海新区",["第二大街","黄海路","洞庭路"]],["西青区",["中北大道","津静路","杨柳青大街"]]]},
+  {p:"辽宁省", c:"沈阳市", d:[["和平区",["太原街","南京北街","中山路"]],["沈河区",["青年大街","中街路","奉天街"]],["皇姑区",["黄河南大街","昆山路","陵东街"]],["浑南区",["世纪路","浑南中路","营盘北街"]],["铁西区",["建设东路","兴华北街","北二中路"]]]},
+  {p:"安徽省", c:"合肥市", d:[["蜀山区",["长江西路","黄山路","潜山路"]],["庐阳区",["淮河路","长江中路","阜阳北路"]],["包河区",["马鞍山路","徽州大道","芜湖路"]],["瑶海区",["长江东路","站前路","铜陵北路"]],["高新区",["创新大道","望江西路","云飞路"]]]}
+];
+var JOBS = [
+  {t:"前端开发工程师", ind:"互联网"}, {t:"后端开发工程师", ind:"互联网"}, {t:"产品经理", ind:"互联网"},
+  {t:"UI 设计师", ind:"互联网"}, {t:"数据分析师", ind:"互联网"}, {t:"测试工程师", ind:"互联网"},
+  {t:"运维工程师", ind:"互联网"}, {t:"算法工程师", ind:"互联网"},
+  {t:"小学教师", ind:"教育"}, {t:"中学教师", ind:"教育"}, {t:"培训讲师", ind:"教育"},
+  {t:"护士", ind:"医疗"}, {t:"药剂师", ind:"医疗"}, {t:"临床医生", ind:"医疗"},
+  {t:"会计", ind:"金融"}, {t:"出纳", ind:"金融"}, {t:"银行柜员", ind:"金融"}, {t:"保险顾问", ind:"金融"},
+  {t:"销售经理", ind:"贸易"}, {t:"外贸专员", ind:"贸易"}, {t:"采购专员", ind:"贸易"},
+  {t:"人力资源专员", ind:"服务业"}, {t:"行政助理", ind:"服务业"}, {t:"客服主管", ind:"服务业"},
+  {t:"厨师", ind:"餐饮"}, {t:"餐厅店长", ind:"餐饮"},
+  {t:"快递员", ind:"物流"}, {t:"仓库管理员", ind:"物流"}, {t:"物流调度", ind:"物流"},
+  {t:"建筑工程师", ind:"建筑"}, {t:"室内设计师", ind:"建筑"}, {t:"施工员", ind:"建筑"},
+  {t:"电气工程师", ind:"制造业"}, {t:"质检员", ind:"制造业"}, {t:"生产主管", ind:"制造业"},
+  {t:"记者", ind:"传媒"}, {t:"新媒体编辑", ind:"传媒"}, {t:"摄影师", ind:"传媒"},
+  {t:"律师助理", ind:"法律"}, {t:"公务员", ind:"公共服务"}, {t:"自由职业者", ind:"其他"}
+];
+var COMPANY_A = ["云启","星野","蓝鲸","松果","橙子","北极光","山海","白鹭","青柠","飞鱼","鹿鸣","拾光","简云","木棉","星尘","远山","听涛","映雪"];
+var COMPANY_B = {
+  "互联网":"科技", "教育":"教育", "医疗":"医疗健康", "金融":"金融", "贸易":"商贸",
+  "服务业":"服务", "餐饮":"餐饮管理", "物流":"物流", "建筑":"建设", "制造业":"智能制造", "传媒":"文化传媒", "法律":"法律咨询", "公共服务":"", "其他":"工作室"
+};
+var COMPANY_SUFFIX = ["有限公司","股份有限公司","有限责任公司"];
+var PHONE_PREFIX = ["130","131","132","133","134","135","136","137","138","139","150","151","152","155","156","157","158","159","166","171","172","173","175","176","177","178","180","181","182","183","184","185","186","187","188","189","191","193","195","196","197","198","199"];
+var AVATAR_COLORS = ["#0d6e63","#2563eb","#b45309","#be3455","#5b5bd6","#0e7490","#a21caf","#4d7c0f","#c2410c","#334155","#7c2d12","#065f46"];
+
+/* ================= 字段定义 ================= */
+var FIELDS = [
+  {key:"id",           label:"ID",        en:"UUID（唯一编号）", def:true},
+  {key:"name",         label:"姓名",      en:"", def:true, locked:true},
+  {key:"gender",       label:"性别",      en:"", def:true},
+  {key:"birthday",     label:"生日",      en:"", def:true},
+  {key:"age",          label:"年龄",      en:"由生日自动算", def:true},
+  {key:"username",     label:"用户名",    en:"由姓名拼音拼", def:true},
+  {key:"email",        label:"邮箱",      en:"保留域名", def:true},
+  {key:"phone",        label:"手机号",    en:"", def:true},
+  {key:"province",     label:"省份",      en:"", def:true},
+  {key:"city",         label:"城市",      en:"", def:true},
+  {key:"address",      label:"详细地址",  en:"区 + 路 + 门牌", def:true},
+  {key:"job",          label:"职业",      en:"", def:true},
+  {key:"company",      label:"公司",      en:"与职业行业对应", def:true},
+  {key:"password",     label:"密码",      en:"明文，方便登录测试", def:true},
+  {key:"registeredAt", label:"注册时间",  en:"", def:true},
+  {key:"avatarColor",  label:"头像色块",  en:"导出为颜色值", def:true}
+];
+var SQL_COL = {id:"id", name:"name", gender:"gender", birthday:"birthday", age:"age", username:"username", email:"email", phone:"phone", province:"province", city:"city", address:"address", job:"job", company:"company", password:"password", registeredAt:"registered_at", avatarColor:"avatar_color"};
+
+/* ================= 工具函数 ================= */
+function pad(n){ return (n < 10 ? "0" : "") + n; }
+function fmtDate(d){ return d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate()); }
+function fmtDateTime(d){ return fmtDate(d) + " " + pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds()); }
+function calcAge(birth, now){
+  var a = now.getFullYear() - birth.getFullYear();
+  var m = now.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) a--;
+  return a;
+}
+function uuid(rng){
+  var b = [], i, s = "";
+  for (i = 0; i < 16; i++) b.push(rng.int(0, 255));
+  b[6] = (b[6] & 0x0f) | 0x40;
+  b[8] = (b[8] & 0x3f) | 0x80;
+  for (i = 0; i < 16; i++){
+    s += (b[i] < 16 ? "0" : "") + b[i].toString(16);
+    if (i === 3 || i === 5 || i === 7 || i === 9) s += "-";
+  }
+  return s;
+}
+function makePassword(rng, level){
+  var lower = "abcdefghjkmnpqrstuvwxyz", upper = "ABCDEFGHJKLMNPQRSTUVWXYZ", digit = "23456789", sym = "!@#$%^&*-_=+";
+  var pool, len, must = [];
+  if (level === "simple"){ pool = lower + digit; len = 8; must = [lower, digit]; }
+  else if (level === "medium"){ pool = lower + upper + digit; len = 10; must = [lower, upper, digit]; }
+  else { pool = lower + upper + digit + sym; len = 12; must = [lower, upper, digit, sym]; }
+  var chars = must.map(function(set){ return set[rng.int(0, set.length - 1)]; });
+  while (chars.length < len) chars.push(pool[rng.int(0, pool.length - 1)]);
+  return rng.shuffle(chars).join("");
+}
+
+/* ================= 生成一个用户 ================= */
+function genUser(rng, opts, used){
+  var gender = opts.gender === "random" ? (rng.chance(0.5) ? "男" : "女") : opts.gender;
+  var sur = rng.pick(SURNAMES);
+  var giv = rng.pick(gender === "男" ? GIVEN_M : GIVEN_F);
+  var name = sur[0] + giv[0];
+  var pyBase = sur[1] + giv[1];
+
+  /* 用户名：与姓名拼音对应，批次内不重复 */
+  var style = rng.int(0, 3), username;
+  if (style === 0) username = pyBase + rng.int(10, 99);
+  else if (style === 1) username = pyBase + "_" + rng.int(1, 999);
+  else if (style === 2) username = pyBase + rng.int(1000, 9999);
+  else username = sur[1] + "." + giv[1] + rng.int(1, 99);
+  var base = username, k = 1;
+  while (used.username[username]){ username = base + "_" + (k++); }
+  used.username[username] = true;
+
+  var domain = opts.domain === "random" ? rng.pick(["example.com", "example.org"]) : opts.domain;
+  var email = username + "@" + domain;
+
+  var phone, tries = 0;
+  do { phone = rng.pick(PHONE_PREFIX) + String(rng.int(10000000, 99999999)); tries++; }
+  while (used.phone[phone] && tries < 20);
+  used.phone[phone] = true;
+
+  /* 生日：先定年龄再倒推，保证年龄字段对得上 */
+  var now = new Date();
+  var ageTarget = rng.int(opts.ageMin, opts.ageMax);
+  var by = now.getFullYear() - ageTarget;
+  var birth = new Date(by, rng.int(0, 11), rng.int(1, 28));
+  if (calcAge(birth, now) > ageTarget) birth.setFullYear(by - 1);
+  if (calcAge(birth, now) < ageTarget) birth.setDate(birth.getDate() - rng.int(1, 200));
+  var age = calcAge(birth, now);
+
+  var loc = rng.pick(CITIES);
+  var dist = rng.pick(loc.d);
+  var roomNo = rng.int(1, 28) * 100 + rng.int(1, 4);
+  var address = dist[0] + rng.pick(dist[1]) + rng.int(1, 999) + "号" +
+    rng.int(1, 40) + "栋" + rng.int(1, 3) + "单元" + roomNo + "室";
+
+  var job = rng.pick(JOBS);
+  var company = "";
+  if (job.t === "公务员") company = loc.c + "人民政府办公室";
+  else if (job.t === "自由职业者") company = "自由职业";
+  else {
+    var bPart = COMPANY_B[job.ind] || "";
+    company = (rng.chance(0.55) ? loc.c.replace(/市$/, "") : "") + rng.pick(COMPANY_A) + bPart + (bPart === "工作室" ? "" : rng.pick(COMPANY_SUFFIX));
+  }
+
+  /* 注册时间：近 2 年内，且不早于 16 岁生日 */
+  var earliest = new Date(birth.getFullYear() + 16, birth.getMonth(), birth.getDate());
+  var from = Math.max(earliest.getTime(), now.getTime() - 730 * 864e5);
+  var reg = new Date(from + Math.floor(rng.next() * Math.max(1, now.getTime() - from)));
+
+  return {
+    id: uuid(rng),
+    name: name, gender: gender,
+    birthday: fmtDate(birth), age: age,
+    username: username, email: email, phone: phone,
+    province: loc.p, city: loc.c, address: address,
+    job: job.t, company: company,
+    password: makePassword(rng, opts.pwd),
+    registeredAt: fmtDateTime(reg),
+    avatarColor: rng.pick(AVATAR_COLORS)
+  };
+}
+
+/* ================= 导出序列化 ================= */
+function selectedFields(){
+  return FIELDS.filter(function(f){
+    var el = document.getElementById("fld_" + f.key);
+    return el && el.checked;
+  });
+}
+function project(users, fields){
+  return users.map(function(u){
+    var o = {};
+    fields.forEach(function(f){ o[f.key] = u[f.key]; });
+    return o;
+  });
+}
+function toJSON(users, fields){ return JSON.stringify(project(users, fields), null, 2); }
+function csvCell(v){
+  v = String(v == null ? "" : v);
+  return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+}
+function toCSV(users, fields){
+  var head = fields.map(function(f){ return csvCell(f.label); }).join(",");
+  var rows = users.map(function(u){
+    return fields.map(function(f){ return csvCell(u[f.key]); }).join(",");
+  });
+  return "﻿" + head + "\n" + rows.join("\n");
+}
+function sqlVal(v){
+  if (typeof v === "number") return String(v);
+  return "'" + String(v == null ? "" : v).replace(/'/g, "''") + "'";
+}
+function toSQL(users, fields){
+  var cols = fields.map(function(f){ return "`" + SQL_COL[f.key] + "`"; }).join(", ");
+  var lines = users.map(function(u){
+    return "INSERT INTO `users` (" + cols + ") VALUES (" + fields.map(function(f){ return sqlVal(u[f.key]); }).join(", ") + ");";
+  });
+  return lines.join("\n");
+}
+function serialize(users, fields, view){
+  if (view === "json") return toJSON(users, fields);
+  if (view === "csv") return toCSV(users, fields).replace(/^﻿/, "");
+  if (view === "sql") return toSQL(users, fields);
+  return "";
+}
+
+/* ================= 页面状态与渲染 ================= */
+var state = { users: [], seed: "", view: "table" };
+var $ = function(id){ return document.getElementById(id); };
+
+function buildFieldBox(){
+  var box = $("fieldBox");
+  FIELDS.forEach(function(f){
+    var label = document.createElement("label");
+    var cb = document.createElement("input");
+    cb.type = "checkbox"; cb.id = "fld_" + f.key; cb.checked = f.def;
+    if (f.locked){ cb.disabled = true; cb.checked = true; }
+    cb.addEventListener("change", render);
+    var span = document.createElement("span");
+    span.innerHTML = f.label + (f.en ? '<span class="fld-note">' + f.en + "</span>" : "");
+    label.appendChild(cb); label.appendChild(span);
+    box.appendChild(label);
+  });
+}
+
+function toast(msg){
+  var t = $("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.classList.remove("show"); }, 1900);
+}
+
+function render(){
+  var users = state.users, fields = selectedFields();
+  var tableBox = $("viewTable"), codeBox = $("viewCode"), empty = $("viewEmpty");
+  if (!users.length){
+    tableBox.innerHTML = ""; codeBox.hidden = true; empty.hidden = false;
+    $("statLine").textContent = "";
+    return;
+  }
+  empty.hidden = true;
+  $("statLine").innerHTML = "已生成 <b>" + users.length + "</b> 条 · Seed（随机种子）<code>" +
+    state.seed.replace(/</g, "&lt;") + "</code> · 含 " + fields.length + " 个字段";
+
+  if (state.view === "table"){
+    codeBox.hidden = true; tableBox.style.display = "";
+    var html = "<table><thead><tr>";
+    fields.forEach(function(f){ html += "<th" + (f.key === "id" || f.key === "email" ? ' class="mono"' : "") + ">" + f.label + "</th>"; });
+    html += "<th></th></tr></thead><tbody>";
+    users.forEach(function(u, idx){
+      html += "<tr>";
+      fields.forEach(function(f){
+        var v = u[f.key], cls = "", content;
+        if (f.key === "name"){
+          cls = "cell-person";
+          content = '<div class="person"><span class="avatar" style="background:' + u.avatarColor + '">' + u.name.charAt(0) +
+            '</span><span><span class="nm">' + u.name + '</span><br /><span class="un">@' + u.username + "</span></span></div>";
+          html += '<td class="' + cls + '" data-label="姓名">' + content + "</td>";
+          return;
+        }
+        if (f.key === "avatarColor"){
+          content = '<span class="avatar" style="background:' + v + ';width:26px;height:26px;border-radius:6px;display:inline-block;vertical-align:middle"></span> <span style="font-family:var(--mono);font-size:12px">' + v + "</span>";
+        } else if (f.key === "gender"){
+          content = '<span class="gender-tag">' + v + "</span>";
+        } else if (f.key === "id" || f.key === "email" || f.key === "password" || f.key === "username" || f.key === "phone"){
+          cls = "mono"; content = v;
+        } else if (f.key === "age" || f.key === "birthday" || f.key === "registeredAt"){
+          cls = "nowrap"; content = v;
+        } else content = v;
+        html += '<td class="' + cls + '" data-label="' + f.label + '">' + content + "</td>";
+      });
+      html += '<td class="cell-action"><button type="button" class="row-copy" data-row="' + idx + '">复制此行</button></td></tr>';
+    });
+    html += "</tbody></table>";
+    tableBox.innerHTML = html;
+    tableBox.querySelectorAll(".row-copy").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var u = users[Number(btn.getAttribute("data-row"))];
+        copyText(JSON.stringify(project([u], fields)[0], null, 2));
+        toast("已复制 " + u.name + " 的整行数据（JSON）");
+      });
+    });
+  } else {
+    tableBox.style.display = "none"; codeBox.hidden = false;
+    codeBox.textContent = serialize(users, fields, state.view);
+  }
+}
+
+function generate(){
+  var count = parseInt($("countInput").value, 10);
+  if (isNaN(count) || count < 1) count = 1;
+  if (count > 500){ count = 500; $("countInput").value = 500; }
+  var ageMin = parseInt($("ageMin").value, 10), ageMax = parseInt($("ageMax").value, 10);
+  if (isNaN(ageMin) || ageMin < 1) ageMin = 1;
+  if (isNaN(ageMax) || ageMax <= ageMin) ageMax = ageMin + 1;
+  if (ageMax > 100) ageMax = 100;
+
+  var seed = $("seedInput").value.trim();
+  if (!seed){
+    seed = "seed-" + Math.floor(Math.random() * 900000 + 100000);
+    $("seedInput").value = seed;
+  }
+  state.seed = seed;
+
+  var rng = new RNG(seed);
+  var opts = {
+    gender: $("genderSel").value, domain: $("domainSel").value,
+    ageMin: ageMin, ageMax: ageMax, pwd: $("pwdSel").value
+  };
+  var used = { username: {}, phone: {} };
+  var users = [];
+  for (var i = 0; i < count; i++) users.push(genUser(rng, opts, used));
+  state.users = users;
+
+  $("genMeta").innerHTML = "本次种子 <code>" + seed.replace(/</g, "&lt;") + "</code> —— 把它记下来，下次填回来就能生成同一批人";
+  render();
+  toast("已生成 " + count + " 条用户");
+}
+
+function copyText(text){
+  function fallback(){
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){}, fallback);
+  } else fallback();
+}
+
+function download(filename, text, mime){
+  var blob = new Blob([text], { type: mime + ";charset=utf-8" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 800);
+}
+function stamp(){
+  var d = new Date();
+  return d.getFullYear() + pad(d.getMonth()+1) + pad(d.getDate()) + "-" + pad(d.getHours()) + pad(d.getMinutes());
+}
+
+/* ================= 事件绑定 ================= */
+document.querySelectorAll("#countSeg button").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    document.querySelectorAll("#countSeg button").forEach(function(b){ b.setAttribute("aria-pressed", "false"); });
+    btn.setAttribute("aria-pressed", "true");
+    $("countInput").value = btn.getAttribute("data-count");
+  });
+});
+$("countInput").addEventListener("input", function(){
+  var v = $("countInput").value;
+  document.querySelectorAll("#countSeg button").forEach(function(b){
+    b.setAttribute("aria-pressed", b.getAttribute("data-count") === v ? "true" : "false");
+  });
+});
+$("diceBtn").addEventListener("click", function(){
+  var words = ["test", "dev", "demo", "qa", "mock", "alpha", "beta", "user"];
+  $("seedInput").value = words[Math.floor(Math.random() * words.length)] + "-" + Math.floor(Math.random() * 9000 + 1000);
+  toast("已填入随机种子，点「生成用户」生效");
+});
+$("genBtn").addEventListener("click", generate);
+
+document.querySelectorAll(".tabs button").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    document.querySelectorAll(".tabs button").forEach(function(b){ b.setAttribute("aria-selected", "false"); });
+    btn.setAttribute("aria-selected", "true");
+    state.view = btn.getAttribute("data-view");
+    render();
+  });
+});
+$("copyBtn").addEventListener("click", function(){
+  if (!state.users.length){ toast("先生成一批用户再复制"); return; }
+  var fields = selectedFields();
+  var text = state.view === "table" ? toJSON(state.users, fields) : serialize(state.users, fields, state.view);
+  copyText(text);
+  toast(state.view === "table" ? "已复制全部数据（JSON 格式）" : "已复制当前视图内容");
+});
+$("dlJson").addEventListener("click", function(){
+  if (!state.users.length){ toast("先生成一批用户再下载"); return; }
+  download("test-users-" + stamp() + ".json", toJSON(state.users, selectedFields()), "application/json");
+});
+$("dlCsv").addEventListener("click", function(){
+  if (!state.users.length){ toast("先生成一批用户再下载"); return; }
+  download("test-users-" + stamp() + ".csv", toCSV(state.users, selectedFields()), "text/csv");
+});
+$("dlSql").addEventListener("click", function(){
+  if (!state.users.length){ toast("先生成一批用户再下载"); return; }
+  download("test-users-" + stamp() + ".sql", toSQL(state.users, selectedFields()), "text/plain");
+});
+
+/* 首次进入：用固定种子预生成 10 条，进来就能看到效果 */
+buildFieldBox();
+$("seedInput").value = "demo-2026";
+generate();
+</script>
+</body>
+</html>
