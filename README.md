@@ -1,6 +1,6 @@
-# CCGH101.github.io
+# 工具站
 
-个人工具站，地址：https://ccgh101.github.io/
+个人工具站，地址：https://bea27.loc.cc/
 
 ## 工具
 
