@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>C站 Krea2 热门新图 · 小工具</title>
+<style>
+  :root{
+    --bg:#fffaf5; --surface:#ffffff; --surface-2:#ffefe3;
+    --ink:#221407; --ink-2:#7a5a44; --ink-3:#b08a6d;
+    --line:#f3ddcb; --accent:#e85d04; --accent-deep:#c24e02; --accent-ink:#ffffff;
+    --serif:Georgia,"Times New Roman","Songti SC","STSong","Noto Serif SC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55}
+  button{min-height:2.25rem}
+  button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .wrap{max-width:1180px;margin:0 auto;padding:36px 16px 72px}
+
+  .back{display:inline-block;color:var(--ink-2);text-decoration:none;font-size:13.5px;margin-bottom:18px}
+  .back:hover{color:var(--accent-deep)}
+  header.top{padding-bottom:20px;border-bottom:2px solid var(--accent)}
+  .brand{font-size:12px;letter-spacing:.35em;color:var(--accent);font-weight:700}
+  h1{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1.3;margin:10px 0 8px}
+  .sub{color:var(--ink-2);font-size:14px;margin:0;max-width:70ch}
+  .sub .upd{color:var(--ink-3)}
+
+  /* ---------- 控制区 ---------- */
+  .controls{position:sticky;top:0;z-index:40;background:var(--bg);padding:14px 0 10px;border-bottom:1px solid var(--line)}
+  .searchrow{display:flex;gap:8px;align-items:stretch}
+  .searchbox{flex:1;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:0 14px;min-height:42px}
+  .searchbox svg{flex:none;color:var(--ink-3)}
+  .searchbox input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:14px;color:var(--ink);min-height:40px}
+  .searchbox input:focus{outline:none}
+  .searchbox .clear{border:0;background:transparent;color:var(--ink-3);cursor:pointer;font-size:14px;padding:4px 6px;min-height:32px;display:none}
+  .seg{display:flex;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px}
+  .seg button{border:0;background:transparent;font:inherit;font-size:13.5px;color:var(--ink-2);border-radius:999px;padding:6px 14px;cursor:pointer;min-height:34px;white-space:nowrap}
+  .seg button[aria-pressed="true"]{background:var(--accent);color:#fff;font-weight:600}
+  .chiprow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;align-items:center}
+  .chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:13px;border-radius:999px;padding:5px 12px;cursor:pointer;min-height:32px;line-height:1.2}
+  .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .chip.toggle[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
+  .note{color:var(--ink-3);font-size:12.5px;margin:10px 0 0}
+
+  /* ---------- 榜首 ---------- */
+  .hero{margin:18px 0 4px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .hero .imgwrap{position:relative;background:#1c1108;cursor:pointer}
+  .hero img{display:block;width:100%;max-height:62vh;object-fit:contain}
+  .badge{position:absolute;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.6)}
+  .badge.rank{left:12px;bottom:12px;background:var(--accent);font-family:var(--serif)}
+  .badge.model{right:12px;top:12px}
+  .hero .meta{padding:14px 16px 16px}
+  .hero .user{font-size:15px;font-weight:600}
+  .promptprev{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);margin:6px 0 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.6}
+
+  /* ---------- 瀑布流卡片 ---------- */
+  .grid{columns:2;column-gap:12px;margin-top:14px}
+  @media (min-width:640px){.grid{columns:3}}
+  @media (min-width:1024px){.grid{columns:4}}
+  .card{break-inside:avoid;margin-bottom:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .card .imgwrap{position:relative;background:var(--surface-2);cursor:pointer}
+  .card .imgwrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .card .imgfail{position:absolute;inset:0;display:grid;place-items:center;color:var(--ink-3);font-size:13px;padding:0 12px;text-align:center}
+  .card .badge{font-size:11px;padding:1px 6px}
+  .card .badge.rank{left:8px;top:8px;bottom:auto}
+  .card .badge.model{right:8px;top:8px}
+  .card .badge.castle{left:8px;bottom:8px}
+  .card .body{padding:10px 12px 12px}
+  .card .userrow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .card .user{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .iconbtns{display:flex;gap:2px;flex:none}
+  .iconbtn{display:grid;place-items:center;width:36px;height:36px;border:0;background:transparent;border-radius:999px;color:var(--ink-2);cursor:pointer;text-decoration:none}
+  .iconbtn:hover{background:var(--surface-2);color:var(--ink)}
+  .iconbtn.faved{color:var(--accent)}
+  .stats{display:flex;gap:12px;color:var(--ink-3);font-size:12px;margin-top:2px}
+  .stats span{display:inline-flex;align-items:center;gap:4px}
+  .card .noprompt{font-size:11px;color:var(--ink-3);margin:6px 0 0}
+  .btnrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .pill{display:inline-flex;align-items:center;gap:6px;border:0;background:var(--surface-2);color:var(--ink);font:inherit;font-size:12px;font-weight:600;border-radius:999px;padding:6px 12px;cursor:pointer;min-height:32px;text-decoration:none}
+  .pill:hover{background:#ffe3d1}
+  .pill.accent{color:var(--accent-deep)}
+
+  /* ---------- 分页 / 状态 ---------- */
+  .pager{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:26px}
+  .pager button{border:1px solid var(--line);background:var(--surface);font:inherit;font-size:13.5px;border-radius:999px;padding:8px 18px;cursor:pointer;min-height:38px}
+  .pager button:disabled{opacity:.4;cursor:default}
+  .pager .info{color:var(--ink-2);font-size:13px}
+  .empty{text-align:center;padding:64px 16px;color:var(--ink-2)}
+  .empty .big{font-family:var(--serif);font-size:20px;color:var(--ink);margin:0 0 6px}
+  .empty p{font-size:13px;color:var(--ink-3);margin:0}
+
+  /* ---------- 详情 ---------- */
+  .overlay{position:fixed;inset:0;z-index:80;background:rgba(20,10,2,.62);display:none;align-items:flex-end;justify-content:center}
+  .overlay.open{display:flex}
+  @media (min-width:720px){.overlay{align-items:center;padding:24px}}
+  .sheet{background:var(--surface);width:100%;max-width:1020px;max-height:94dvh;overflow-y:auto;border-radius:18px 18px 0 0}
+  @media (min-width:720px){.sheet{border-radius:18px}}
+  .sheet .cols{display:grid}
+  @media (min-width:720px){.sheet .cols{grid-template-columns:1fr 1fr}}
+  .sheet .imgcol{position:relative;background:#1c1108}
+  .sheet .imgcol img{display:block;width:100%;max-height:52dvh;object-fit:contain}
+  @media (min-width:720px){.sheet .imgcol img{height:100%;max-height:94dvh}}
+  .navbtn{position:absolute;top:12px;width:36px;height:36px;border:0;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;font-size:18px;cursor:pointer;display:grid;place-items:center}
+  .navbtn.prev{left:12px}.navbtn.next{left:56px}
+  .navbtn:disabled{opacity:.3}
+  .sheet .datacol{padding:18px}
+  .sheet h2{font-family:var(--serif);font-size:19px;margin:0;line-height:1.35;word-break:break-all}
+  .sheet .subline{color:var(--ink-2);font-size:13px;margin-top:3px}
+  .closebtn{float:right;width:36px;height:36px;border:0;border-radius:999px;background:var(--surface-2);color:var(--ink);cursor:pointer;font-size:14px}
+  .actrow{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:999px;font:inherit;font-size:14px;font-weight:600;padding:9px 16px;min-height:42px;cursor:pointer;text-decoration:none;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;flex:1}
+  .btn.primary:hover{background:var(--accent-deep)}
+  .btn.dark{background:var(--ink);border-color:var(--ink);color:var(--bg);flex:1}
+  .btn.faved{background:var(--surface-2);color:var(--accent-deep)}
+  .secttl{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--ink-3);margin:20px 0 8px}
+  .reschips{display:flex;gap:6px;flex-wrap:wrap}
+  .reschip{background:var(--surface-2);border-radius:999px;padding:4px 10px;font-size:12px}
+  .metagrid{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;font-size:12.5px;color:var(--ink-2)}
+  .metagrid b{color:var(--ink);font-weight:600}
+  .promptbox{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre-wrap;word-break:break-word;max-height:260px;overflow-y:auto}
+  .promptbox.neg{color:var(--ink-2);max-height:140px}
+  .copybtn{margin-top:10px;width:100%}
+
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);font-size:13.5px;padding:10px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:99;max-width:88vw;text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  footer{margin-top:56px;color:var(--ink-3);font-size:13px}
+  footer a{color:var(--ink-2)}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="back" href="index.html">← 返回小工具</a>
+    <header class="top">
+      <div class="brand">CIVITAI · KREA 2</div>
+      <h1>C站 Krea2 热门新图</h1>
+      <p class="sub">每天自动从 Civitai 拉取 Krea 2 / Krea 2 Turbo 的日、周、月热门榜（按 Most Reactions 排序），图和提示词都是作者公开的原版，点开就能复制提示词喂回 Krea 2。图片均为 Civitai 官方 CDN 直链，下载、打开原图都和普通网站一样。<span class="upd" id="upd"></span></p>
+    </header>
+
+    <div class="controls">
+      <div class="searchrow">
+        <label class="searchbox">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="q" type="search" placeholder="搜提示词关键词、作者…如 portrait" aria-label="搜索榜单" />
+          <button class="clear" id="qclear" type="button" aria-label="清除搜索">✕</button>
+        </label>
+        <div class="seg" role="tablist" aria-label="视图切换">
+          <button type="button" id="view-feed" aria-pressed="true">榜单</button>
+          <button type="button" id="view-fav" aria-pressed="false">我的收藏</button>
+        </div>
+      </div>
+      <div class="chiprow" id="periodrow">
+        <div class="seg" role="tablist" aria-label="榜单周期" id="periods"></div>
+      </div>
+      <div class="chiprow" id="filterrow">
+        <button type="button" class="chip toggle" id="castle" aria-pressed="true">去城堡</button>
+        <span id="modelchips"></span>
+        <span id="sortchips"></span>
+      </div>
+      <p class="note" id="filternote"></p>
+    </div>
+
+    <section id="hero"></section>
+    <div class="grid" id="grid" aria-live="polite"></div>
+    <div class="empty" id="empty" style="display:none">
+      <p class="big" id="empty-title">没有符合条件的图</p>
+      <p id="empty-desc">换个关键词、关掉去城堡或清掉模型筛选试试</p>
+    </div>
+    <nav class="pager" id="pager" style="display:none">
+      <button type="button" id="prev">← 上一页</button>
+      <span class="info" id="pageinfo"></span>
+      <button type="button" id="next">下一页 →</button>
+    </nav>
+
+    <footer>数据来源：<a href="https://civitai.com" target="_blank" rel="noopener">Civitai</a> 公开榜单，每日自动更新；图片版权归原作者所有。© 2026</footer>
+  </main>
+
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true">
+    <div class="sheet" id="sheet"></div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+var PAGE_SIZE = 24;
+var FAV_KEY = "civitai-krea2-favorites";
+var PERIODS = [ {v:"day",label:"今日榜"}, {v:"week",label:"本周榜"}, {v:"month",label:"本月榜"} ];
+var SORTS = [ {v:"rank",label:"热度名次"}, {v:"newest",label:"最新发布"}, {v:"hearts",label:"最多爱心"}, {v:"comments",label:"最多评论"} ];
+var MODELS = ["", "Krea 2", "Krea 2 Turbo"];
+
+var state = {
+  data: null, view: "feed", period: "day", sort: "rank",
+  baseModel: "", hideCastles: true, q: "", page: 1,
+  favs: loadFavs(), selectedId: null
+};
+
+function loadFavs() {
+  try {
+    var v = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+    return Array.isArray(v) ? v.filter(function(x){ return typeof x === "number"; }) : [];
+  } catch (e) { return []; }
+}
+function saveFavs() {
+  try { localStorage.setItem(FAV_KEY, JSON.stringify(state.favs)); } catch (e) {}
+}
+function isFav(id) { return state.favs.indexOf(id) >= 0; }
+function toggleFav(id) {
+  var i = state.favs.indexOf(id);
+  if (i >= 0) { state.favs.splice(i, 1); notify("已取消收藏"); }
+  else { state.favs.unshift(id); notify("已加入我的收藏"); }
+  saveFavs(); render();
+  if (state.selectedId != null) renderDetail();
+}
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function(c) {
+    return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c];
+  });
+}
+function fmtDay(iso) {
+  var d = new Date(iso);
+  return isNaN(d.getTime()) ? "" : (d.getMonth() + 1) + "月" + d.getDate() + "日";
+}
+function fmtTime(iso) {
+  var d = new Date(iso);
+  if (isNaN(d.getTime())) return "";
+  function p(n){ return String(n).padStart(2, "0"); }
+  return (d.getMonth() + 1) + "月" + d.getDate() + "日 " + p(d.getHours()) + ":" + p(d.getMinutes());
+}
+function downloadFilename(item) {
+  var u = (item.username || "civitai").replace(/[^\w.-]+/g, "_").slice(0, 40) || "civitai";
+  return "krea2-" + item.civitaiId + "-" + u + ".jpg";
+}
+var toastTimer = null;
+function notify(msg) {
+  var t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 1900);
+}
+function copyText(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text).then(function(){ return true; }, function(){ return fallbackCopy(text); });
+  }
+  return Promise.resolve(fallbackCopy(text));
+}
+function fallbackCopy(text) {
+  try {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    var ok = document.execCommand("copy");
+    document.body.removeChild(ta); return ok;
+  } catch (e) { return false; }
+}
+function copyPrompt(item, neg) {
+  var text = neg ? item.negativePrompt : item.prompt;
+  if (!text) return;
+  copyText(text).then(function(ok) {
+    notify(ok ? ("已复制" + (neg ? "负面提示词" : "提示词") + "，去 Krea 粘贴出图") : "复制失败，请长按文本手动复制");
+  });
+}
+
+var ICON_HEART = function(filled, size) {
+  return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="' + (filled ? "var(--accent)" : "none") + '" stroke="' + (filled ? "var(--accent)" : "currentColor") + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>';
+};
+var ICON_DL = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>';
+var ICON_COPY = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
+var ICON_EXT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>';
+var ICON_THUMB = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>';
+var ICON_COMMENT = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>';
+
+function statsHtml(item) {
+  return '<div class="stats"><span>' + ICON_THUMB + item.likeCount.toLocaleString() + '</span>' +
+    '<span>' + ICON_HEART(false, 13) + item.heartCount.toLocaleString() + '</span>' +
+    '<span>' + ICON_COMMENT + item.commentCount.toLocaleString() + '</span></div>';
+}
+function rankOf(item) { return item.ranks ? item.ranks[state.period] : null; }
+
+function currentList() {
+  if (!state.data) return [];
+  var items;
+  if (state.view === "fav") {
+    var byId = {};
+    state.data.items.forEach(function(i){ byId[i.civitaiId] = i; });
+    items = state.favs.map(function(id){ return byId[id]; }).filter(Boolean);
+    if (state.hideCastles) items = items.filter(function(i){ return !i.isCastle; });
+  } else {
+    items = state.data.items.filter(function(i){ return i.ranks && i.ranks[state.period] != null; });
+    items.sort(function(a, b){ return a.ranks[state.period] - b.ranks[state.period]; });
+    if (state.hideCastles) items = items.filter(function(i){ return !i.isCastle; });
+    if (state.baseModel) items = items.filter(function(i){ return i.baseModel === state.baseModel; });
+  }
+  var q = state.q.trim().toLowerCase();
+  if (q) {
+    items = items.filter(function(i) {
+      return ((i.username || "") + " " + (i.prompt || "") + " " + (i.baseModel || "")).toLowerCase().indexOf(q) >= 0;
+    });
+  }
+  if (state.view === "feed") {
+    if (state.sort === "newest") items = items.slice().sort(function(a, b){ return new Date(b.createdAt) - new Date(a.createdAt); });
+    else if (state.sort === "hearts") items = items.slice().sort(function(a, b){ return b.heartCount - a.heartCount; });
+    else if (state.sort === "comments") items = items.slice().sort(function(a, b){ return b.commentCount - a.commentCount; });
+  }
+  return items;
+}
+
+function heroItem(list) {
+  if (state.view !== "feed" || state.page !== 1 || state.sort !== "rank" || state.q || state.baseModel) return null;
+  return list.length ? list[0] : null;
+}
+
+function cardHtml(item, priority) {
+  var rank = state.view === "feed" ? rankOf(item) : null;
+  var fav = isFav(item.civitaiId);
+  var h = '<article class="card">' +
+    '<div class="imgwrap" data-open="' + item.civitaiId + '" style="aspect-ratio:' + item.width + '/' + item.height + '" role="button" aria-label="查看大图和生成提示词：@' + esc(item.username) + ' 的作品">' +
+      '<img src="' + esc(item.thumbUrl) + '" alt="@' + esc(item.username) + ' 用 ' + esc(item.baseModel) + ' 生成的图" loading="' + (priority ? "eager" : "lazy") + '" decoding="async" onerror="imgFail(this)">' +
+      (rank != null ? '<span class="badge rank">#' + rank + '</span>' : '') +
+      '<span class="badge model">' + esc(item.baseModel) + '</span>' +
+      (item.isCastle ? '<span class="badge castle">城堡题材</span>' : '') +
+    '</div>' +
+    '<div class="body">' +
+      '<div class="userrow"><span class="user">@' + esc(item.username) + '</span>' +
+        '<span class="iconbtns">' +
+          '<a class="iconbtn" href="' + esc(item.sourceUrl) + '" download="' + esc(downloadFilename(item)) + '" aria-label="下载 @' + esc(item.username) + ' 的图片">' + ICON_DL + '</a>' +
+          '<button type="button" class="iconbtn' + (fav ? " faved" : "") + '" data-fav="' + item.civitaiId + '" aria-pressed="' + fav + '" aria-label="' + (fav ? "取消收藏" : "收藏") + ' @' + esc(item.username) + ' 的作品">' + ICON_HEART(fav, 19) + '</button>' +
+        '</span></div>' +
+      statsHtml(item);
+  if (item.prompt) {
+    h += '<p class="promptprev">' + esc(item.prompt) + '</p>' +
+      '<div class="btnrow">' +
+        '<button type="button" class="pill accent" data-copy="' + item.civitaiId + '">' + ICON_COPY + '复制提示词</button>' +
+        '<a class="pill" href="' + esc(item.sourceUrl) + '" download="' + esc(downloadFilename(item)) + '">' + ICON_DL + '下载图片</a>' +
+      '</div>';
+  } else {
+    h += '<p class="noprompt">作者未公开提示词</p>' +
+      '<div class="btnrow"><a class="pill" href="' + esc(item.sourceUrl) + '" download="' + esc(downloadFilename(item)) + '">' + ICON_DL + '下载图片</a></div>';
+  }
+  return h + '</div></article>';
+}
+function imgFail(img) {
+  var d = document.createElement("div");
+  d.className = "imgfail"; d.textContent = "图片加载失败，点开看原帖";
+  img.replaceWith(d);
+}
+
+function renderControls() {
+  var counts = state.data ? state.data.counts : { day: {total:0,castles:0}, week: {total:0,castles:0}, month: {total:0,castles:0} };
+  document.getElementById("periods").innerHTML = PERIODS.map(function(p) {
+    var c = counts[p.v] ? counts[p.v].total : 0;
+    return '<button type="button" data-period="' + p.v + '" aria-pressed="' + (state.period === p.v) + '">' + p.label + (c ? " " + c : "") + '</button>';
+  }).join("");
+  document.getElementById("modelchips").innerHTML = MODELS.map(function(m) {
+    var label = m === "" ? "全部模型" : m;
+    return '<button type="button" class="chip" data-model="' + esc(m) + '" aria-pressed="' + (state.baseModel === m) + '">' + label + '</button>';
+  }).join(" ");
+  document.getElementById("sortchips").innerHTML = SORTS.map(function(s) {
+    return '<button type="button" class="chip" data-sort="' + s.v + '" aria-pressed="' + (state.sort === s.v) + '">' + s.label + '</button>';
+  }).join(" ");
+  var castleBtn = document.getElementById("castle");
+  var bc = counts[state.period] ? counts[state.period].castles : 0;
+  castleBtn.setAttribute("aria-pressed", String(state.hideCastles));
+  castleBtn.textContent = "去城堡" + (bc > 0 ? " · 已滤 " + bc : "");
+  document.getElementById("view-feed").setAttribute("aria-pressed", String(state.view === "feed"));
+  var favBtn = document.getElementById("view-fav");
+  favBtn.setAttribute("aria-pressed", String(state.view === "fav"));
+  favBtn.textContent = "我的收藏" + (state.favs.length ? " " + state.favs.length : "");
+  document.getElementById("periodrow").style.display = state.view === "fav" ? "none" : "";
+  document.getElementById("filternote").textContent =
+    state.view === "fav" ? "收藏保存在这台设备的浏览器里，换设备不会同步；已掉出当前榜单的图不在每日数据里，收藏会随之消失。" :
+    state.hideCastles ? "城堡竞赛图已按提示词过滤（本榜 " + bc + " 张）；作者没公开提示词的图无法判定题材，会照常显示。" :
+    "城堡过滤已关，本榜 " + (counts[state.period] ? counts[state.period].total : 0) + " 张全显示。";
+}
+
+function render() {
+  renderControls();
+  var list = currentList();
+  var hero = heroItem(list);
+  var heroEl = document.getElementById("hero");
+  if (hero) {
+    var label = hero.ranks[state.period] === 1
+      ? (state.period === "day" ? "今日" : state.period === "week" ? "本周" : "本月") + " #1"
+      : (state.hideCastles && !hero.prompt ? "原榜 #" + hero.ranks[state.period] + " · 未公开提示词，题材未判定" : "去城堡后榜首 · 原榜 #" + hero.ranks[state.period]);
+    heroEl.innerHTML = '<div class="hero">' +
+      '<div class="imgwrap" data-open="' + hero.civitaiId + '" role="button" aria-label="查看榜首大图：@' + esc(hero.username) + ' 的作品">' +
+        '<img src="' + esc(hero.largeUrl) + '" alt="榜首：@' + esc(hero.username) + ' 用 ' + esc(hero.baseModel) + ' 生成的图" loading="eager" decoding="async" onerror="imgFail(this)">' +
+        '<span class="badge rank">' + esc(label) + '</span><span class="badge model">' + esc(hero.baseModel) + '</span>' +
+      '</div>' +
+      '<div class="meta"><div class="userrow" style="display:flex;align-items:center;justify-content:space-between;gap:8px">' +
+        '<span class="user">@' + esc(hero.username) + '</span>' +
+        '<span class="iconbtns">' +
+          '<a class="iconbtn" href="' + esc(hero.sourceUrl) + '" download="' + esc(downloadFilename(hero)) + '" aria-label="下载榜首图片">' + ICON_DL + '</a>' +
+          '<button type="button" class="iconbtn' + (isFav(hero.civitaiId) ? " faved" : "") + '" data-fav="' + hero.civitaiId + '" aria-pressed="' + isFav(hero.civitaiId) + '" aria-label="收藏榜首">' + ICON_HEART(isFav(hero.civitaiId), 19) + '</button>' +
+        '</span></div>' +
+        statsHtml(hero) +
+        (hero.prompt ? '<p class="promptprev">' + esc(hero.prompt) + '</p>' : '<p class="noprompt">作者未公开提示词</p>') +
+        '<div class="btnrow">' +
+          (hero.prompt ? '<button type="button" class="pill accent" data-copy="' + hero.civitaiId + '">' + ICON_COPY + '复制提示词</button>' : '') +
+          '<a class="pill" href="' + esc(hero.sourceUrl) + '" download="' + esc(downloadFilename(hero)) + '">' + ICON_DL + '下载图片</a>' +
+          '<a class="pill" href="' + esc(hero.sourceUrl) + '" target="_blank" rel="noopener">' + ICON_EXT + '打开原图</a>' +
+        '</div>' +
+      '</div></div>';
+  } else {
+    heroEl.innerHTML = "";
+  }
+
+  var pageCount = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+  if (state.page > pageCount) state.page = pageCount;
+  var pageItems = state.view === "fav" ? list : list.slice((state.page - 1) * PAGE_SIZE, state.page * PAGE_SIZE);
+  document.getElementById("grid").innerHTML = pageItems.map(function(item, i){ return cardHtml(item, i < 6); }).join("");
+
+  var empty = document.getElementById("empty");
+  if (list.length === 0) {
+    empty.style.display = "";
+    document.getElementById("empty-title").textContent = state.view === "fav" ? "还没有收藏" : "没有符合条件的图";
+    document.getElementById("empty-desc").textContent = state.view === "fav" ? "在榜单里点图片右上角的爱心就能收藏到这里" : "换个关键词、关掉去城堡或清掉模型筛选试试";
+  } else empty.style.display = "none";
+
+  var pager = document.getElementById("pager");
+  if (state.view === "feed" && list.length > PAGE_SIZE) {
+    pager.style.display = "";
+    document.getElementById("pageinfo").textContent = "第 " + state.page + " / " + pageCount + " 页 · 共 " + list.length + " 张";
+    document.getElementById("prev").disabled = state.page <= 1;
+    document.getElementById("next").disabled = state.page >= pageCount;
+  } else pager.style.display = "none";
+}
+
+/* ------------------------------- 详情 ------------------------------- */
+function detailList() { return currentList(); }
+function openDetail(id) {
+  state.selectedId = id;
+  renderDetail();
+  document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeDetail() {
+  state.selectedId = null;
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+function stepDetail(dir) {
+  var list = detailList();
+  var idx = list.findIndex(function(i){ return i.civitaiId === state.selectedId; });
+  var n = idx + dir;
+  if (idx >= 0 && n >= 0 && n < list.length) { state.selectedId = list[n].civitaiId; renderDetail(); }
+}
+function renderDetail() {
+  if (!state.data || state.selectedId == null) return;
+  var item = null;
+  state.data.items.forEach(function(i){ if (i.civitaiId === state.selectedId) item = i; });
+  if (!item) { closeDetail(); return; }
+  var list = detailList();
+  var idx = list.findIndex(function(i){ return i.civitaiId === item.civitaiId; });
+  var fav = isFav(item.civitaiId);
+  var metaBits = [];
+  if (item.seed) metaBits.push(["Seed", item.seed]);
+  if (item.steps != null) metaBits.push(["Steps", String(item.steps)]);
+  if (item.sampler) metaBits.push(["Sampler", item.sampler]);
+  if (item.cfgScale) metaBits.push(["CFG", item.cfgScale]);
+  metaBits.push(["尺寸", item.width + "×" + item.height]);
+
+  var h = '<div class="cols">' +
+    '<div class="imgcol">' +
+      '<img src="' + esc(item.largeUrl) + '" alt="@' + esc(item.username) + ' 用 ' + esc(item.baseModel) + ' 生成的图（大图）" onerror="imgFail(this)">' +
+      '<button type="button" class="navbtn prev" data-step="-1" ' + (idx <= 0 ? "disabled" : "") + ' aria-label="上一张">‹</button>' +
+      '<button type="button" class="navbtn next" data-step="1" ' + (idx < 0 || idx >= list.length - 1 ? "disabled" : "") + ' aria-label="下一张">›</button>' +
+      (state.view === "feed" && rankOf(item) != null ? '<span class="badge rank">榜单 #' + rankOf(item) + '</span>' : '') +
+    '</div>' +
+    '<div class="datacol">' +
+      '<button type="button" class="closebtn" data-close="1" aria-label="关闭详情">✕</button>' +
+      '<h2>@' + esc(item.username) + '</h2>' +
+      '<p class="subline">' + esc(item.baseModel) + ' · ' + fmtDay(item.createdAt) + '发布' + (item.isCastle ? ' · 城堡题材' : '') + '</p>' +
+      '<div style="margin-top:6px">' + statsHtml(item) + '</div>' +
+      '<div class="actrow">' +
+        '<button type="button" class="btn' + (fav ? " faved" : " primary") + '" data-fav="' + item.civitaiId + '" aria-pressed="' + fav + '">' + ICON_HEART(fav, 17) + (fav ? "已收藏" : "收藏") + '</button>' +
+        '<a class="btn" href="' + esc(item.pageUrl) + '" target="_blank" rel="noopener">' + ICON_EXT + 'Civitai 原帖</a>' +
+      '</div>' +
+      '<div class="actrow">' +
+        '<a class="btn dark" href="' + esc(item.sourceUrl) + '" download="' + esc(downloadFilename(item)) + '">' + ICON_DL + '下载图片</a>' +
+        '<a class="btn" href="' + esc(item.sourceUrl) + '" target="_blank" rel="noopener">' + ICON_EXT + '打开原图</a>' +
+      '</div>';
+
+  if (item.resources && item.resources.length) {
+    h += '<h3 class="secttl">使用的资源</h3><div class="reschips">' +
+      item.resources.map(function(r) {
+        return '<span class="reschip">' + esc(r.name) + (r.weight != null ? ' · ' + r.weight : '') + (r.type ? ' (' + esc(r.type) + ')' : '') + '</span>';
+      }).join("") + '</div>';
+  }
+
+  h += '<h3 class="secttl">参数</h3><div class="metagrid">' +
+    metaBits.map(function(kv){ return '<p style="margin:0"><b>' + esc(kv[0]) + '</b> ' + esc(kv[1]) + '</p>'; }).join("") + '</div>';
+
+  h += '<h3 class="secttl">生成提示词（作者公开的原词）</h3>';
+  if (item.prompt) {
+    h += '<div class="promptbox">' + esc(item.prompt) + '</div>' +
+      '<button type="button" class="btn primary copybtn" data-copy="' + item.civitaiId + '">' + ICON_COPY + '复制提示词 · 喂 Krea 2</button>' +
+      '<p class="note">这张图本身就是 Krea 2 生成的，提示词可直接复用。</p>';
+  } else {
+    h += '<div class="promptbox">作者没有公开这张图的生成提示词，只能看图和数据。可以去 Civitai 原帖碰碰运气。</div>';
+  }
+  if (item.negativePrompt) {
+    h += '<h3 class="secttl">负面提示词</h3><div class="promptbox neg">' + esc(item.negativePrompt) + '</div>' +
+      '<button type="button" class="btn copybtn" data-copyneg="' + item.civitaiId + '">' + ICON_COPY + '复制负面提示词</button>';
+  }
+  h += '</div></div>';
+  document.getElementById("sheet").innerHTML = h;
+  document.getElementById("sheet").scrollTop = 0;
+}
+
+/* ------------------------------- 事件 ------------------------------- */
+var searchTimer = null;
+document.getElementById("q").addEventListener("input", function(e) {
+  document.getElementById("qclear").style.display = e.target.value ? "" : "none";
+  if (searchTimer) clearTimeout(searchTimer);
+  searchTimer = setTimeout(function() { state.q = e.target.value.trim(); state.page = 1; render(); }, 400);
+});
+document.getElementById("qclear").addEventListener("click", function() {
+  document.getElementById("q").value = "";
+  document.getElementById("qclear").style.display = "none";
+  state.q = ""; state.page = 1; render();
+});
+document.getElementById("view-feed").addEventListener("click", function() { state.view = "feed"; state.page = 1; render(); });
+document.getElementById("view-fav").addEventListener("click", function() { state.view = "fav"; state.page = 1; render(); });
+document.getElementById("castle").addEventListener("click", function() { state.hideCastles = !state.hideCastles; state.page = 1; render(); });
+document.getElementById("periods").addEventListener("click", function(e) {
+  var b = e.target.closest("[data-period]"); if (!b) return;
+  state.period = b.getAttribute("data-period"); state.page = 1; render();
+});
+document.getElementById("filterrow").addEventListener("click", function(e) {
+  var m = e.target.closest("[data-model]");
+  if (m) { state.baseModel = m.getAttribute("data-model"); state.page = 1; render(); return; }
+  var s = e.target.closest("[data-sort]");
+  if (s) { state.sort = s.getAttribute("data-sort"); state.page = 1; render(); }
+});
+document.getElementById("prev").addEventListener("click", function() { if (state.page > 1) { state.page--; render(); window.scrollTo({ top: 0, behavior: "smooth" }); } });
+document.getElementById("next").addEventListener("click", function() { state.page++; render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+
+document.addEventListener("click", function(e) {
+  var open = e.target.closest("[data-open]");
+  if (open) { openDetail(Number(open.getAttribute("data-open"))); return; }
+  var fav = e.target.closest("[data-fav]");
+  if (fav) { toggleFav(Number(fav.getAttribute("data-fav"))); return; }
+  var cp = e.target.closest("[data-copy]");
+  if (cp) {
+    var it = findItem(Number(cp.getAttribute("data-copy")));
+    if (it) copyPrompt(it, false);
+    return;
+  }
+  var cn = e.target.closest("[data-copyneg]");
+  if (cn) {
+    var it2 = findItem(Number(cn.getAttribute("data-copyneg")));
+    if (it2) copyPrompt(it2, true);
+    return;
+  }
+  var st = e.target.closest("[data-step]");
+  if (st) { stepDetail(Number(st.getAttribute("data-step"))); return; }
+  if (e.target.closest("[data-close]")) { closeDetail(); return; }
+  if (e.target === document.getElementById("overlay")) closeDetail();
+});
+document.addEventListener("keydown", function(e) {
+  if (state.selectedId == null) return;
+  if (e.key === "Escape") closeDetail();
+  if (e.key === "ArrowLeft") stepDetail(-1);
+  if (e.key === "ArrowRight") stepDetail(1);
+});
+function findItem(id) {
+  if (!state.data) return null;
+  var found = null;
+  state.data.items.forEach(function(i){ if (i.civitaiId === id) found = i; });
+  return found;
+}
+
+/* ------------------------------- 启动 ------------------------------- */
+fetch("civitai-krea2-data.json", { cache: "no-cache" })
+  .then(function(res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); })
+  .then(function(data) {
+    state.data = data;
+    document.getElementById("upd").textContent = data.generatedAt ? " 数据更新于 " + fmtTime(data.generatedAt) + "。" : "";
+    render();
+  })
+  .catch(function() {
+    document.getElementById("empty").style.display = "";
+    document.getElementById("empty-title").textContent = "数据加载失败";
+    document.getElementById("empty-desc").textContent = "civitai-krea2-data.json 还没生成或暂时读不到，请稍后刷新重试";
+    renderControls();
+  });
+</script>
+</body>
+</html>
