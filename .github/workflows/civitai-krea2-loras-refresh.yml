@@ -1,0 +1,42 @@
+name: C站 Krea2 热门 LoRA 每日刷新
+
+# 每天自动从 Civitai 拉取 Krea 2 / Krea 2 Turbo 热门 LoRA 榜（日 / 周 / 月各 Top 20），更新 civitai-krea2-loras-data.json。
+# 10:44（北京时间）= 02:44 UTC，与热门图榜的刷新时间错开 1 小时。
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "44 2 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: civitai-krea2-loras-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出仓库
+        uses: actions/checkout@v4
+
+      - name: 准备 Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 抓取榜单生成数据
+        run: node scripts/fetch-civitai-krea2-loras.mjs
+
+      - name: 数据有变化才提交
+        run: |
+          if git diff --quiet -- civitai-krea2-loras-data.json; then
+            echo "数据无变化，跳过提交"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add civitai-krea2-loras-data.json
+          git commit -m "刷新 C站 Krea2 热门 LoRA 数据"
+          git push
