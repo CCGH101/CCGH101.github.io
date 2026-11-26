@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href="data:," />
+<title>C站 Krea2 热门 LoRA · 小工具</title>
+<style>
+  :root{
+    --bg:#fffaf5; --surface:#ffffff; --surface-2:#ffefe3;
+    --ink:#221407; --ink-2:#7a5a44; --ink-3:#b08a6d;
+    --line:#f3ddcb; --accent:#e85d04; --accent-deep:#c24e02;
+    --serif:Georgia,"Times New Roman","Songti SC","STSong","Noto Serif SC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55}
+  button{min-height:2.25rem}
+  button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .wrap{max-width:1180px;margin:0 auto;padding:36px 16px 72px}
+  .back{display:inline-block;color:var(--ink-2);text-decoration:none;font-size:13.5px;margin-bottom:18px}
+  .back:hover{color:var(--accent-deep)}
+  header.top{padding-bottom:20px;border-bottom:2px solid var(--accent)}
+  .brand{font-size:12px;letter-spacing:.35em;color:var(--accent);font-weight:700}
+  h1{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1.3;margin:10px 0 8px}
+  .sub{color:var(--ink-2);font-size:14px;margin:0;max-width:70ch}
+  .sub .upd{color:var(--ink-3)}
+  .controls{position:sticky;top:0;z-index:40;background:var(--bg);padding:14px 0 10px;border-bottom:1px solid var(--line)}
+  .searchrow{display:flex;gap:8px;align-items:stretch}
+  .searchbox{flex:1;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:0 14px;min-height:42px}
+  .searchbox svg{flex:none;color:var(--ink-3)}
+  .searchbox input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:14px;color:var(--ink);min-height:40px}
+  .searchbox input:focus{outline:none}
+  .searchbox .clear{border:0;background:transparent;color:var(--ink-3);cursor:pointer;font-size:14px;padding:4px 6px;min-height:32px;display:none}
+  .seg{display:flex;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px}
+  .seg button{border:0;background:transparent;font:inherit;font-size:13.5px;color:var(--ink-2);border-radius:999px;padding:6px 14px;cursor:pointer;min-height:34px;white-space:nowrap}
+  .seg button[aria-pressed="true"]{background:var(--accent);color:#fff;font-weight:600}
+  .chiprow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;align-items:center}
+  .chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:13px;border-radius:999px;padding:5px 12px;cursor:pointer;min-height:32px;line-height:1.2}
+  .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .note{color:var(--ink-3);font-size:12.5px;margin:10px 0 0}
+  .grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
+  @media (min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+  @media (min-width:1024px){.grid{grid-template-columns:1fr 1fr 1fr}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+  .card .imgwrap{position:relative;background:var(--surface-2);cursor:pointer;aspect-ratio:4/3;overflow:hidden}
+  .card .imgwrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .card .imgfail{position:absolute;inset:0;display:grid;place-items:center;color:var(--ink-3);font-size:13px;padding:0 12px;text-align:center}
+  .badge{position:absolute;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.6)}
+  .badge.rank{left:8px;top:8px;background:var(--accent);font-family:var(--serif)}
+  .badge.model{right:8px;top:8px}
+  .card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .card h2{font-size:16px;line-height:1.4;margin:0;word-break:break-word}
+  .card h2 a{color:inherit;text-decoration:none}
+  .card h2 a:hover{color:var(--accent-deep)}
+  .meta{color:var(--ink-2);font-size:12.5px}
+  .stats{display:flex;gap:12px;color:var(--ink-3);font-size:12px;flex-wrap:wrap}
+  .trig{display:flex;gap:6px;flex-wrap:wrap}
+  .trigtag{background:var(--surface-2);border-radius:999px;padding:3px 10px;font-family:var(--mono);font-size:12px;word-break:break-all}
+  .notrig{font-size:12px;color:var(--ink-3)}
+  .btnrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+  .pill{display:inline-flex;align-items:center;gap:6px;border:0;background:var(--surface-2);color:var(--ink);font:inherit;font-size:12px;font-weight:600;border-radius:999px;padding:6px 12px;cursor:pointer;min-height:32px;text-decoration:none}
+  .pill:hover{background:#ffe3d1}
+  .pill.accent{color:var(--accent-deep)}
+  .favbtn{margin-left:auto}
+  .favbtn.faved{color:var(--accent-deep)}
+  .empty{text-align:center;padding:64px 16px;color:var(--ink-2)}
+  .empty .big{font-family:var(--serif);font-size:20px;color:var(--ink);margin:0 0 6px}
+  .empty p{font-size:13px;color:var(--ink-3);margin:0}
+  .overlay{position:fixed;inset:0;z-index:80;background:rgba(20,10,2,.62);display:none;align-items:flex-end;justify-content:center}
+  .overlay.open{display:flex}
+  @media (min-width:720px){.overlay{align-items:center;padding:24px}}
+  .sheet{background:var(--surface);width:100%;max-width:1020px;max-height:94dvh;overflow-y:auto;border-radius:18px 18px 0 0}
+  @media (min-width:720px){.sheet{border-radius:18px}}
+  .sheet .cols{display:grid}
+  @media (min-width:720px){.sheet .cols{grid-template-columns:1fr 1fr}}
+  .sheet .imgcol{position:relative;background:#1c1108}
+  .sheet .imgcol img{display:block;width:100%;max-height:52dvh;object-fit:contain}
+  @media (min-width:720px){.sheet .imgcol img{height:100%;max-height:94dvh}}
+  .sheet .datacol{padding:18px}
+  .sheet h2{font-family:var(--serif);font-size:19px;margin:0;line-height:1.35;word-break:break-word}
+  .sheet .subline{color:var(--ink-2);font-size:13px;margin-top:3px}
+  .closebtn{float:right;width:36px;height:36px;border:0;border-radius:999px;background:var(--surface-2);color:var(--ink);cursor:pointer;font-size:14px}
+  .actrow{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:999px;font:inherit;font-size:14px;font-weight:600;padding:9px 16px;min-height:42px;cursor:pointer;text-decoration:none;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;flex:1}
+  .btn.primary:hover{background:var(--accent-deep)}
+  .secttl{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--ink-3);margin:20px 0 8px}
+  .filelist{font-size:13px;color:var(--ink-2);line-height:1.7;margin:0}
+  .filelist b{color:var(--ink)}
+  .exgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+  .exgrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;display:block}
+  .descbox{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13px;line-height:1.7;white-space:pre-wrap;word-break:break-word;max-height:260px;overflow-y:auto}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);font-size:13.5px;padding:10px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:99;max-width:88vw;text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  footer{margin-top:56px;color:var(--ink-3);font-size:13px}
+  footer a{color:var(--ink-2)}
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="back" href="index.html">← 返回小工具</a>
+    <header class="top">
+      <div class="brand">CIVITAI · KREA 2</div>
+      <h1>C站 Krea2 热门 LoRA</h1>
+      <p class="sub">每天自动从 Civitai 拉取 Krea 2 / Krea 2 Turbo 的 LoRA 热门榜（按 Most Downloaded 排序，日、周、月各 Top 20）。下载量、点赞是累计值，排名是该周期内的热门顺序；触发词、文件大小都是模型原版数据，没有触发词的如实标注，不编造。<span class="upd" id="upd"></span></p>
+    </header>
+
+    <div class="controls">
+      <div class="searchrow">
+        <label class="searchbox">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="q" type="search" placeholder="搜 LoRA 名、作者、触发词、标签…" aria-label="搜索榜单" />
+          <button class="clear" id="qclear" type="button" aria-label="清除搜索">✕</button>
+        </label>
+        <div class="seg" role="tablist" aria-label="视图切换">
+          <button type="button" id="view-feed" aria-pressed="true">榜单</button>
+          <button type="button" id="view-fav" aria-pressed="false">我的收藏</button>
+        </div>
+      </div>
+      <div class="chiprow" id="periodrow">
+        <div class="seg" role="tablist" aria-label="榜单周期" id="periods"></div>
+      </div>
+      <div class="chiprow" id="filterrow">
+        <span id="modelchips"></span>
+        <span id="sortchips"></span>
+      </div>
+      <p class="note" id="filternote"></p>
+    </div>
+
+    <div class="grid" id="grid" aria-live="polite"></div>
+    <div class="empty" id="empty" style="display:none">
+      <p class="big" id="empty-title">没有符合条件的 LoRA</p>
+      <p id="empty-desc">换个关键词或清掉底模筛选试试</p>
+    </div>
+
+    <footer>数据来源：<a href="https://civitai.com" target="_blank" rel="noopener">Civitai</a> 公开榜单，每日自动更新；模型版权归原作者所有。© 2026</footer>
+  </main>
+
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true">
+    <div class="sheet" id="sheet"></div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+
+<script>
+"use strict";
+var FAV_KEY = "civitai-krea2-loras-favorites";
+var PERIODS = [ {v:"day",label:"今日榜"}, {v:"week",label:"本周榜"}, {v:"month",label:"本月榜"} ];
+var SORTS = [ {v:"rank",label:"热度名次"}, {v:"downloads",label:"下载最多"}, {v:"likes",label:"点赞最多"} ];
+var MODELS = ["", "Krea 2", "Krea 2 Turbo"];
+
+var state = {
+  data: null, view: "feed", period: "day", sort: "rank",
+  baseModel: "", q: "",
+  favs: loadFavs(), selectedId: null
+};
+
+function loadFavs() {
+  try {
+    var v = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+    return Array.isArray(v) ? v.filter(function(x){ return typeof x === "number"; }) : [];
+  } catch (e) { return []; }
+}
+function saveFavs() {
+  try { localStorage.setItem(FAV_KEY, JSON.stringify(state.favs)); } catch (e) {}
+}
+function isFav(id) { return state.favs.indexOf(id) >= 0; }
+function toggleFav(id) {
+  var i = state.favs.indexOf(id);
+  if (i >= 0) { state.favs.splice(i, 1); notify("已取消收藏"); }
+  else { state.favs.unshift(id); notify("已加入我的收藏"); }
+  saveFavs(); render();
+  if (state.selectedId != null) renderDetail();
+}
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function(c) {
+    return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c];
+  });
+}
+function fmtNum(n) { return typeof n === "number" ? n.toLocaleString() : "0"; }
+function fmtTime(iso) {
+  var d = new Date(iso);
+  if (isNaN(d.getTime())) return "";
+  function p(n){ return String(n).padStart(2, "0"); }
+  return (d.getMonth() + 1) + "月" + d.getDate() + "日 " + p(d.getHours()) + ":" + p(d.getMinutes());
+}
+var toastTimer = null;
+function notify(msg) {
+  var t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 1900);
+}
+function copyText(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text).then(function(){ return true; }, function(){ return fallbackCopy(text); });
+  }
+  return Promise.resolve(fallbackCopy(text));
+}
+function fallbackCopy(text) {
+  try {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    var ok = document.execCommand("copy");
+    document.body.removeChild(ta); return ok;
+  } catch (e) { return false; }
+}
+function rankOf(item) { return item.ranks ? item.ranks[state.period] : null; }
+function findItem(id) {
+  if (!state.data) return null;
+  var found = null;
+  state.data.items.forEach(function(i){ if (i.id === id) found = i; });
+  return found;
+}
+function currentList() {
+  if (!state.data) return [];
+  var items;
+  if (state.view === "fav") {
+    var byId = {};
+    state.data.items.forEach(function(i){ byId[i.id] = i; });
+    items = state.favs.map(function(id){ return byId[id]; }).filter(Boolean);
+  } else {
+    items = state.data.items.filter(function(i){ return i.ranks && i.ranks[state.period] != null; });
+    items.sort(function(a, b){ return a.ranks[state.period] - b.ranks[state.period]; });
+    if (state.baseModel) items = items.filter(function(i){ return i.baseModel === state.baseModel; });
+  }
+  var q = state.q.trim().toLowerCase();
+  if (q) {
+    items = items.filter(function(i) {
+      return ((i.name || "") + " " + (i.author || "") + " " + (i.triggerWords || []).join(" ") + " " + (i.tags || []).join(" ") + " " + (i.baseModel || "")).toLowerCase().indexOf(q) >= 0;
+    });
+  }
+  if (state.sort === "downloads") items = items.slice().sort(function(a, b){ return b.downloads - a.downloads; });
+  else if (state.sort === "likes") items = items.slice().sort(function(a, b){ return b.likes - a.likes; });
+  return items;
+}
+function trigHtml(item) {
+  if (!item.triggerWords || !item.triggerWords.length) return '<p class="notrig">作者未公开触发词</p>';
+  return '<div class="trig">' + item.triggerWords.map(function(w){ return '<span class="trigtag">' + esc(w) + '</span>'; }).join("") + '</div>';
+}
+function cardHtml(item) {
+  var rank = state.view === "feed" ? rankOf(item) : null;
+  var fav = isFav(item.id);
+  var file = (item.files || []).find(function(f){ return f.primary; }) || (item.files || [])[0];
+  var h = '<article class="card">' +
+    '<div class="imgwrap" data-open="' + item.id + '" role="button" aria-label="查看 LoRA 详情：' + esc(item.name) + '">' +
+      (item.thumbUrl ? '<img src="' + esc(item.thumbUrl) + '" alt="' + esc(item.name) + ' 示例图" loading="lazy" decoding="async" onerror="imgFail(this)">' : '') +
+      (rank != null ? '<span class="badge rank">#' + rank + '</span>' : '') +
+      '<span class="badge model">' + esc(item.baseModel || "") + '</span>' +
+    '</div>' +
+    '<div class="body">' +
+      '<h2><a href="' + esc(item.pageUrl) + '" target="_blank" rel="noopener">' + esc(item.name) + '</a></h2>' +
+      '<div class="meta">@' + esc(item.author) + (item.version ? ' · ' + esc(item.version) : '') + (file && file.sizeMB != null ? ' · ' + file.sizeMB + ' MB' : '') + '</div>' +
+      '<div class="stats"><span>⬇ ' + fmtNum(item.downloads) + ' 下载</span><span>♥ ' + fmtNum(item.likes) + '</span><span>💬 ' + fmtNum(item.comments) + '</span></div>' +
+      trigHtml(item) +
+      '<div class="btnrow">' +
+        (item.triggerWords && item.triggerWords.length ? '<button type="button" class="pill accent" data-copytrig="' + item.id + '">复制触发词</button>' : '') +
+        '<a class="pill" href="' + esc(item.pageUrl) + '" target="_blank" rel="noopener">Civitai 原页 ↗</a>' +
+        '<button type="button" class="pill favbtn' + (fav ? " faved" : "") + '" data-fav="' + item.id + '" aria-pressed="' + fav + '">' + (fav ? "★ 已收藏" : "☆ 收藏") + '</button>' +
+      '</div>' +
+    '</div></article>';
+  return h;
+}
+function imgFail(img) {
+  var d = document.createElement("div");
+  d.className = "imgfail"; d.textContent = "示例图加载失败，点开看原页";
+  img.replaceWith(d);
+}
+function renderControls() {
+  var counts = state.data ? state.data.counts : { day: {total:0}, week: {total:0}, month: {total:0} };
+  document.getElementById("periods").innerHTML = PERIODS.map(function(p) {
+    var c = counts[p.v] ? counts[p.v].total : 0;
+    return '<button type="button" data-period="' + p.v + '" aria-pressed="' + (state.period === p.v) + '">' + p.label + (c ? " " + c : "") + '</button>';
+  }).join("");
+  document.getElementById("modelchips").innerHTML = MODELS.map(function(m) {
+    var label = m === "" ? "全部底模" : m;
+    return '<button type="button" class="chip" data-model="' + esc(m) + '" aria-pressed="' + (state.baseModel === m) + '">' + label + '</button>';
+  }).join(" ");
+  document.getElementById("sortchips").innerHTML = SORTS.map(function(s) {
+    return '<button type="button" class="chip" data-sort="' + s.v + '" aria-pressed="' + (state.sort === s.v) + '">' + s.label + '</button>';
+  }).join(" ");
+  document.getElementById("view-feed").setAttribute("aria-pressed", String(state.view === "feed"));
+  var favBtn = document.getElementById("view-fav");
+  favBtn.setAttribute("aria-pressed", String(state.view === "fav"));
+  favBtn.textContent = "我的收藏" + (state.favs.length ? " " + state.favs.length : "");
+  document.getElementById("periodrow").style.display = state.view === "fav" ? "none" : "";
+  document.getElementById("filternote").textContent =
+    state.view === "fav" ? "收藏保存在这台设备的浏览器里，换设备不会同步。" :
+    "下载量是累计值；Krea 2 Turbo 的 LoRA 很少进前 20，筛 Turbo 时榜单会很短，这是真实排名，不是漏抓。";
+}
+function render() {
+  renderControls();
+  var list = currentList();
+  document.getElementById("grid").innerHTML = list.map(cardHtml).join("");
+  var empty = document.getElementById("empty");
+  if (list.length === 0) {
+    empty.style.display = "";
+    document.getElementById("empty-title").textContent = state.view === "fav" ? "还没有收藏" : "没有符合条件的 LoRA";
+    document.getElementById("empty-desc").textContent = state.view === "fav" ? "在榜单里点收藏就能收到这里" : "换个关键词或清掉底模筛选试试";
+  } else empty.style.display = "none";
+}
+function openDetail(id) {
+  state.selectedId = id;
+  renderDetail();
+  document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeDetail() {
+  state.selectedId = null;
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+function renderDetail() {
+  if (!state.data || state.selectedId == null) return;
+  var item = findItem(state.selectedId);
+  if (!item) { closeDetail(); return; }
+  var fav = isFav(item.id);
+  var h = '<div class="cols">' +
+    '<div class="imgcol">' +
+      (item.thumbUrl ? '<img src="' + esc(item.thumbUrl.replace("/width=512/", "/width=1024/")) + '" alt="' + esc(item.name) + ' 示例大图" onerror="imgFail(this)">' : '') +
+    '</div>' +
+    '<div class="datacol">' +
+      '<button type="button" class="closebtn" data-close="1" aria-label="关闭详情">✕</button>' +
+      '<h2>' + esc(item.name) + '</h2>' +
+      '<p class="subline">@' + esc(item.author) + ' · ' + esc(item.baseModel || "") + (item.version ? ' · ' + esc(item.version) : '') + (item.publishedAt ? ' · ' + fmtTime(item.publishedAt) + '发布' : '') + '</p>' +
+      '<div class="stats" style="margin-top:6px"><span>⬇ ' + fmtNum(item.downloads) + ' 下载</span><span>♥ ' + fmtNum(item.likes) + ' 点赞</span><span>💬 ' + fmtNum(item.comments) + ' 评论</span></div>' +
+      '<div class="actrow">' +
+        '<button type="button" class="btn' + (fav ? "" : " primary") + '" data-fav="' + item.id + '" aria-pressed="' + fav + '">' + (fav ? "★ 已收藏" : "☆ 收藏") + '</button>' +
+        '<a class="btn" href="' + esc(item.pageUrl) + '" target="_blank" rel="noopener">Civitai 原页 ↗</a>' +
+      '</div>';
+  if (item.triggerWords && item.triggerWords.length) {
+    h += '<h3 class="secttl">触发词</h3>' + trigHtml(item) +
+      '<div class="actrow"><button type="button" class="btn primary" data-copytrig="' + item.id + '">复制触发词</button></div>';
+  } else {
+    h += '<h3 class="secttl">触发词</h3><p class="notrig">作者未公开触发词</p>';
+  }
+  if (item.files && item.files.length) {
+    h += '<h3 class="secttl">文件</h3><p class="filelist">' + item.files.map(function(f){
+      return '<b>' + esc(f.name) + '</b>' + (f.sizeMB != null ? ' · ' + f.sizeMB + ' MB' : '') + (f.format ? ' · ' + esc(f.format) : '') + (f.fp ? ' ' + esc(f.fp) : '') + (f.primary ? ' · 主文件' : '');
+    }).join("<br>") + '</p>';
+  }
+  if (item.versions && item.versions.length > 1) {
+    h += '<h3 class="secttl">Krea 版本</h3><p class="filelist">' + item.versions.map(function(v){ return esc(v.name) + ' · ' + esc(v.baseModel); }).join("<br>") + '</p>';
+  }
+  if (item.exampleImages && item.exampleImages.length) {
+    h += '<h3 class="secttl">更多示例图</h3><div class="exgrid">' + item.exampleImages.map(function(im){
+      return '<img src="' + esc(im.thumbUrl) + '" alt="示例图" loading="lazy" onerror="this.style.display=\'none\'">';
+    }).join("") + '</div>';
+  }
+  if (item.description) {
+    h += '<h3 class="secttl">介绍</h3><div class="descbox">' + esc(item.description) + '</div>';
+  }
+  if (item.tags && item.tags.length) {
+    h += '<h3 class="secttl">标签</h3><p class="filelist">' + item.tags.map(esc).join(" · ") + '</p>';
+  }
+  h += '</div></div>';
+  document.getElementById("sheet").innerHTML = h;
+  document.getElementById("sheet").scrollTop = 0;
+}
+
+var searchTimer = null;
+document.getElementById("q").addEventListener("input", function(e) {
+  document.getElementById("qclear").style.display = e.target.value ? "" : "none";
+  if (searchTimer) clearTimeout(searchTimer);
+  searchTimer = setTimeout(function() { state.q = e.target.value.trim(); render(); }, 400);
+});
+document.getElementById("qclear").addEventListener("click", function() {
+  document.getElementById("q").value = "";
+  document.getElementById("qclear").style.display = "none";
+  state.q = ""; render();
+});
+document.getElementById("view-feed").addEventListener("click", function() { state.view = "feed"; render(); });
+document.getElementById("view-fav").addEventListener("click", function() { state.view = "fav"; render(); });
+document.getElementById("periods").addEventListener("click", function(e) {
+  var b = e.target.closest("[data-period]"); if (!b) return;
+  state.period = b.getAttribute("data-period"); render();
+});
+document.getElementById("filterrow").addEventListener("click", function(e) {
+  var m = e.target.closest("[data-model]");
+  if (m) { state.baseModel = m.getAttribute("data-model"); render(); return; }
+  var s = e.target.closest("[data-sort]");
+  if (s) { state.sort = s.getAttribute("data-sort"); render(); }
+});
+document.addEventListener("click", function(e) {
+  var open = e.target.closest("[data-open]");
+  if (open) { openDetail(Number(open.getAttribute("data-open"))); return; }
+  var fav = e.target.closest("[data-fav]");
+  if (fav) { toggleFav(Number(fav.getAttribute("data-fav"))); return; }
+  var cp = e.target.closest("[data-copytrig]");
+  if (cp) {
+    var it = findItem(Number(cp.getAttribute("data-copytrig")));
+    if (it && it.triggerWords.length) copyText(it.triggerWords.join(", ")).then(function(ok){ notify(ok ? "已复制触发词" : "复制失败，请手动复制"); });
+    return;
+  }
+  if (e.target.closest("[data-close]")) { closeDetail(); return; }
+  if (e.target === document.getElementById("overlay")) closeDetail();
+});
+document.addEventListener("keydown", function(e) {
+  if (state.selectedId == null) return;
+  if (e.key === "Escape") closeDetail();
+});
+
+fetch("civitai-krea2-loras-data.json", { cache: "no-cache" })
+  .then(function(res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); })
+  .then(function(data) {
+    state.data = data;
+    document.getElementById("upd").textContent = data.generatedAt ? " 数据更新于 " + fmtTime(data.generatedAt) + "。" : "";
+    render();
+  })
+  .catch(function() {
+    document.getElementById("empty").style.display = "";
+    document.getElementById("empty-title").textContent = "数据加载失败";
+    document.getElementById("empty-desc").textContent = "civitai-krea2-loras-data.json 还没生成或暂时读不到，请稍后刷新重试";
+    renderControls();
+  });
+</script>
+</body>
+</html>
