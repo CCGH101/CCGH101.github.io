@@ -1,0 +1,4661 @@
+{
+ "generatedAt": "2026-11-26T11:44:06.244Z",
+ "baseModels": [
+  "Krea 2",
+  "Krea 2 Turbo"
+ ],
+ "sort": "Most Downloaded",
+ "limitPerBoard": 20,
+ "notes": "下载量/点赞/评论为累计值；排名为该周期内按 Most Downloaded 返回的顺序。",
+ "counts": {
+  "day": {
+   "total": 20
+  },
+  "week": {
+   "total": 20
+  },
+  "month": {
+   "total": 20
+  }
+ },
+ "items": [
+  {
+   "id": 2284180,
+   "name": "蔚蓝档案风格（blue archive style) style 【anima/ill/krea2】",
+   "author": "umina",
+   "type": "LORA",
+   "tags": [
+    "style",
+    "blue archive"
+   ],
+   "description": "这是使用400多张高质量BA官图制作的模型，以及有一些特殊tag，可能会有用\n\nblue archive, three quarter view, dark, red theme, warm colored, cold colored,推荐搭配noob1.1使用，不过其他常见的ill系模型也都可以用啦。\nanima的版本自然是搭配anima。\n\nanima v2主要是改了一些参数，修正了一些训练集的标。现在不打halo应该不会再有光环了（应该）\n稍微降一点权重可能比较好。推荐 0.7-0.8\nDeyui デユイ这位画师曾参与过蔚蓝档案。之后可能会多加一些蔚蓝档案的各种画师的画风到这里。并不存在真正的蔚蓝档案style，有的只是一个个画师。\ntiangong 添弓兔子小队是他画的哦\ndoremi这位还需要介绍吗？不过这个需要触发词\n@doremi,nai5是nai5的画风\n\nqwen2.1\n如果需要编辑图片让它变成ba画风，可以打change <image1> to anime style",
+   "version": "krea2 nai5",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-09-08T07:23:49.241Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "nai_ba_style_krea2-st6000.safetensors",
+     "sizeMB": 223.8,
+     "format": "SafeTensor",
+     "fp": "fp16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "krea2 nai5",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-08T07:23:49.241Z"
+    },
+    {
+     "name": "krea2 v1",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-03T04:43:05.732Z"
+    }
+   ],
+   "downloads": 12795,
+   "likes": 662,
+   "comments": 9,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/32bccb4b-4365-4336-bcde-5e2dc4a97384/original=true/142176854.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/32bccb4b-4365-4336-bcde-5e2dc4a97384/width=512/142176854.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/54fae12c-0bfe-481b-9c4e-32f7543cc049/original=true/142176855.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/54fae12c-0bfe-481b-9c4e-32f7543cc049/width=512/142176855.jpeg",
+     "width": 1024,
+     "height": 1536
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/63f62ee0-8df6-4943-a6d5-0281f02da6df/original=true/142176863.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/63f62ee0-8df6-4943-a6d5-0281f02da6df/width=512/142176863.jpeg",
+     "width": 1024,
+     "height": 1536
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/2c0f88c8-b3e2-4526-97dc-18e70f951be5/original=true/142176866.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/2c0f88c8-b3e2-4526-97dc-18e70f951be5/width=512/142176866.jpeg",
+     "width": 1024,
+     "height": 1536
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2284180",
+   "allowCommercialUse": [
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": 1,
+    "week": 13,
+    "month": null
+   }
+  },
+  {
+   "id": 984632,
+   "name": "Tintin comic style",
+   "author": "Yofaraway",
+   "type": "LORA",
+   "tags": [
+    "style",
+    "comic",
+    "bd",
+    "bande dessinée",
+    "hergé",
+    "franco belge",
+    "tintin et milou"
+   ],
+   "description": "MOSSI think I'm getting better at training Moss. Showcase images :\nSFT model + turbo lora 4 steps\nEuler simple / 5 steps / CFG 1\n1024x1536\nLora strength : 1\nKrea 2Showcase images :\nTurbo model : 8 steps / CFG 1 & Euler simple\n768x1152\nx1.5 Hires (10 steps, 0.2 with 4x_NMKD_Siax)\nLora strength 1 - 1.3\nCan also do characters : Tintin, Snowy, Captain Haddock, Professor Calculus.\nIdeogram 4File is big because I tried a lokr 4 to do style + characters, but it failed for the characters (except for Tintin who was already well known in the model).\n\nExample JSON\nAnimaI'm having trouble to find good set",
+   "version": "Krea2 v1",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-07-14T12:42:09.692Z",
+   "triggerWords": [
+    "herge_comic style"
+   ],
+   "files": [
+    {
+     "name": "tintin_krea2.safetensors",
+     "sizeMB": 435.9,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2 v1",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-14T12:42:09.692Z"
+    }
+   ],
+   "downloads": 4430,
+   "likes": 371,
+   "comments": 14,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/f63755d8-fc74-4bdf-a77b-bc14cae76eaa/original=true/135654095.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/f63755d8-fc74-4bdf-a77b-bc14cae76eaa/width=512/135654095.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/291f64eb-8f97-408a-af16-72554872461d/original=true/135654092.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/291f64eb-8f97-408a-af16-72554872461d/width=512/135654092.jpeg",
+     "width": 1152,
+     "height": 1728
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/74053cb4-cb28-43b5-8c8f-4e72ddf82566/original=true/135654118.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/74053cb4-cb28-43b5-8c8f-4e72ddf82566/width=512/135654118.jpeg",
+     "width": 1152,
+     "height": 1728
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/984632",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Rent",
+    "Image"
+   ],
+   "ranks": {
+    "day": 2,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3012562,
+   "name": "Pure Cinema",
+   "author": "UltraMuse",
+   "type": "LORA",
+   "tags": [
+    "movie",
+    "film",
+    "cinema",
+    "hollywood",
+    "style",
+    "cinematic",
+    "filmic",
+    "arri",
+    "professional"
+   ],
+   "description": "🎬 Pure Cinema - Music VideoCinematic music video stills with expressive performances, deliberate lighting, and the feel of a frame pulled from an edit.\n🔗 Workflow, prompts & community🛠️ Free ComfyUI Workflow — Get the workflow used with this LoRA. Open the free workflow\n🎞️ Pure Cinema Master Prompt — Turn a simple shot idea or an entire music video concept into visually striking stills and storyboards. The master prompt was developed by analyzing 500 music videos. Get the master prompt\n💬 Discord — Exclusive Tools and Workflows, Support, Share your renders, Earn Prizes. Join the Discord\n\nN",
+   "version": "V1 Standard Krea 2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-10-21T00:38:17.250Z",
+   "triggerWords": [
+    "c1nem4tic"
+   ],
+   "files": [
+    {
+     "name": "Pure-Cinema-V1-Krea2.safetensors",
+     "sizeMB": 1490,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "V1 Standard Krea 2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-21T00:38:17.250Z"
+    }
+   ],
+   "downloads": 787,
+   "likes": 96,
+   "comments": 1,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/d6089ae6-72a4-4e47-b759-31b8adb340f5/original=true/146311416.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/d6089ae6-72a4-4e47-b759-31b8adb340f5/width=512/146311416.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a25c396e-39eb-44cb-b481-ea004cc24dd9/original=true/146325818.mp4",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a25c396e-39eb-44cb-b481-ea004cc24dd9/width=512/146325818.mp4",
+     "width": 1264,
+     "height": 720
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a1b91713-bf03-469a-9ac9-36660e666aa2/original=true/146314490.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a1b91713-bf03-469a-9ac9-36660e666aa2/width=512/146314490.jpeg",
+     "width": 1920,
+     "height": 1088
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/f2239998-adfd-4ac5-a465-05dc812805d8/original=true/146311442.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/f2239998-adfd-4ac5-a465-05dc812805d8/width=512/146311442.jpeg",
+     "width": 1920,
+     "height": 1088
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/3012562",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent"
+   ],
+   "ranks": {
+    "day": 3,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 2082130,
+   "name": "mcdonald's uniform / 麦当劳小粉",
+   "author": "ghostpaint",
+   "type": "LORA",
+   "tags": [
+    "fashion",
+    "black skirt",
+    "clothing",
+    "uniform",
+    "fast food",
+    "china",
+    "restaurant",
+    "mcdonald's",
+    "pink shirt"
+   ],
+   "description": "Try size: 768 x 1024 or 1024 x 1024\nWeights: 1.0\nClip skip: 2\n\nNote: Regarding the \"Fast Food Uniform\", sometimes the hat will be triggered. If you don't like it, you can delete it. / 關於 \"Fast Food Uniform\" 有時會觸發帽子，假如你不喜歡，可以刪除它。(ILXL)\nI don't really understand the evolution of this unifrom, as I'm in Taiwan. This unifrom seems to have been redesigned several times, but the pink shirt remains the same. If you're interested in learning more, you can check out the website... / 我也不是很懂這制服的演變，因為我人在台灣。這款制服好像也改版過幾次，但是不變的是粉紅色襯衫。如果你有興趣進一步理解的話，可以去看網頁介紹...\nhttps://linkding.substack.com/p/d78",
+   "version": "Krea2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-08-02T18:26:37.602Z",
+   "triggerWords": [
+    "mcdonald's uniform, fast food uniform, pink shirt, black skirt, grey apron, looking at viewer, 1girl,",
+    "mouth mask,",
+    "holding tray, walking, food,",
+    "indoor fast food restaurant,",
+    "guest sitting on seat,"
+   ],
+   "files": [
+    {
+     "name": "mcdonald'suniform_krea2.safetensors",
+     "sizeMB": 23.9,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-02T18:26:37.602Z"
+    }
+   ],
+   "downloads": 1592,
+   "likes": 122,
+   "comments": 3,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/046cf655-71ff-47b8-b915-9b215244cbf3/original=true/138558050.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/046cf655-71ff-47b8-b915-9b215244cbf3/width=512/138558050.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/0273183c-ab81-45fa-9ca7-83a1f7f6fe3d/original=true/138560040.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/0273183c-ab81-45fa-9ca7-83a1f7f6fe3d/width=512/138560040.jpeg",
+     "width": 768,
+     "height": 1024
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3831bac3-3412-4f90-9130-8e6b9dcfdc56/original=true/138561071.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3831bac3-3412-4f90-9130-8e6b9dcfdc56/width=512/138561071.jpeg",
+     "width": 768,
+     "height": 1024
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c71bb99e-5e9c-4f61-bfcc-37d97260e746/original=true/138561298.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c71bb99e-5e9c-4f61-bfcc-37d97260e746/width=512/138561298.jpeg",
+     "width": 768,
+     "height": 1024
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2082130",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": 4,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3030362,
+   "name": "Japanese Girl - Yui",
+   "author": "MGHerder",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "asian",
+    "japanese",
+    "realistic",
+    "ai character"
+   ],
+   "description": "This model creates a likeness to an AI-generated girl named \"Yui\" (結).\nV 2.0Yui Yamamura - (AI Generated fictional character)\nShe looks sweet and innocent but is completely untethered. I hope she lives her life to the fullest, and experience everything from love to adventure and maybe learns a few things along the way. She can be your girlfriend and playmate, go wild.\nSought to get a better color balance and settled on a vibrant, contrasty look. Much of the dataset was adjusted.\n\nThis model is still in testing. I have found that in the first version, certain portions of certain images were com",
+   "version": "v2.0",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-22T11:51:14.947Z",
+   "triggerWords": [
+    "Yui_face"
+   ],
+   "files": [
+    {
+     "name": "yui-v-2-0-krea-2-base-epoch-10.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "v2.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-22T11:51:14.947Z"
+    },
+    {
+     "name": "Yui",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-31T21:42:53.952Z"
+    }
+   ],
+   "downloads": 669,
+   "likes": 45,
+   "comments": 2,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c76526e3-f83f-48dc-936b-280b8135c8de/original=true/149854659.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c76526e3-f83f-48dc-936b-280b8135c8de/width=512/149854659.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/d7bc5601-d0f6-43c0-ad5a-01795cc650d5/original=true/149854648.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/d7bc5601-d0f6-43c0-ad5a-01795cc650d5/width=512/149854648.jpeg",
+     "width": 1792,
+     "height": 1072
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e95534b2-30c5-48ee-a620-45dfeacf7b71/original=true/149854654.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e95534b2-30c5-48ee-a620-45dfeacf7b71/width=512/149854654.jpeg",
+     "width": 1160,
+     "height": 1608
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/20de76f1-2848-4cce-b4ff-7f9bff0ad3d2/original=true/149854663.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/20de76f1-2848-4cce-b4ff-7f9bff0ad3d2/width=512/149854663.jpeg",
+     "width": 1248,
+     "height": 1608
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/3030362",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": 5,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 533126,
+   "name": "Hammer Vampire Film Style",
+   "author": "FuenfFingerFaultier",
+   "type": "LORA",
+   "tags": [
+    "movie",
+    "horror",
+    "film",
+    "photorealistic",
+    "vampire",
+    "style",
+    "cinematic",
+    "fantasy"
+   ],
+   "description": "Model trained on various Hammer Studios vampire films. See version info for key word description",
+   "version": "Krea2 2.0",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-08-01T16:00:00.000Z",
+   "triggerWords": [
+    "fangs",
+    "vampire",
+    "pale"
+   ],
+   "files": [
+    {
+     "name": "hammer_krea2_2_0.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2 2.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-01T16:00:00.000Z"
+    }
+   ],
+   "downloads": 1995,
+   "likes": 158,
+   "comments": 10,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/425ecf38-c006-4e05-ab56-05c88d65f941/original=true/138441831.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/425ecf38-c006-4e05-ab56-05c88d65f941/width=512/138441831.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/8d711353-ec01-42ab-8e06-140f0169ecdf/original=true/138441870.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/8d711353-ec01-42ab-8e06-140f0169ecdf/width=512/138441870.jpeg",
+     "width": 888,
+     "height": 1184
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cbe80a41-b324-4f51-be5a-5b85d24792fe/original=true/138441828.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cbe80a41-b324-4f51-be5a-5b85d24792fe/width=512/138441828.jpeg",
+     "width": 888,
+     "height": 1184
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a4a421d6-e0f9-45c1-9c89-d0fd5243ff05/original=true/138441832.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a4a421d6-e0f9-45c1-9c89-d0fd5243ff05/width=512/138441832.jpeg",
+     "width": 888,
+     "height": 1184
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/533126",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Rent"
+   ],
+   "ranks": {
+    "day": 6,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3039624,
+   "name": "Aesthetic Female | Facial Aesthetic Variation",
+   "author": "UCHIJ",
+   "type": "LORA",
+   "tags": [
+    "concept",
+    "aesthetic",
+    "beauty",
+    "krea2"
+   ],
+   "description": "The Beauty Spectrum is a LoRA trained to create a strong range of feminine facial aesthetics and appearance variation. The effect can also be used much like a slider—lower weights produce a more subtle influence, while increasing the weight progressively pushes the facial aesthetic further.\nThe LoRA has a strong effect, so moderate weights are recommended for retaining natural detail. In Krea2, weights above approximately 0.45 may begin to noticeably reduce natural skin texture and produce a smoother, more stylized appearance.\nAnima Image Trigger word: aesthetic_female\nMoss Image Trigger word:",
+   "version": "Krea 2 v1.0",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-06T20:01:19.500Z",
+   "triggerWords": [
+    "aesthetic_female"
+   ],
+   "files": [
+    {
+     "name": "aesthetic_female.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea 2 v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-06T20:01:19.500Z"
+    }
+   ],
+   "downloads": 986,
+   "likes": 69,
+   "comments": 2,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/09f66c08-d24b-47c2-b3ed-9e562527bf8d/original=true/148148534.mp4",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/09f66c08-d24b-47c2-b3ed-9e562527bf8d/width=512/148148534.mp4",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/3039624",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": 7,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3024932,
+   "name": "GigaBoobs",
+   "author": "Danrom_",
+   "type": "LORA",
+   "tags": [
+    "concept",
+    "boobs",
+    "tits",
+    "woman",
+    "breasts",
+    "nsfw",
+    "mature",
+    "clothed",
+    "attire"
+   ],
+   "description": "GigaBoobs-Minimax h3 Image\nTrigger word: gigaboobs\nRecommended Lora Strength: 1.0\nLora should force large breasts if you not specify breasts shape and use trigger world, but you still can try to specify breasts size in the prompt to get more natural results, but the success of breasts specifications are not guaranteed.\nLora works nice with strength between 0.8 and 1.0, but you can push it to 1.2 or 1.5 for exaggerated effect, works pretty well in some scenarios, but is more unstable than at 1.0 or lower. Strength at 1.5 or higher may lead to body horror or bad contrast image.\nResults may not b",
+   "version": "v1.0 - Krea 2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-10-28T15:23:24.772Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "GigaBoobs-Krea2.safetensors",
+     "sizeMB": 163.5,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "v1.0 - Krea 2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-28T15:23:24.772Z"
+    }
+   ],
+   "downloads": 653,
+   "likes": 40,
+   "comments": 2,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/ed258d89-5186-4eaf-ba85-2f7b967ddadf/original=true/147117617.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/ed258d89-5186-4eaf-ba85-2f7b967ddadf/width=512/147117617.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e5bdcc82-e273-4f52-ae37-333200843422/original=true/147117623.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e5bdcc82-e273-4f52-ae37-333200843422/width=512/147117623.jpeg",
+     "width": 1080,
+     "height": 1920
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/3024932",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": 8,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 2965141,
+   "name": "Mia",
+   "author": "gra4maxim138",
+   "type": "LORA",
+   "tags": [
+    "character"
+   ],
+   "description": "Numerous errors were discovered, requiring a complete reprocessing of the dataset.\nThe model was created entirely using AI. (Pony->Flux->Krea2)\nModel Description\nLoRA Name: Mia\nBase Model: Krea2\nType: Character LoRA\nAge: 19\nGender: FEMALE\nRecommended Parameters (ComfyUI)\nSteps: 9/14\nSampler: Euler\nPrompt Format: simple\nRecommended settings:\nLoRA weight: 0.8 – 1\n\nThis model was trained using an image that I had discarded but then retrieved. My search continues for unique faces that stand out from the glossy, perfect standards typical of AI. Any suggestions or advice are welcome!\nIf you have any",
+   "version": "Krea2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-09-26T07:51:57.124Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "mia_krea2.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "fp16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-26T07:51:57.124Z"
+    }
+   ],
+   "downloads": 540,
+   "likes": 34,
+   "comments": 0,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/28e22efb-acf8-417e-af9c-25dff7a5a3ba/original=true/143867500.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/28e22efb-acf8-417e-af9c-25dff7a5a3ba/width=512/143867500.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/55cc4eab-7b51-4c0a-ae87-179d63ff25d6/original=true/143867534.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/55cc4eab-7b51-4c0a-ae87-179d63ff25d6/width=512/143867534.jpeg",
+     "width": 1088,
+     "height": 1920
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dae049da-8386-406b-8991-5be5896f285e/original=true/143867738.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dae049da-8386-406b-8991-5be5896f285e/width=512/143867738.jpeg",
+     "width": 1088,
+     "height": 1920
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2965141",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": 9,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3062338,
+   "name": "Better Hand Control",
+   "author": "858654128784",
+   "type": "LORA",
+   "tags": [
+    "concept",
+    "close-up",
+    "hands",
+    "control",
+    "fingers",
+    "holding",
+    "grip"
+   ],
+   "description": "Built for hands: what the right and left hand each hold and how (how many fingers wrap around, where the thumb presses, palm up or down), and what the other hand is doing or whether it is empty, all follow your prompt. Finger counts stay correct, and tricky grips like chopsticks, mug handles, rackets and umbrella handles land. Trained on 150 everyday photos of people holding things (cups, chopsticks, keys, rackets, guitars, steering wheels, tools), mostly one person, with a few two-person hand-overs. Two-handed close-ups stay precise too, with every finger countable.\nUsage: Start with handhold",
+   "version": "Krea2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-23T09:40:07.197Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "handholdcontrol_krea2.safetensors",
+     "sizeMB": 223.8,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-23T09:40:07.197Z"
+    }
+   ],
+   "downloads": 419,
+   "likes": 41,
+   "comments": 1,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/f95122c3-05b9-428d-a800-30b7ba940917/original=true/149954945.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/f95122c3-05b9-428d-a800-30b7ba940917/width=512/149954945.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/77c4675a-3cdf-4692-84ae-0a66223e3b9d/original=true/149954927.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/77c4675a-3cdf-4692-84ae-0a66223e3b9d/width=512/149954927.jpeg",
+     "width": 1152,
+     "height": 1536
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/91acb17d-d434-44eb-97b2-1453c1e5cff4/original=true/149954944.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/91acb17d-d434-44eb-97b2-1453c1e5cff4/width=512/149954944.jpeg",
+     "width": 1152,
+     "height": 1536
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e436b2fb-eef3-4ccc-bc15-61d4a880584d/original=true/149954943.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e436b2fb-eef3-4ccc-bc15-61d4a880584d/width=512/149954943.jpeg",
+     "width": 1152,
+     "height": 1536
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/3062338",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": 10,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 2965984,
+   "name": "Gemini Fantasy (Krea2 Style LoRA)",
+   "author": "ArchAngelAries",
+   "type": "LORA",
+   "tags": [
+    "style",
+    "fantasy",
+    "painterly splash art",
+    "bold ink comic"
+   ],
+   "description": "Gemini Fantasy – Krea 2 Style LoRA CollectionGemini Fantasy is a very special project for me, born from a massive amount of artistic experimentation, iterative prompt engineering, and creative collaboration between myself, Claude, and Gemini.\nMy original goal was to capture the incredible fantasy illustration aesthetics that Nano Banana produces and bring them natively into Krea 2, giving creators greater artistic freedom and control over their generations.\nDuring the development and curation of my datasets, I ended up cultivating three distinct artistic styles, each with its own visual identi",
+   "version": "Painterly Splash Art v1.0",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-25T16:18:11.907Z",
+   "triggerWords": [
+    "GeminiFantasy_PainterlySplashArt Style"
+   ],
+   "files": [
+    {
+     "name": "Gemini_Fantasy_-_Painterly_Splash_Art_Style_krea2_3452429_epoch_20.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Painterly Splash Art v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-25T16:18:11.907Z"
+    },
+    {
+     "name": "Bold Ink Comic v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-05T16:07:04.550Z"
+    }
+   ],
+   "downloads": 320,
+   "likes": 44,
+   "comments": 2,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/2e8f1168-2b16-41e6-a154-b7da68494f8a/original=true/150193076.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/2e8f1168-2b16-41e6-a154-b7da68494f8a/width=512/150193076.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9cf1a477-4d31-4b85-b6a8-fcf1808c7fd8/original=true/150193078.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9cf1a477-4d31-4b85-b6a8-fcf1808c7fd8/width=512/150193078.jpeg",
+     "width": 1368,
+     "height": 768
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9d75aa31-7679-469b-9422-8769669aa00e/original=true/150193077.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9d75aa31-7679-469b-9422-8769669aa00e/width=512/150193077.jpeg",
+     "width": 1368,
+     "height": 768
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/73d84227-62e6-4681-832d-f1aeb2924e3e/original=true/150193074.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/73d84227-62e6-4681-832d-f1aeb2924e3e/width=512/150193074.jpeg",
+     "width": 768,
+     "height": 1368
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2965984",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": 11,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3028455,
+   "name": "The Fur Wardrobe",
+   "author": "foxfurrier",
+   "type": "LORA",
+   "tags": [
+    "clothing",
+    "fur coat",
+    "fur fashion",
+    "outerwear",
+    "fur clothing"
+   ],
+   "description": "So, I says to myself, I says… Why toss coats into blender? Why not try making a LoRA based on one coat?\n\nBut the training data, you say, too thin, too homogeneous! Yes, solid points, but I flaunt my vibe-coded variety generator app, API key, and frontier image models at you. And the ten bucks I threw at them… Don’t mention Qwen, it’s… not great at inferring what fur looks like from different angles, and I’ll leave it at that.\n\nThis page will be updated with new coats as… I feel like it.\n\nOne important general note about all of them: they will be ‘less flexible’ than the generalist LoRAs. By th",
+   "version": "102 Inspirations",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-26T01:08:38.234Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "crucoat1_krea2-000040.safetensors",
+     "sizeMB": 382.2,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "102 Inspirations",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-26T01:08:38.234Z"
+    },
+    {
+     "name": "Blue Fox Fur Jacket",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-12T03:52:47.296Z"
+    },
+    {
+     "name": "Blue Fox Notched Lapel",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-30T18:01:19.417Z"
+    }
+   ],
+   "downloads": 307,
+   "likes": 14,
+   "comments": 2,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3c10b397-bd94-48cc-b5a1-c5d66d66fbca/original=true/150231317.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3c10b397-bd94-48cc-b5a1-c5d66d66fbca/width=512/150231317.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3a05bbce-9e05-4f42-9c60-cd2d39a99a81/original=true/150231298.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3a05bbce-9e05-4f42-9c60-cd2d39a99a81/width=512/150231298.jpeg",
+     "width": 1280,
+     "height": 1280
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/0617aa21-e111-44c9-9c3b-4b58f0ba8d24/original=true/150231297.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/0617aa21-e111-44c9-9c3b-4b58f0ba8d24/width=512/150231297.jpeg",
+     "width": 1280,
+     "height": 1280
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/41b5ba35-05c7-4cb7-82cf-1e80d1999aed/original=true/150231303.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/41b5ba35-05c7-4cb7-82cf-1e80d1999aed/width=512/150231303.jpeg",
+     "width": 1280,
+     "height": 1280
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/3028455",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": 12,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 2847216,
+   "name": "You mei ren kan Style [Krea 2/MOSS]",
+   "author": "Imagine__That",
+   "type": "LORA",
+   "tags": [
+    "style",
+    "artist style"
+   ],
+   "description": "A thick paint style with bold outlines and big eyes. Trained on just the artist's semi-realistic pieces.\n\nTrigger word: Youmeirenkan semi-real style\n\nSuggested strength: 0.8-1.00 when used alone.",
+   "version": "Krea2 v1.0",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-08-18T12:48:43.112Z",
+   "triggerWords": [
+    "Youmeirenkan semi-real style"
+   ],
+   "files": [
+    {
+     "name": "Youmeirenkan semi-real style v1 EP10.safetensors",
+     "sizeMB": 223.8,
+     "format": "SafeTensor",
+     "fp": "fp16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2 v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-18T12:48:43.112Z"
+    }
+   ],
+   "downloads": 341,
+   "likes": 61,
+   "comments": 1,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/93114a86-0431-4e25-96a6-19feff98f09e/original=true/139275449.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/93114a86-0431-4e25-96a6-19feff98f09e/width=512/139275449.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/6925513b-c5ec-4437-9def-800500e23c31/original=true/139275450.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/6925513b-c5ec-4437-9def-800500e23c31/width=512/139275450.jpeg",
+     "width": 1024,
+     "height": 1536
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2847216",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Rent"
+   ],
+   "ranks": {
+    "day": 13,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3053902,
+   "name": "Seraphine — Krea 2",
+   "author": "OLsyn",
+   "type": "LORA",
+   "tags": [
+    "concept",
+    "bat wings",
+    "succubus",
+    "fantasy",
+    "photorealism",
+    "demon",
+    "tail",
+    "demon girl",
+    "photo real",
+    "ram horns"
+   ],
+   "description": "This was my attempt at making a photoreal OC succubus. It now has two versions, which better split the two modes.\n\nV2: Seraphine OC Lora\nNo Trigger (without her name): no horns, ears, skin colour, eyes, tail or wings, even at 0.9, and every woman keeps her own face. Busts get bigger from 0.7;\nWith \"Seraphine,\" in the prompt:\nUp to 0.5: nothing.\nAt 0.7: the darker-skinned women can become pale-skinned\nAt 0.9: random appearance of ram horns, pointed ears, tail\nAt no strength <=1: lavender skin, amber eyes, a tail or wings.\n============================\nV1: A Succubus maker Two modes:At low streng",
+   "version": "K2 v2 Seraphine",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-26T04:54:03.196Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "Seraphine-Krea2-V2.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "fp16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "K2 v2 Seraphine",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-26T04:54:03.196Z"
+    },
+    {
+     "name": "Krea 2 V1",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-15T18:21:07.547Z"
+    }
+   ],
+   "downloads": 377,
+   "likes": 25,
+   "comments": 2,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7a041637-d48f-4ac6-80fc-c5ff5c92de2f/original=true/150245921.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7a041637-d48f-4ac6-80fc-c5ff5c92de2f/width=512/150245921.jpeg",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/3053902",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent"
+   ],
+   "ranks": {
+    "day": 14,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3039615,
+   "name": "FEKLA   [MOSS / Krea]",
+   "author": "bazya022020810",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "photorealistic",
+    "sexy",
+    "female",
+    "milf",
+    "woman",
+    "slavic",
+    "sexyover40"
+   ],
+   "description": "🐱🐺 Понравилось? Заходи за другими\n100% AI-generated fictional character (OC). Does not depict or reference any real person.\nKREA 2\nThis LoRA is the product of creative dataset experiments and workflow stress-testing. It was originally built as a testbed to train and seamlessly bake multiple intricate elements into a single model without distortion: vivid colorful neck and thigh tattoos, realistic multi-strand pearl chokers, distinct two-tone hair bangs, and consistent facial features across vastly different clothing and environments.\nMOSS\nБолее ранняя версия\nThis model received technical sup",
+   "version": "v2.0 Krea 2",
+   "baseModel": "Krea 2 Turbo",
+   "publishedAt": "2026-11-25T11:59:01.812Z",
+   "triggerWords": [
+    "fl75aaa"
+   ],
+   "files": [
+    {
+     "name": "Feklav1k.safetensors",
+     "sizeMB": 223.8,
+     "format": "SafeTensor",
+     "fp": "fp16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "v2.0 Krea 2",
+     "baseModel": "Krea 2 Turbo",
+     "publishedAt": "2026-11-25T11:59:01.812Z"
+    },
+    {
+     "name": "v1.0 Krea 2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-06T20:27:55.098Z"
+    }
+   ],
+   "downloads": 466,
+   "likes": 25,
+   "comments": 1,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a2ba1e7e-0a87-4257-885a-1b9fbb7788bf/original=true/150173860.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a2ba1e7e-0a87-4257-885a-1b9fbb7788bf/width=512/150173860.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b7048eb5-5a95-4e57-b803-109b0365f914/original=true/150174254.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b7048eb5-5a95-4e57-b803-109b0365f914/width=512/150174254.jpeg",
+     "width": 1024,
+     "height": 1536
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b3d3a3da-b124-4447-ba9a-b6633bdf1444/original=true/150173381.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b3d3a3da-b124-4447-ba9a-b6633bdf1444/width=512/150173381.jpeg",
+     "width": 1024,
+     "height": 1536
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/3039615",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Rent",
+    "Image"
+   ],
+   "ranks": {
+    "day": 15,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3060967,
+   "name": "liminal complex",
+   "author": "arrssenne",
+   "type": "LORA",
+   "tags": [
+    "background",
+    "liminal complex"
+   ],
+   "description": "l1m1n4l c0mpl3x\nENGLISH\nStep into an extradimensional labyrinth of places you almost recognize. Cold fluorescent lights wash over yellow wallpaper, mismatched furniture and damp corridors. Beyond them, a deserted bungalow street, an impossible dining room and a tiled indoor pool offer different ways to get lost.\nThis photorealistic background LoRA draws on 45 images spanning 12 environments, including an office furniture showroom, a mall atrium, a laundromat, a motel reception and a school gym. The scenes share an unsettling stillness, with familiar architecture that feels slightly out of plac",
+   "version": "Krea",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-22T03:12:16.623Z",
+   "triggerWords": [
+    "l1m1n4l c0mpl3x"
+   ],
+   "files": [
+    {
+     "name": "l1m1n4l-c0mpl3x-k.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-22T03:12:16.623Z"
+    }
+   ],
+   "downloads": 264,
+   "likes": 34,
+   "comments": 2,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/4ea30c00-327d-4b90-8991-34af6abf1c98/original=true/149817685.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/4ea30c00-327d-4b90-8991-34af6abf1c98/width=512/149817685.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3f58868a-305b-4a86-9d1b-3c7819bd03a5/original=true/149817684.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3f58868a-305b-4a86-9d1b-3c7819bd03a5/width=512/149817684.jpeg",
+     "width": 896,
+     "height": 1152
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/34a26186-f799-415a-b869-29ca4cb02889/original=true/149817688.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/34a26186-f799-415a-b869-29ca4cb02889/width=512/149817688.jpeg",
+     "width": 896,
+     "height": 1152
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/31b299b1-41b6-4960-a621-e24528a85f8e/original=true/149817690.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/31b299b1-41b6-4960-a621-e24528a85f8e/width=512/149817690.jpeg",
+     "width": 896,
+     "height": 1152
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/3060967",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": 16,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3061875,
+   "name": "Noir Comic illustration [Krea + MOSS]",
+   "author": "ColonelJay",
+   "type": "LORA",
+   "tags": [
+    "dark",
+    "noir",
+    "style",
+    "illustration",
+    "fantasy",
+    "comic",
+    "cel shading",
+    "linework"
+   ],
+   "description": "Noir Comic illustration is a LoRA that seeks to reproduce the very popular illustration style found in many comics, role-playing games, and video games, with expressive characters, angular shapes and cel shading.\nThis could be considered a variant of my other Dark Fantasy illustration LoRA, but with a different vibe and stronger character.\n\nThis Noir Comic Illustration style is characterized by:\nBold, thick black outlines, angular shapes and expressive linework, creating strong visual silhouettes and distinctive character designs.\nStylized, hand-drawn illustrations with exaggerated features, s",
+   "version": "Krea 2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-22T22:30:00.000Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "Noir_Comic_illustration-krea-2-epoch-10.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea 2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-22T22:30:00.000Z"
+    }
+   ],
+   "downloads": 240,
+   "likes": 37,
+   "comments": 1,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/01b2e825-1f78-4f3c-823d-9b58c35e1fe2/original=true/149899997.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/01b2e825-1f78-4f3c-823d-9b58c35e1fe2/width=512/149899997.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9737ae82-9f4a-48ea-8d92-16227466dbdd/original=true/149900003.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9737ae82-9f4a-48ea-8d92-16227466dbdd/width=512/149900003.jpeg",
+     "width": 896,
+     "height": 1120
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/058cd300-c2c8-40f4-b729-3ee44d92fc6a/original=true/149900000.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/058cd300-c2c8-40f4-b729-3ee44d92fc6a/width=512/149900000.jpeg",
+     "width": 896,
+     "height": 1120
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3d99111f-c1a1-4ee1-931d-479ff28fe5db/original=true/149899999.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3d99111f-c1a1-4ee1-931d-479ff28fe5db/width=512/149899999.jpeg",
+     "width": 896,
+     "height": 1120
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/3061875",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": 17,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3025400,
+   "name": "Cora NordhavenLove",
+   "author": "MisterMR",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "nordhavenlove family"
+   ],
+   "description": "This LoRA does not depict a real person; it is a fictional creation.\r\nThe Nordhaven family had roots in the rocky soil and shifting tides of the Swedish west coast, a heritage as enduring and unpredictable as the Bohuslän archipelago itself. Cora NordhavenLove, the current inheritor of this storied lineage, maintained the family’s quiet, almost invisible presence among the local community. Their weathered white house, perched precariously on a jutting point of rock, served not merely as a dwelling but as a keeper of memory and tradition. Generations of Nordhavens had adapted to the rhythm of t",
+   "version": "Krea2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-10-29T04:00:00.000Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "MisterMR_Cora_NordhavenLove_Krea2.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": null,
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-29T04:00:00.000Z"
+    }
+   ],
+   "downloads": 624,
+   "likes": 19,
+   "comments": 0,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/65773915-9305-4eff-bbb7-02151d92b776/original=true/147145773.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/65773915-9305-4eff-bbb7-02151d92b776/width=512/147145773.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a1ced247-aa5d-4e6f-8b52-b8bdad239634/original=true/147145777.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a1ced247-aa5d-4e6f-8b52-b8bdad239634/width=512/147145777.jpeg",
+     "width": 840,
+     "height": 1256
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/3025400",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Rent",
+    "Image"
+   ],
+   "ranks": {
+    "day": 18,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3044594,
+   "name": "🐻 Hollowlight – Cinematic Dream Realism",
+   "author": "Moonbear_AIArt",
+   "type": "LORA",
+   "tags": [
+    "realism",
+    "lighting",
+    "style",
+    "cinematic",
+    "high contrast",
+    "shadows",
+    "atmospheric",
+    "dramatic lighting"
+   ],
+   "description": "Psssst... over here... you know what? Livebound. 👀 Yeah... don’t miss it 😉\nCurrent Cucrible 20K Buzz Prizpool with Prizes Awarded to the Top 10 Places!\n\nAn exploration of light, shadow and the space between photography and illustration.\nHollowlight is a cinematic style LoRA exploring darker atmospheres, pronounced contrast and expressive lighting.\nIt tends to deepen shadows, influence color relationships and introduce a greater sense of depth and texture. Depending on the subject, the result may take on a more photographic appearance while retaining elements of its original artistic style.\nF",
+   "version": "v1.0Krea",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-25T05:11:11.034Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "HollowlightCinematicDreamRealismv1.0Krea.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "v1.0Krea",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-25T05:11:11.034Z"
+    }
+   ],
+   "downloads": 301,
+   "likes": 62,
+   "comments": 3,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/56013026-a5fa-4ef2-87b4-a0307ca4858c/original=true/148496611.mp4",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/56013026-a5fa-4ef2-87b4-a0307ca4858c/width=512/148496611.mp4",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/31c63d9f-5510-4229-8d1f-3f7ba2d0b9d2/original=true/148510212.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/31c63d9f-5510-4229-8d1f-3f7ba2d0b9d2/width=512/148510212.jpeg",
+     "width": 3564,
+     "height": 4096
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3000c788-b204-4d1d-a90d-9059d21b1298/original=true/148506548.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3000c788-b204-4d1d-a90d-9059d21b1298/width=512/148506548.jpeg",
+     "width": 1000,
+     "height": 1456
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/540afaf0-f1ea-4cbc-9fcc-6d95c5594505/original=true/148506581.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/540afaf0-f1ea-4cbc-9fcc-6d95c5594505/width=512/148506581.jpeg",
+     "width": 1000,
+     "height": 1456
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/3044594",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": 19,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 3063661,
+   "name": "Maggie - a 90s inspired college girl",
+   "author": "StreetNews",
+   "type": "LORA",
+   "tags": [
+    "character"
+   ],
+   "description": "This is a Krea-2 LoRA that reminds me of the pretty college girls in the 90s. The activation word is Maggie361\nI think I might revise this one in the future if there are enough people interested. The reason is I might have overtrained the face. If the head appears too big in your image, try adding tiny head to the prompt. Example: a Maggie361 woman with a tiny head stands confidently with hands on hips with a nice smile \nPlease add to the gallery on this page! I'd love to see what you do with the character.",
+   "version": "v1.0",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-25T19:16:44.174Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "Maggie361_v1.01.safetensors",
+     "sizeMB": 56.1,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-25T19:16:44.174Z"
+    },
+    {
+     "name": "v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-24T15:38:39.502Z"
+    }
+   ],
+   "downloads": 178,
+   "likes": 9,
+   "comments": 0,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/2e47461a-fcf3-4b2f-aadb-692058d72cc4/original=true/150205141.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/2e47461a-fcf3-4b2f-aadb-692058d72cc4/width=512/150205141.jpeg",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/3063661",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": 20,
+    "week": null,
+    "month": null
+   }
+  },
+  {
+   "id": 2088956,
+   "name": "Famegrid (Moss Image / Krea 2 / Z-Image) - Realism LoRA",
+   "author": "UltraMuse",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "sexy",
+    "realism",
+    "model",
+    "instagram",
+    "woman",
+    "women",
+    "influencer",
+    "tik tok",
+    "human",
+    "facebook",
+    "social media"
+   ],
+   "description": "All gallery images were generated using the preview model.\n🔥 New Release — Moss Image Preview FIXThis release fixes the anatomy issues from the previous version.\n\nNOTE: This is a preview release. To access the final release with extended NSFW become a supporter below.\n\nThis was trained specifically for natural faces—minimal makeup, no editing, and no AI filters. The focus is believable people, everyday appearances, and the kind of casual photography.\n\nTrain a LoRA with these same settings\n\nThe training data is approximately 80% women and 20% men, supporting a generalized social media aestheti",
+   "version": "Krea 2 Spice V2 Preview",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-13T03:11:37.192Z",
+   "triggerWords": [
+    "famegrid"
+   ],
+   "files": [
+    {
+     "name": "Famegrid-Spice-Preview-V2.safetensors",
+     "sizeMB": 1490,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea 2 Spice V2 Preview",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-13T03:11:37.192Z"
+    },
+    {
+     "name": "Krea 2 Spice Preview FIX",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-29T23:28:55.975Z"
+    },
+    {
+     "name": "Krea 2 Natural V1",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-20T11:32:05.377Z"
+    },
+    {
+     "name": "Krea 2 Standard v1",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-22T18:58:45.505Z"
+    }
+   ],
+   "downloads": 58862,
+   "likes": 2379,
+   "comments": 102,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c5bcef5d-2c63-49d1-b635-d5c10a6f3896/original=true/148836320.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c5bcef5d-2c63-49d1-b635-d5c10a6f3896/width=512/148836320.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5472b65b-ff94-42e6-b1af-cbedd2d14726/original=true/148831286.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5472b65b-ff94-42e6-b1af-cbedd2d14726/width=512/148831286.jpeg",
+     "width": 2400,
+     "height": 3200
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/30c93ac3-42f8-4dc6-9e2c-03b7880fec12/original=true/148831133.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/30c93ac3-42f8-4dc6-9e2c-03b7880fec12/width=512/148831133.jpeg",
+     "width": 2400,
+     "height": 3200
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/8dd00781-5502-4a13-a1a0-a871e3e08f4e/original=true/148831264.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/8dd00781-5502-4a13-a1a0-a871e3e08f4e/width=512/148831264.jpeg",
+     "width": 2400,
+     "height": 3200
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2088956",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 1,
+    "month": 2
+   }
+  },
+  {
+   "id": 2274840,
+   "name": "Alt-Girl/E-Girl",
+   "author": "TheAINovice",
+   "type": "LORA",
+   "tags": [
+    "style",
+    "emo",
+    "e-girl",
+    "alt-girl"
+   ],
+   "description": "Trigger word AltGirl\n\nMinimax Image generates okay images compared to other models but I think it shines when using it when you edit. I provided examples of Anime to Realism generations with the workflow embedded in the image.",
+   "version": "Krea2 v1.5",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-08-04T17:53:53.500Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "AltGirlKreaV1.5.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2 v1.5",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-04T17:53:53.500Z"
+    },
+    {
+     "name": "Krea2 v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-14T05:55:28.937Z"
+    }
+   ],
+   "downloads": 17396,
+   "likes": 822,
+   "comments": 12,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9113826e-9318-4c90-ac44-8c99457bdec4/original=true/138751368.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9113826e-9318-4c90-ac44-8c99457bdec4/width=512/138751368.jpeg",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/2274840",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 2,
+    "month": 6
+   }
+  },
+  {
+   "id": 2513759,
+   "name": "Body weight slider. (Skinny ===> Fat slider)",
+   "author": "Maruhashi",
+   "type": "LORA",
+   "tags": [
+    "concept",
+    "fat",
+    "skinny",
+    "slider",
+    "illustrious",
+    "weight slider",
+    "body weight slider"
+   ],
+   "description": "Recommended negative prompt: lowres, bad quality, worst quality, bad anatomy, jpeg artifacts, signature, watermark, sketch\n\n I also recommend using this upscaler: https://openmodeldb.info/models/2x-AnimeSharpV4\n\n Usable weight: from -3 to 3+, depending on the checkpoint and additional LORA used\n\n No trigger word is needed",
+   "version": "Krea2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-07-26T06:48:57.272Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "Krea2Weight_v3.safetensors",
+     "sizeMB": 102.5,
+     "format": "SafeTensor",
+     "fp": null,
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-26T06:48:57.272Z"
+    }
+   ],
+   "downloads": 20637,
+   "likes": 1223,
+   "comments": 15,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/fe04566c-9e90-488d-8391-27d935fa91d5/original=true/136692563.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/fe04566c-9e90-488d-8391-27d935fa91d5/width=512/136692563.jpeg",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/2513759",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Image"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 3,
+    "month": 12
+   }
+  },
+  {
+   "id": 2854494,
+   "name": "Krea 2 星穹铁道 cos服  合集 | Krea 2 Honkai: Star Rail Cosplay Collection",
+   "author": "Qiyuanbeisheng",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "firefly",
+    "sparkle",
+    "robin",
+    "clara",
+    "star rail",
+    "herta",
+    "qingque",
+    "jingliu",
+    "stelle",
+    "huohuo",
+    "march_7th"
+   ],
+   "description": "此Lora合集的Lora都是以Krea-2-Raw为底膜，使用AI-ToolKit进行训练，可适用于krea2_turbo_bf16，krea2_turbo_fp8_scaled.safetensors等模型进行生图\n更多lora看主页网盘，懒得上传了~~",
+   "version": "阿哈",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-20T06:45:45.308Z",
+   "triggerWords": [
+    "aha  1girl, solo  blue eyes, pale silver hair, long hair, angular headpiece, black and white geometric headpiece  red and white outfit, corset, layered ruffles, checkered pattern, oversized bow, red heart motifs, playing card motifs, red accents  high heels"
+   ],
+   "files": [
+    {
+     "name": "阿哈.txt",
+     "sizeMB": 0,
+     "format": "Other",
+     "fp": null,
+     "primary": false
+    },
+    {
+     "name": "阿哈.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "阿哈",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-20T06:45:45.308Z"
+    },
+    {
+     "name": "知更鸟-晴歌",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-19T15:40:07.444Z"
+    },
+    {
+     "name": "火花皮肤",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T08:16:02.911Z"
+    },
+    {
+     "name": "大昔涟",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T14:06:53.208Z"
+    },
+    {
+     "name": "知更鸟",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T12:26:29.548Z"
+    },
+    {
+     "name": "长夜月",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T12:26:45.281Z"
+    },
+    {
+     "name": "云璃",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T12:26:40.011Z"
+    },
+    {
+     "name": "远坂凛",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T12:26:34.628Z"
+    },
+    {
+     "name": "银狼",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T11:57:19.069Z"
+    },
+    {
+     "name": "爻光",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T11:53:53.778Z"
+    },
+    {
+     "name": "星",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T11:53:45.618Z"
+    },
+    {
+     "name": "小昔涟",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T11:14:08.758Z"
+    },
+    {
+     "name": "遐蝶皮肤",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T10:58:12.157Z"
+    },
+    {
+     "name": "遐蝶",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T10:46:47.579Z"
+    },
+    {
+     "name": "三月七巡猎",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T10:33:14.401Z"
+    },
+    {
+     "name": "三月七",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T10:22:30.171Z"
+    },
+    {
+     "name": "青雀",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T10:01:10.917Z"
+    },
+    {
+     "name": "流萤皮肤",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T09:43:52.699Z"
+    },
+    {
+     "name": "流萤",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T09:32:57.074Z"
+    },
+    {
+     "name": "刻律德菈",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T08:52:38.972Z"
+    },
+    {
+     "name": "克拉拉",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T08:25:14.957Z"
+    },
+    {
+     "name": "火花",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T08:06:07.924Z"
+    },
+    {
+     "name": "花火",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T07:34:53.177Z"
+    },
+    {
+     "name": "黑塔",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T07:07:51.583Z"
+    },
+    {
+     "name": "海瑟音",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T06:51:44.825Z"
+    },
+    {
+     "name": "符玄",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T06:22:59.255Z"
+    },
+    {
+     "name": "风堇",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T06:09:07.751Z"
+    },
+    {
+     "name": "绯英",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T05:56:43.733Z"
+    },
+    {
+     "name": "大黑塔",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-15T05:39:36.510Z"
+    },
+    {
+     "name": "镜流",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-13T03:37:32.710Z"
+    },
+    {
+     "name": "藿藿",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-13T03:26:50.156Z"
+    }
+   ],
+   "downloads": 6533,
+   "likes": 88,
+   "comments": 7,
+   "coverUrl": "",
+   "thumbUrl": "",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/2854494",
+   "allowCommercialUse": [
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 4,
+    "month": 15
+   }
+  },
+  {
+   "id": 2862344,
+   "name": "Krea 2 其他 cos服  合集 | Krea 2 Collection of Other Cosplay",
+   "author": "Qiyuanbeisheng",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "cosplay",
+    "miku",
+    "elaina",
+    "kinako",
+    "roxy",
+    "alisa",
+    "murasame",
+    "eriri",
+    "deepseek",
+    "ruruka",
+    "tachibana sherry"
+   ],
+   "description": "此Lora是以Krea-2-Raw为底膜，使用AI-ToolKit进行训练，可适用于krea2_turbo_bf16，krea2_turbo_fp8_scaled.safetensors等模型进行生图\n更多lora看主页网盘",
+   "version": "露露卡",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-24T01:10:48.607Z",
+   "triggerWords": [
+    "ruruka  1girl, solo  blonde hair, long hair, cat-ear headpiece, black veil  black and white dress, gold trim, purple accents, layered ruffles  purple tights  black heels"
+   ],
+   "files": [
+    {
+     "name": "露露卡.txt",
+     "sizeMB": 0,
+     "format": "Other",
+     "fp": null,
+     "primary": false
+    },
+    {
+     "name": "露露卡.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "露露卡",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-24T01:10:48.607Z"
+    },
+    {
+     "name": "DeepSeek",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-20T06:45:58.840Z"
+    },
+    {
+     "name": "若叶睦常服",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-23T10:19:21.306Z"
+    },
+    {
+     "name": "友利奈绪",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:20:25.818Z"
+    },
+    {
+     "name": "英梨梨",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:21:31.570Z"
+    },
+    {
+     "name": "殷紫萍",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:21:26.819Z"
+    },
+    {
+     "name": "伊蕾娜",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:21:22.031Z"
+    },
+    {
+     "name": "瑶-时之愿境",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:21:16.607Z"
+    },
+    {
+     "name": "瑶-时之祈愿",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:20:15.748Z"
+    },
+    {
+     "name": "小乔-线条小狗",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:20:11.904Z"
+    },
+    {
+     "name": "小乔-时之魔女",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:20:07.410Z"
+    },
+    {
+     "name": "西施-游龙清影",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:20:02.998Z"
+    },
+    {
+     "name": "四季夏目",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:21:40.477Z"
+    },
+    {
+     "name": "若叶睦",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:22:03.921Z"
+    },
+    {
+     "name": "洛琪希-睡衣",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:22:05.373Z"
+    },
+    {
+     "name": "洛琪希",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:19:51.088Z"
+    },
+    {
+     "name": "橘雪莉",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:19:44.506Z"
+    },
+    {
+     "name": "黄豆粉",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:19:40.313Z"
+    },
+    {
+     "name": "和泉纱雾-休闲版",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:19:35.822Z"
+    },
+    {
+     "name": "和泉纱雾-睡衣版",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:19:27.025Z"
+    },
+    {
+     "name": "和泉妃爱",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:19:02.698Z"
+    },
+    {
+     "name": "谷风天音",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:18:22.925Z"
+    },
+    {
+     "name": "公孙离-祈雪灵祝",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:20:43.334Z"
+    },
+    {
+     "name": "公孙离-离恨烟",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:22:53.849Z"
+    },
+    {
+     "name": "公孙离-花间舞",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:22:22.134Z"
+    },
+    {
+     "name": "丰川祥子",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:17:21.892Z"
+    },
+    {
+     "name": "丛雨",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:17:16.745Z"
+    },
+    {
+     "name": "初音未来",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:22:43.661Z"
+    },
+    {
+     "name": "波奇酱",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:16:48.646Z"
+    },
+    {
+     "name": "艾莉",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-16T04:43:31.638Z"
+    }
+   ],
+   "downloads": 5106,
+   "likes": 71,
+   "comments": 3,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/f7873720-fb5a-4b65-a8fe-9432e150558f/original=true/150025546.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/f7873720-fb5a-4b65-a8fe-9432e150558f/width=512/150025546.jpeg",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/2862344",
+   "allowCommercialUse": [
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 5,
+    "month": 16
+   }
+  },
+  {
+   "id": 2825107,
+   "name": "True First-Person POV｜真实人眼高度第一视角",
+   "author": "oreolove",
+   "type": "LORA",
+   "tags": [
+    "concept",
+    "pov"
+   ],
+   "description": "C站发布文案推荐标题\nKrea 2 Raw｜True First-Person POV｜真实人眼高度第一视角\n简介\n为 Krea 2 训练的真实第一人称 POV 概念 LoRA。\n主要改善普通提示词容易生成的“背后跟拍、第三人称自拍、镜头高度不自然”等问题，使画面更接近真实双眼所见的视角。\n适用于日常生活、室内互动、行走、乘车、烹饪、握手、牵手、躺卧、低头观察等场景。支持男性和女性视点，偏写实摄影风格。\n触发词\n建议在提示词前部使用：\ntrue first-person POV需要强调站立眼高时：\ntrue first-person eye-level POV, natural standing eye height, normal human-eye perspective坐姿场景：\ntrue first-person seated POV, natural seated eye height, normal human-eye perspective推荐标签\nKrea 2, Krea 2 Raw, LoRA, POV, First Person, Eye Level,\nHuman Eye Perspective, Photorealistic, Immersive, Perspective",
+   "version": "v1.0",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-08-01T07:21:16.274Z",
+   "triggerWords": [
+    "true first-person POV"
+   ],
+   "files": [
+    {
+     "name": "pov.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-01T07:21:16.274Z"
+    }
+   ],
+   "downloads": 4102,
+   "likes": 203,
+   "comments": 2,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/706c7649-48f0-4b96-b095-ffe407006292/original=true/138411795.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/706c7649-48f0-4b96-b095-ffe407006292/width=512/138411795.jpeg",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/2825107",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 6,
+    "month": null
+   }
+  },
+  {
+   "id": 2949494,
+   "name": "Krea 2 鸣潮 cos服  合集 | Krea 2 Wuthering Waves Cosplay Collection",
+   "author": "Qiyuanbeisheng",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "cosplay",
+    "lily",
+    "wuthering waves",
+    "yangyang",
+    "changli",
+    "suoming",
+    "xinyuehu"
+   ],
+   "description": "此Lora是以Krea-2-Raw为底膜，使用AI-ToolKit进行训练，可适用于krea2_turbo_bf16，krea2_turbo_fp8_scaled.safetensors等模型进行生图\n更多lora看主页网盘",
+   "version": "长离",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-20T06:45:22.443Z",
+   "triggerWords": [
+    "changli  1girl, solo  pink hair, pink and white hair, long hair, braided hair, gold ornaments, ornate hair accessories  white and red outfit, red and black accents, flame patterned fabric, flowing ribbons, lace trim, red gloves, black thighhighs  black heels  parasol"
+   ],
+   "files": [
+    {
+     "name": "长离.txt",
+     "sizeMB": 0,
+     "format": "Other",
+     "fp": null,
+     "primary": false
+    },
+    {
+     "name": "长离.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "长离",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-20T06:45:22.443Z"
+    },
+    {
+     "name": "秧秧",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-20T06:45:32.938Z"
+    },
+    {
+     "name": "莉莉",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-17T11:12:49.623Z"
+    },
+    {
+     "name": "锁暝",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-13T16:45:14.516Z"
+    },
+    {
+     "name": "心月狐",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-19T16:12:48.878Z"
+    },
+    {
+     "name": "爱弥斯",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:37:58.004Z"
+    },
+    {
+     "name": "达妮娅",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:36:12.751Z"
+    },
+    {
+     "name": "卡提希娅",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:37:55.597Z"
+    },
+    {
+     "name": "尤诺",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:38:18.396Z"
+    },
+    {
+     "name": "秧秧-玄翎",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:38:16.591Z"
+    },
+    {
+     "name": "守岸人",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:38:11.882Z"
+    },
+    {
+     "name": "清宵",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:38:08.798Z"
+    },
+    {
+     "name": "千咲",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:38:08.650Z"
+    },
+    {
+     "name": "漂泊者",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:38:04.385Z"
+    },
+    {
+     "name": "莫宁",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:37:07.492Z"
+    },
+    {
+     "name": "琳奈",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:37:00.880Z"
+    },
+    {
+     "name": "今汐皮肤",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:36:41.424Z"
+    },
+    {
+     "name": "菲比",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T12:36:29.446Z"
+    }
+   ],
+   "downloads": 3104,
+   "likes": 44,
+   "comments": 5,
+   "coverUrl": "",
+   "thumbUrl": "",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/2949494",
+   "allowCommercialUse": [
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 7,
+    "month": null
+   }
+  },
+  {
+   "id": 2862331,
+   "name": "Krea 2 蔚蓝档案 cos服  合集 | Krea 2 Blue Archive Cosplay Collection",
+   "author": "Qiyuanbeisheng",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "cosplay",
+    "blue archive",
+    "kazusa",
+    "niyaniya",
+    "tachibana_nozomi",
+    "krea 2",
+    "iochi_mari",
+    "takanashi_hoshino_swimsuit",
+    "takanashi_hoshino",
+    "tachibana_hikari",
+    "shirasu_azusa_swimsuit"
+   ],
+   "description": "此Lora是以Krea-2-Raw为底膜，使用AI-ToolKit进行训练，可适用于krea2_turbo_bf16，krea2_turbo_fp8_scaled.safetensors等模型进行生图\n更多lora看主页网盘",
+   "version": "笑面教授",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-24T01:10:37.577Z",
+   "triggerWords": [
+    "niyaniya  1girl, solo  green eyes, blonde hair, long hair, black beret  black coat, black dress, red bow, white trim, frilled skirt  black tights  white combat boots"
+   ],
+   "files": [
+    {
+     "name": "笑面教授.txt",
+     "sizeMB": 0,
+     "format": "Other",
+     "fp": null,
+     "primary": false
+    },
+    {
+     "name": "笑面教授.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "笑面教授",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-24T01:10:37.577Z"
+    },
+    {
+     "name": "杏山和纱",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-19T15:39:19.075Z"
+    },
+    {
+     "name": "伊落玛丽",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-31T13:36:05.794Z"
+    },
+    {
+     "name": "小鸟游星野",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-31T13:36:00.847Z"
+    },
+    {
+     "name": "下江小春",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-31T13:35:42.541Z"
+    },
+    {
+     "name": "水梓",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-31T13:35:37.858Z"
+    },
+    {
+     "name": "水星野",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-31T13:35:51.203Z"
+    },
+    {
+     "name": "砂狼白子-体操服",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-31T13:35:23.151Z"
+    },
+    {
+     "name": "砂狼白子",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-31T13:35:56.486Z"
+    },
+    {
+     "name": "橘望",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-31T13:35:15.181Z"
+    },
+    {
+     "name": "橘光",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-31T13:34:51.218Z"
+    },
+    {
+     "name": "黑见芹香",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-31T13:34:44.837Z"
+    },
+    {
+     "name": "妃咲",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-16T04:07:49.469Z"
+    }
+   ],
+   "downloads": 2742,
+   "likes": 55,
+   "comments": 4,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e40daf78-5b67-4351-89ee-4b36a95fc36c/original=true/150025515.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e40daf78-5b67-4351-89ee-4b36a95fc36c/width=512/150025515.jpeg",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/2862331",
+   "allowCommercialUse": [
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 8,
+    "month": null
+   }
+  },
+  {
+   "id": 2871922,
+   "name": "DC Vast Expanse",
+   "author": "dkpc69",
+   "type": "LORA",
+   "tags": [
+    "futuristic",
+    "midjourney",
+    "high quality",
+    "portrait",
+    "sci-fi",
+    "style",
+    "epic",
+    "fantasy",
+    "portraits",
+    "wallpaper",
+    "detail",
+    "surreal"
+   ],
+   "description": "Trigger Word = DCVSTEXP.\n\nv1 [Krea2Raw] Trained on a dataset of 448 Midjourney Images Using Moodboards, Trained with Ostris AI-Toolkit at 10,000 Steps Rank 32, Works perfectly with Krea2Turbo, Trained at 512, 768 and 1024 resolution\nv1 [MinimaxImage] Trained on the same dataset as Krea2raw v1 except trained only on resolutions 1536 and 2048 with ostris ai-toolkit, Just for anyone wandering this new minimaxh3 Image model is actually insanely good, ridiculous amount of detail, scale is interpreted better than krea2raw and turbo and good seed variance (Different images every seed) and the model i",
+   "version": "v1.0 [Krea2Raw]",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-08-19T11:20:00.331Z",
+   "triggerWords": [
+    "DCVSTEXP."
+   ],
+   "files": [
+    {
+     "name": "DC Vast Expanse [Krea2][GPT4.1Captioned][Trigger=DCVSTEXP.][Rank32] v1.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "v1.0 [Krea2Raw]",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-19T11:20:00.331Z"
+    }
+   ],
+   "downloads": 2799,
+   "likes": 305,
+   "comments": 17,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/646c03e2-832f-4f5a-b641-8bde38a20322/original=true/140156179.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/646c03e2-832f-4f5a-b641-8bde38a20322/width=512/140156179.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b097dd93-5fb4-40c0-9338-10baf22dfbbe/original=true/140153338.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b097dd93-5fb4-40c0-9338-10baf22dfbbe/width=512/140153338.jpeg",
+     "width": 1088,
+     "height": 1920
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b9f07a76-b49a-4e20-8a85-7ac8009f3964/original=true/140153578.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b9f07a76-b49a-4e20-8a85-7ac8009f3964/width=512/140153578.jpeg",
+     "width": 1088,
+     "height": 1920
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/56cef13c-7bf6-4b97-8a1c-2156b304a0bf/original=true/140153535.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/56cef13c-7bf6-4b97-8a1c-2156b304a0bf/width=512/140153535.jpeg",
+     "width": 1088,
+     "height": 1920
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2871922",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Rent",
+    "Image"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 9,
+    "month": null
+   }
+  },
+  {
+   "id": 1980971,
+   "name": "Grimm's realistic painting",
+   "author": "Grimm0",
+   "type": "LORA",
+   "tags": [
+    "realism",
+    "classical",
+    "style",
+    "portraits",
+    "realistic",
+    "vibrant",
+    "painting",
+    "digital",
+    "impressionism",
+    "romanticism",
+    "elegance",
+    "impressionistic"
+   ],
+   "description": "strength: around 0.7 ~ 1\n\n Brushstrokes of realism, painted with emotion.\n\nElevate your digital artistry with this LoRA designed for realistic painting and impressionistic expression. It captures the timeless elegance of classical oil painting through rich textures, expressive brushwork, and luminous color blending. Perfect for creating portraits, figure studies, and romantic compositions, this model delivers a balance of realism and painterly charm.\nFrom vibrant strokes to soft transitions, it evokes the depth and emotion of traditional art while maintaining digital precision. Ideal for artis",
+   "version": "variant 1-Krea2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-10-14T18:25:38.840Z",
+   "triggerWords": [
+    "grimmspaintalt"
+   ],
+   "files": [
+    {
+     "name": "Grimm_s_realistic_painting_alternative_krea2_epoch_12.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "variant 1-Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-14T18:25:38.840Z"
+    },
+    {
+     "name": "Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-29T14:00:00.000Z"
+    }
+   ],
+   "downloads": 4867,
+   "likes": 441,
+   "comments": 4,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7b441a04-8637-462e-b111-d87d4f4d27a2/original=true/145667274.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7b441a04-8637-462e-b111-d87d4f4d27a2/width=512/145667274.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9541153f-bd0d-41a5-aa11-cf9b2b53adb5/original=true/145667368.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9541153f-bd0d-41a5-aa11-cf9b2b53adb5/width=512/145667368.jpeg",
+     "width": 1024,
+     "height": 1536
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c96ac00d-c14c-427c-8f20-fdc111134f76/original=true/145667371.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c96ac00d-c14c-427c-8f20-fdc111134f76/width=512/145667371.jpeg",
+     "width": 1024,
+     "height": 1536
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5060561c-eab5-4e90-8905-f083b8474801/original=true/145667370.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5060561c-eab5-4e90-8905-f083b8474801/width=512/145667370.jpeg",
+     "width": 1024,
+     "height": 1536
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/1980971",
+   "allowCommercialUse": [
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 10,
+    "month": null
+   }
+  },
+  {
+   "id": 601666,
+   "name": "Midjourney Style",
+   "author": "zwaetschge",
+   "type": "LORA",
+   "tags": [
+    "style"
+   ],
+   "description": "The purpose of this model is to recreate the overall photorealistic Midjourney style.",
+   "version": "v1.0 K2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-08-21T16:29:27.415Z",
+   "triggerWords": [
+    "midjourney"
+   ],
+   "files": [
+    {
+     "name": "midjourney_8_2_k2_epoch_20.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "v1.0 K2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-21T16:29:27.415Z"
+    }
+   ],
+   "downloads": 7074,
+   "likes": 474,
+   "comments": 6,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/60d66bb3-62f3-42dd-b904-f74ccc9eb23f/original=true/140389688.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/60d66bb3-62f3-42dd-b904-f74ccc9eb23f/width=512/140389688.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/ee5faf28-45ad-41d8-aaaf-75dcc9c1db99/original=true/140389695.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/ee5faf28-45ad-41d8-aaaf-75dcc9c1db99/width=512/140389695.jpeg",
+     "width": 1088,
+     "height": 1928
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5ec7c46f-4132-45e9-ab9f-e0b935a399f1/original=true/140389700.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5ec7c46f-4132-45e9-ab9f-e0b935a399f1/width=512/140389700.jpeg",
+     "width": 1448,
+     "height": 985
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e99e93b3-2837-4f73-8457-8b7c772983ea/original=true/140389696.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e99e93b3-2837-4f73-8457-8b7c772983ea/width=512/140389696.jpeg",
+     "width": 1088,
+     "height": 1928
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/601666",
+   "allowCommercialUse": [
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 11,
+    "month": null
+   }
+  },
+  {
+   "id": 2776289,
+   "name": "KR2 MOSS Tiger Kittens",
+   "author": "ZacharyTiger",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "blonde",
+    "asian",
+    "japanese",
+    "brunette",
+    "influencer",
+    "red head",
+    "native american"
+   ],
+   "description": "Introducing the Tiger Kittens Collection 🐯✨\nMeet the Tiger Kittens – a fierce and fabulous group of AI influencers, each with a unique, bold personality that lights up the digital world. These stylish, adventurous souls embody the perfect blend of elegance, power, and playfulness. Whether they're dominating the fashion scene, embracing their inner artist, or conquering the great outdoors, the Tiger Kittens are always ready to take on the world with confidence, charisma, and a little bit of edge. From stunning beachside moments to glamorous evening looks, this collection celebrates their vibra",
+   "version": "Seika",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-08-14T14:50:23.542Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "KR2_Tiger_Kittens_Seika_epoch_10.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Seika",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-14T14:50:23.542Z"
+    },
+    {
+     "name": "Kaya Dawn",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-07T16:40:55.348Z"
+    },
+    {
+     "name": "Jessica",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-29T13:44:53.910Z"
+    },
+    {
+     "name": "Calliope",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-14T01:58:33.240Z"
+    }
+   ],
+   "downloads": 2581,
+   "likes": 105,
+   "comments": 6,
+   "coverUrl": "",
+   "thumbUrl": "",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/2776289",
+   "allowCommercialUse": [
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 12,
+    "month": null
+   }
+  },
+  {
+   "id": 2823615,
+   "name": "Women's IFBB Wellness Muscle [Flux / MOSS / Krea 2]",
+   "author": "TestingAiImages",
+   "type": "LORA",
+   "tags": [
+    "superhero",
+    "concept",
+    "muscular",
+    "bottom heavy",
+    "detailed",
+    "photorealism",
+    "realistic",
+    "fitness",
+    "muscle",
+    "hero",
+    "veins",
+    "sfw"
+   ],
+   "description": "📢 Update: V2 Release + Anti-Render Utility LoRA\nV2 is now live! This checkpoint/LoRA was trained on an expanded dataset for sharper anatomical accuracy.\nPro Tip: You can run V1 and V2 stacked (try balancing weights, e.g., 0.5–0.7 each) to get the best traits of both runs.\n🛠️ Fixing the \"SFT 3D Render\" Look\nDistilled and Turbo workflows for MOSS-Image often introduce an artificial, 3D/CGI sheen. To solve this, pair this model with my new de-render slider:\n🔗 MOSS De-Render / Photoreal Negative Slider\nRunning this slider in negative/positive weight removes the plastic SFT look and restores nat",
+   "version": "V.6 (The 2MP LoKR Run)",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-09-17T14:01:33.417Z",
+   "triggerWords": [
+    "wellness_physique",
+    "vascular",
+    "vascularity",
+    "vein",
+    "veins",
+    "muscular",
+    "muscular quads",
+    "muscular hamstrings",
+    "muscular calves",
+    "full",
+    "round",
+    "muscle striations",
+    "exeptional",
+    "extremely",
+    "very lean",
+    "exceptionally lean",
+    "ifbb",
+    "muscular glutes"
+   ],
+   "files": [
+    {
+     "name": "wellness_physique_v6_krea2_final.safetensors",
+     "sizeMB": 1528.2,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    },
+    {
+     "name": "wellness_physique_v6_krea2_e9.safetensors",
+     "sizeMB": 1528.2,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": false
+    },
+    {
+     "name": "wellness_physique_v6_krea2_e6.safetensors",
+     "sizeMB": 1528.3,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": false
+    }
+   ],
+   "versions": [
+    {
+     "name": "V.6 (The 2MP LoKR Run)",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-17T14:01:33.417Z"
+    },
+    {
+     "name": "v1.0 Fitness Edition",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-17T14:11:49.925Z"
+    },
+    {
+     "name": "v5.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-12T10:15:42.513Z"
+    },
+    {
+     "name": "v5.0 - Slim",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-12T10:21:44.557Z"
+    },
+    {
+     "name": "v4.0c",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-03T01:30:31.392Z"
+    },
+    {
+     "name": "v4.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-03T01:18:09.231Z"
+    },
+    {
+     "name": "v3.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-31T16:47:00.607Z"
+    },
+    {
+     "name": "Vascularity v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-03T21:50:23.659Z"
+    },
+    {
+     "name": "v1.0 - LoKR Adaptive LR",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-12T20:01:33.982Z"
+    }
+   ],
+   "downloads": 3179,
+   "likes": 113,
+   "comments": 10,
+   "coverUrl": "",
+   "thumbUrl": "",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/2823615",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 14,
+    "month": null
+   }
+  },
+  {
+   "id": 2415137,
+   "name": "mikkoph Style",
+   "author": "mikkoph",
+   "type": "LORA",
+   "tags": [
+    "fashion",
+    "makeup",
+    "style",
+    "realistic",
+    "studio",
+    "retouch"
+   ],
+   "description": "This LoRA is designed to replicate the photography style of mikkoph (which happens to be me). It focuses on emulating the makeup, lighting techniques, and post-processing effects that I use in my work. The model was trained using images from my portfolio, which I own and hold all rights to.\n\nThis LoRA is intended mostly for myself, but also for users interested in generating images in a style similar to my photography, offering a creative tool for experimentation and inspiration.\n\nYou can view my photography work at my website: https://michelebalistreri.photo to get a better idea of what to ex",
+   "version": "Krea 2 v1.0",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-06-25T06:57:23.668Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "krea2-mikkoph.safetensors",
+     "sizeMB": 112,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea 2 v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-06-25T06:57:23.668Z"
+    }
+   ],
+   "downloads": 3583,
+   "likes": 245,
+   "comments": 8,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a73a18ce-da90-436d-a332-d90052674fb6/original=true/134800620.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a73a18ce-da90-436d-a332-d90052674fb6/width=512/134800620.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/aece381d-24a9-4f8a-a7d2-c05c9d6ab2aa/original=true/134800624.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/aece381d-24a9-4f8a-a7d2-c05c9d6ab2aa/width=512/134800624.jpeg",
+     "width": 768,
+     "height": 1024
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/413ce972-bb62-41be-a360-11d0dacc1e3c/original=true/134800649.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/413ce972-bb62-41be-a360-11d0dacc1e3c/width=512/134800649.jpeg",
+     "width": 1536,
+     "height": 2048
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/11f223e6-6aaf-4a51-b417-06f9eca00081/original=true/134800626.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/11f223e6-6aaf-4a51-b417-06f9eca00081/width=512/134800626.jpeg",
+     "width": 1536,
+     "height": 2048
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2415137",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 15,
+    "month": null
+   }
+  },
+  {
+   "id": 523485,
+   "name": "Ghibli style (Kiki's Delivery Service)",
+   "author": "Yofaraway",
+   "type": "LORA",
+   "tags": [
+    "anime",
+    "ghibli",
+    "style",
+    "kiki's delivery service"
+   ],
+   "description": "MOSSStill experimenting with moss training... Showcase images :\nSFT model + turbo lora 4 steps\nEuler simple / 5 steps / CFG 1\n1024x1536\nLora strength : 1\nKREA 2Showcase images :\nTurbo model\nEuler / simple / 8 steps / CFG 1\n768x1152\nLora strength of 1.3\nIDEOGRAM 4Used json captioning with art_style : \"Studio Ghibli style\" and medium : \"anime_screencap\"\nv2: Try other settings and the style seems a bit better with this one\nv1: First training on Ideogram4\nANIMAFirst Lora trained on Anima, and it seems really good for a first try.\nShowcase images :\ner_sde / simple / 30 steps / CFG 5\n768x1152\nLora s",
+   "version": "Krea2 v1",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-07-07T12:30:07.489Z",
+   "triggerWords": [
+    "ghibli style"
+   ],
+   "files": [
+    {
+     "name": "ghibli_style_krea2.safetensors",
+     "sizeMB": 109,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2 v1",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-07T12:30:07.489Z"
+    }
+   ],
+   "downloads": 10727,
+   "likes": 670,
+   "comments": 16,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/1510c257-c245-4bd4-a560-f295598e05c1/original=true/135328778.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/1510c257-c245-4bd4-a560-f295598e05c1/width=512/135328778.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/77edf6a6-c0b2-4097-bbac-551f4470c369/original=true/135328782.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/77edf6a6-c0b2-4097-bbac-551f4470c369/width=512/135328782.jpeg",
+     "width": 768,
+     "height": 1152
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b022cd3e-5d70-4b11-b85a-719f0029ebfc/original=true/135328785.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b022cd3e-5d70-4b11-b85a-719f0029ebfc/width=512/135328785.jpeg",
+     "width": 768,
+     "height": 1152
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a6008c9f-2fa5-441d-b4eb-00517c66fedc/original=true/135328786.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a6008c9f-2fa5-441d-b4eb-00517c66fedc/width=512/135328786.jpeg",
+     "width": 768,
+     "height": 1152
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/523485",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Rent",
+    "Image"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 16,
+    "month": null
+   }
+  },
+  {
+   "id": 863136,
+   "name": "70s Horror Movie",
+   "author": "ArsMachina",
+   "type": "LORA",
+   "tags": [
+    "movie",
+    "horror",
+    "midjourney",
+    "style",
+    "still",
+    "midjourney v6"
+   ],
+   "description": "This LoRA is designed to capture the specific atmosphere of 70s horror movies.\n\nThe trigger words are ArsMovieStill, movie still from a 1970s horror movie\n\nMJ7 version:\nReworked the dataset from scatch , so we can achieve better period accuracy. \n\nV2 update:\nIncreased dataset for improved flexibility.\nAdjusted the overall aesthetic to lean more toward a pastel technicolor palette.\nAdded a wide range of fantasy horror creatures and scenes to balance the focus, as v1 leaned more heavily toward slashers",
+   "version": "Krea2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-08-17T15:52:05.742Z",
+   "triggerWords": [
+    "ArsMovieStill, movie still from a 1970s horror movie,"
+   ],
+   "files": [
+    {
+     "name": "70sHorrorKrea2Raw.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-17T15:52:05.742Z"
+    }
+   ],
+   "downloads": 17014,
+   "likes": 1187,
+   "comments": 18,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5aebe358-35b8-4c76-b551-99c84ceb27e3/original=true/138412290.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5aebe358-35b8-4c76-b551-99c84ceb27e3/width=512/138412290.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c2a4098d-c459-475d-9e3c-b84816f7a98d/original=true/138410981.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c2a4098d-c459-475d-9e3c-b84816f7a98d/width=512/138410981.jpeg",
+     "width": 1024,
+     "height": 1024
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/edc1dc26-0be3-4104-a4da-f3cebd1edb10/original=true/138410987.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/edc1dc26-0be3-4104-a4da-f3cebd1edb10/width=512/138410987.jpeg",
+     "width": 1024,
+     "height": 1024
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/ce60b07f-06e5-41f4-9cfb-e088509ce4c0/original=true/138410985.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/ce60b07f-06e5-41f4-9cfb-e088509ce4c0/width=512/138410985.jpeg",
+     "width": 1024,
+     "height": 1024
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/863136",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 17,
+    "month": null
+   }
+  },
+  {
+   "id": 2948991,
+   "name": "Midjourney Chinese Aesthetics LoRA | MJ中式美学",
+   "author": "Ay1in",
+   "type": "LORA",
+   "tags": [
+    "style"
+   ],
+   "description": "关于 MOSS-Image 版本：\n这是我第一次尝试在 MOSS-Image 模型上训练 LoRA，因此还有许多不足之处。目前，我只在 8-Step 工作流中测试出了一个勉强令自己满意的结果。\n不过，这个版本仍然存在一些明显的问题，尤其是生成的人物在发型、眼睛和面部特征方面容易出现高度重复的情况，整体多样性还有待改善。\n后续我会继续学习和探索 MOSS-Image 的训练方法，积累更多经验。如果有机会，我也会尝试重新训练一个表现更好、更加完善的版本。\nAbout the MOSS-Image Version:\nThis is my first attempt at training a LoRA on MOSS-Image, so there is still plenty of room for improvement. So far, I've only managed to achieve a result that I'm somewhat satisfied with using an 8-step workflow.\nHowever, this version still has some noticeable issues. In particular, generated characters often exhibit highly repetitive hair",
+   "version": "v1.0Krea2 5000step",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-09-19T12:23:06.858Z",
+   "triggerWords": [
+    "MJCN_Style"
+   ],
+   "files": [
+    {
+     "name": "MJCN_Style_000005000.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "v1.0Krea2 5000step",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-19T12:23:06.858Z"
+    },
+    {
+     "name": "v1.0Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-19T12:07:50.289Z"
+    }
+   ],
+   "downloads": 1772,
+   "likes": 151,
+   "comments": 6,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b0f03837-0517-4e83-aa3d-41797b4273e1/original=true/143213189.mp4",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b0f03837-0517-4e83-aa3d-41797b4273e1/width=512/143213189.mp4",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/046be210-7e7c-4830-a0f5-87fb8230a218/original=true/143212050.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/046be210-7e7c-4830-a0f5-87fb8230a218/width=512/143212050.jpeg",
+     "width": 1280,
+     "height": 1920
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7b859a53-ff65-48c3-aa39-b3967908c527/original=true/143212038.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7b859a53-ff65-48c3-aa39-b3967908c527/width=512/143212038.jpeg",
+     "width": 1280,
+     "height": 1920
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/974371f9-1af9-40b5-b3bc-6a9166b0cb01/original=true/143212068.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/974371f9-1af9-40b5-b3bc-6a9166b0cb01/width=512/143212068.jpeg",
+     "width": 1280,
+     "height": 1920
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2948991",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Rent"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 18,
+    "month": null
+   }
+  },
+  {
+   "id": 2862329,
+   "name": "Krea 2 明日方舟 cos服  合集 | Krea 2 Arknights Cosplay Collection",
+   "author": "Qiyuanbeisheng",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "cosplay",
+    "arknights",
+    "amiya",
+    "lappland",
+    "rosmontis",
+    "closure",
+    "xi",
+    "kal'tsit",
+    "krea 2",
+    "vish'nel",
+    "silent_texas"
+   ],
+   "description": "此Lora是以Krea-2-Raw为底膜，使用AI-ToolKit进行训练，可适用于krea2_turbo_bf16，krea2_turbo_fp8_scaled.safetensors等模型进行生图\n更多lora看主页网盘",
+   "version": "迷迭香",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-20T06:44:09.348Z",
+   "triggerWords": [
+    "rosmontis  1girl, solo  green eyes, silver-white hair, long hair, white cat ears  blue and white dress, maid outfit, lolita dress, black lace trim, ruffled collar, large bows, layered skirt, blue ribbons, gold accents, blue and gold crown  white thighhighs  white shoes"
+   ],
+   "files": [
+    {
+     "name": "迷迭香.txt",
+     "sizeMB": 0,
+     "format": "Other",
+     "fp": null,
+     "primary": false
+    },
+    {
+     "name": "迷迭香.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "迷迭香",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-20T06:44:09.348Z"
+    },
+    {
+     "name": "拉普兰德",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-19T15:40:46.903Z"
+    },
+    {
+     "name": "夕",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:30:26.580Z"
+    },
+    {
+     "name": "维什戴尔",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:30:21.260Z"
+    },
+    {
+     "name": "可露希尔",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:30:18.156Z"
+    },
+    {
+     "name": "凯尔希",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:30:13.105Z"
+    },
+    {
+     "name": "缄默德克萨斯",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-02T11:29:04.560Z"
+    },
+    {
+     "name": "阿米娅",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-16T03:57:52.664Z"
+    }
+   ],
+   "downloads": 1381,
+   "likes": 38,
+   "comments": 3,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dca5ef46-cac1-4252-bb89-f7ec414acd14/original=true/149617375.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dca5ef46-cac1-4252-bb89-f7ec414acd14/width=512/149617375.jpeg",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/2862329",
+   "allowCommercialUse": [
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 19,
+    "month": null
+   }
+  },
+  {
+   "id": 2999848,
+   "name": "IvyS | Girls",
+   "author": "IvyS2",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "k_ivysreal"
+   ],
+   "description": "Meet Jenni! ♡\nJenni is a character LoRA.\nShe has very fair skin, delicate facial features, naturally full lips, soft dark eyebrows, and expressive dark brown eyes. She has long, voluminous dark brown hair with loose, natural waves and slightly messy strands framing her face. She has a slim, petite figure and a naturally soft appearance.\nFeel free to experiment with different outfits, poses, expressions, hairstyles, and environments while keeping Jenni's distinctive facial features and recognizable identity.\nTrigger word: JenniID\nHave fun creating with Jenni! ♡\n\nMeet Andy! ♡\nAndy is a character",
+   "version": "Ingrid Krea",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-24T16:33:10.744Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "IngridID.safetensors",
+     "sizeMB": 191,
+     "format": "SafeTensor",
+     "fp": "fp32",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Ingrid Krea",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-24T16:33:10.744Z"
+    },
+    {
+     "name": "Jenni Krea",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-19T18:18:19.956Z"
+    },
+    {
+     "name": "Andy Krea",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-10T18:43:59.347Z"
+    },
+    {
+     "name": "Zuri Krea",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-22T12:24:53.562Z"
+    },
+    {
+     "name": "Nari - Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-21T18:22:32.962Z"
+    },
+    {
+     "name": "Ivy - Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-13T11:05:30.218Z"
+    }
+   ],
+   "downloads": 1179,
+   "likes": 50,
+   "comments": 2,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/4a99f809-9184-4c56-a530-302aaec65008/original=true/150091976.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/4a99f809-9184-4c56-a530-302aaec65008/width=512/150091976.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5d913c46-38d6-448b-9cf2-ed07de470425/original=true/150091987.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5d913c46-38d6-448b-9cf2-ed07de470425/width=512/150091987.jpeg",
+     "width": 1024,
+     "height": 1536
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2999848",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Rent"
+   ],
+   "ranks": {
+    "day": null,
+    "week": 20,
+    "month": null
+   }
+  },
+  {
+   "id": 1862761,
+   "name": "NiceGirls UltraReal",
+   "author": "Danrisi",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "photorealistic",
+    "beauty"
+   ],
+   "description": "--Kroma (Asian edition)\nTrained on new dataset, also took as base Lodestone's Kroma\n\n--Qwen2.1 (version 2) \nI finally assembled new dataset, and this result i like a bit more. Try and share your thoughts \n\n--Qwen2.1\nI made 2 versions. one with slavic girls another with asians. Honestly with asians looks better right now, but i work under newer version for slavic girls. Both loras can be used with other loras.\n\n--Krea2\nActually i tested with different combinations raw and turbo. For best quality i use raw with cfg4, for fast result i use raw, but witth cfg1 and turbo lora (it really gives bette",
+   "version": "Kroma Asian Edition",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-03T12:16:19.353Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "asian_v2_kroma.safetensors",
+     "sizeMB": 109,
+     "format": "SafeTensor",
+     "fp": "fp16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Kroma Asian Edition",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-03T12:16:19.353Z"
+    },
+    {
+     "name": "v1.0 Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-06-27T17:29:50.378Z"
+    }
+   ],
+   "downloads": 167864,
+   "likes": 4926,
+   "comments": 92,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4a9b2f-7dcb-44f2-bbef-26e24b860ba1/original=true/147787552.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4a9b2f-7dcb-44f2-bbef-26e24b860ba1/width=512/147787552.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/261ccac1-d244-4b23-965e-b798096228b8/original=true/147781680.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/261ccac1-d244-4b23-965e-b798096228b8/width=512/147781680.jpeg",
+     "width": 1256,
+     "height": 1672
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3dc50ce4-071a-4034-84d0-0cfe2863fbf3/original=true/147781405.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3dc50ce4-071a-4034-84d0-0cfe2863fbf3/width=512/147781405.jpeg",
+     "width": 1776,
+     "height": 1184
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/353be9e0-1bfc-47d8-bd65-8093ddaf3a45/original=true/147790343.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/353be9e0-1bfc-47d8-bd65-8093ddaf3a45/width=512/147790343.jpeg",
+     "width": 1256,
+     "height": 1672
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/1862761",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 1
+   }
+  },
+  {
+   "id": 2462105,
+   "name": "UltraReal - Moss, Krea2, Klein9b",
+   "author": "vizsumit",
+   "type": "LORA",
+   "tags": [
+    "realism",
+    "style",
+    "photography",
+    "realistic",
+    "klein"
+   ],
+   "description": "Stop prompting from scratch, explore 11,000+ Prompts for free 👉 PromptDexter.com\nLoRAs for reducing the soft & smooth AI look and adds more texture and details to images. It works especially well for close-ups and medium shots where clothing details and skin texture plays an important role.\nMy Workflows - https://github.com/vizsumit/comfyui-workflows\nVersion Comparison\nMoss_V3: Trained on 3x bigger SFW dataset than previous with no quality compromise, mostly human subjects. It produce much better compositions and colors, also fixes minor anatomy glitches of moss sft. Doesn't lean towards any ",
+   "version": "KR2_V2_Pro",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-07-30T18:30:04.174Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "ultra_real_krea2_v2.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "KR2_V2_Pro",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-30T18:30:04.174Z"
+    },
+    {
+     "name": "KR2_V1",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-02T13:15:21.549Z"
+    }
+   ],
+   "downloads": 58262,
+   "likes": 1637,
+   "comments": 47,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/43e47bc3-3d23-47ed-8266-da259e78992c/original=true/138273474.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/43e47bc3-3d23-47ed-8266-da259e78992c/width=512/138273474.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/863f5144-4f53-4ea6-beea-17f616a4d455/original=true/138273487.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/863f5144-4f53-4ea6-beea-17f616a4d455/width=512/138273487.jpeg",
+     "width": 2496,
+     "height": 1824
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5e2c2cf2-30a8-4467-aef2-03d547294529/original=true/138273482.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5e2c2cf2-30a8-4467-aef2-03d547294529/width=512/138273482.jpeg",
+     "width": 2496,
+     "height": 1824
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/88bb8d0c-9004-4a77-a56f-d01840909d30/original=true/138273495.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/88bb8d0c-9004-4a77-a56f-d01840909d30/width=512/138273495.jpeg",
+     "width": 2496,
+     "height": 1824
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2462105",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 3
+   }
+  },
+  {
+   "id": 929497,
+   "name": "Aesthetic Quality Modifiers - Masterpiece",
+   "author": "motimalu",
+   "type": "LORA",
+   "tags": [
+    "anime",
+    "concept",
+    "aesthetic",
+    "styles"
+   ],
+   "description": "Aesthetic Quality Modifiers - Masterpiece\nTraining data is a subset of all my manually rated datasets with the quality/aesthetic modifiers, including only the masterpiece tagged images.\n\nℹ️ LoRA work best when applied to the base models on which they are trained. Please read the About This Version on the appropriate base models, trigger usage, and workflow/training information.\n\nRecommended prompt structure:\nPositive prompt (quality tags at the start of prompt):\nmasterpiece, best quality, very aesthetic, {{tags}}, {{natural language}}",
+   "version": "v5.1 [krea2]",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-06-28T04:41:52.518Z",
+   "triggerWords": [
+    "masterpiece",
+    "very aesthetic"
+   ],
+   "files": [
+    {
+     "name": "krea2-masterpieces-v51.safetensors",
+     "sizeMB": 204.8,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "v5.1 [krea2]",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-06-28T04:41:52.518Z"
+    }
+   ],
+   "downloads": 192581,
+   "likes": 12892,
+   "comments": 51,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b52ca5ee-60d0-4605-972e-1ec03a4b1fab/original=true/135097140.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b52ca5ee-60d0-4605-972e-1ec03a4b1fab/width=512/135097140.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/08471791-370b-4c78-8e3f-2a3b52ee365c/original=true/135101877.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/08471791-370b-4c78-8e3f-2a3b52ee365c/width=512/135101877.jpeg",
+     "width": 1664,
+     "height": 2432
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/929497",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 4
+   }
+  },
+  {
+   "id": 2732158,
+   "name": "[KREA 2] Breast Slider",
+   "author": "alcaitiff",
+   "type": "LORA",
+   "tags": [
+    "woman",
+    "tool",
+    "breast",
+    "slider"
+   ],
+   "description": "See the examples, they have workflow embedded.",
+   "version": "v2.0",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-15T22:17:52.995Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "BreastSlider-KREA2-v2.safetensors",
+     "sizeMB": 15.2,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "v2.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-15T22:17:52.995Z"
+    },
+    {
+     "name": "v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-06-26T13:27:18.672Z"
+    }
+   ],
+   "downloads": 15802,
+   "likes": 698,
+   "comments": 23,
+   "coverUrl": "",
+   "thumbUrl": "",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/2732158",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 5
+   }
+  },
+  {
+   "id": 2762978,
+   "name": "[BSS] - Styles for Krea2",
+   "author": "llikswonskcalb",
+   "type": "LORA",
+   "tags": [
+    "style"
+   ],
+   "description": "[BSS] – Styles for Krea2200📥= New Style ✅\n500📥 = New Style ✅\n1,000📥 = New Style ✅\n2,000📥 = New Style ✅\n4,000📥 = New Style ✅\n6,000📥 = New Style ✅\n8,000📥 = New Style ✅\n10,000📥 = New Style ✅\n15,000📥 = New Style ⏳\nExclusive Models / Early Access / Support - https://t.me/blacksnowskill\nThis pack contains a set of style LoRAs trained specifically on Krea2.\nEach style was designed to expand creative possibilities, giving you more flexibility when working with Krea2 — whether you want subtle stylistic shifts or stronger artistic transformations.\n\n❤️ Support & FeedbackIf you enjoy using Equino",
+   "version": "Amber",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-11T09:34:46.321Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "amber-style-krea-2-base-epoch-08.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    },
+    {
+     "name": "amber-style-krea-2-base-epoch-10.safetensors",
+     "sizeMB": 218,
+     "format": null,
+     "fp": "bf16",
+     "primary": false
+    }
+   ],
+   "versions": [
+    {
+     "name": "Amber",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-11T09:34:46.321Z"
+    },
+    {
+     "name": "Flash Photo",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-29T20:50:41.772Z"
+    },
+    {
+     "name": "NLSTN",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-16T08:53:06.047Z"
+    },
+    {
+     "name": "Arcane",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-25T19:42:17.112Z"
+    },
+    {
+     "name": "Digital illustration",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-26T07:34:59.443Z"
+    },
+    {
+     "name": "GLOW",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-27T18:03:30.382Z"
+    },
+    {
+     "name": "UINQ",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-14T08:41:10.489Z"
+    },
+    {
+     "name": "INCASE",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-11T10:03:52.671Z"
+    },
+    {
+     "name": "ANIRL",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-09T12:25:20.281Z"
+    },
+    {
+     "name": "GLSHS3D",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-08T08:40:49.393Z"
+    }
+   ],
+   "downloads": 12326,
+   "likes": 577,
+   "comments": 9,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e55617ad-ab55-4c2c-a79c-33b7b028acf4/original=true/148639136.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/e55617ad-ab55-4c2c-a79c-33b7b028acf4/width=512/148639136.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7460fb45-a0b9-4e77-819a-2bc956317e96/original=true/148639154.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7460fb45-a0b9-4e77-819a-2bc956317e96/width=512/148639154.jpeg",
+     "width": 1024,
+     "height": 1024
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2762978",
+   "allowCommercialUse": [
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 7
+   }
+  },
+  {
+   "id": 2728005,
+   "name": "PureLens Realism",
+   "author": "goldennyks76",
+   "type": "LORA",
+   "tags": [
+    "photorealistic",
+    "style",
+    "woman",
+    "skin",
+    "raw",
+    "ideogram"
+   ],
+   "description": "Pure Lens is a realism LoRA trained on high-quality photographs and images converted from raw formats (DNG, ARW, CR2, NEF...). The dataset consists of natural, sharp images — not studio shoots. Clean, crisp visuals that bring out texture, pores, and fine details. Works well with other LoRAs.\n\nQwen 2.1 v1.0\nOverall I like the results but the background gets a bit messy in some images. Not sure if it's a model issue or LoRA-related.\nKrea v1.0This is the Krea version of previous model. Compared to the Ideogram version, this dataset is significantly broader and features much better captioning.\nIde",
+   "version": "Krea 2 v1.0",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-07-09T20:33:44.220Z",
+   "triggerWords": [
+    "purelens"
+   ],
+   "files": [
+    {
+     "name": "purelens_krea2.safetensors",
+     "sizeMB": 327,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea 2 v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-09T20:33:44.220Z"
+    }
+   ],
+   "downloads": 13485,
+   "likes": 524,
+   "comments": 16,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/82a91cb7-4846-44b8-9e80-1f634a41e123/original=true/136233835.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/82a91cb7-4846-44b8-9e80-1f634a41e123/width=512/136233835.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/4d1acf6b-b460-4d7e-8fc9-fa02ee50ee1f/original=true/136294200.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/4d1acf6b-b460-4d7e-8fc9-fa02ee50ee1f/width=512/136294200.jpeg",
+     "width": 4630,
+     "height": 1636
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/d364587a-0303-49fe-98e8-01b837e4249b/original=true/136231948.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/d364587a-0303-49fe-98e8-01b837e4249b/width=512/136231948.jpeg",
+     "width": 1256,
+     "height": 1672
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2728005",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 8
+   }
+  },
+  {
+   "id": 2940470,
+   "name": "Mr Piglets Brats worldwide collection",
+   "author": "Mr_Piglet",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "girl",
+    "teen",
+    "lady",
+    "woman",
+    "luxury",
+    "hot",
+    "rich",
+    "exclusive",
+    "brats"
+   ],
+   "description": "You don't have to like the LoRa, but you can show your appreciation for the work put into it with a thumbs-up if you download it.....They all come across as arrogant, exclusive, high-class, spoiled and patronizing.\n\nTrigger are the same as LoRa name ex: Brat1(not the nationallity, only Brat1, Brat2 and so on)\n\nKeep come back or follow me, more nationalities will follow soon\n\n你不必喜欢 LoRa，但如果你下载了它，可以用一个点赞来表示对其中投入工作的赞赏……\n它们全都显得傲慢、排外、高端、娇纵且居高临下。\n触发器名称与 LoRa 名称相同，例如：Brat1（仅指名称，而非国籍，包括 Brat1、Brat2 等）。\n保持关注或关注我，更多国籍版本将很快推出。\nLoRa を気に入らなくても、ダウンロードすればその労力を称賛するためにumbs-up を付けてください。\nすべては傲慢で排他的、高級でわがまま、そして高圧",
+   "version": "Brat48",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-10-29T02:00:59.156Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "Brat48.safetensors",
+     "sizeMB": 223.9,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Brat48",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-29T02:00:59.156Z"
+    },
+    {
+     "name": "Brat47",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-27T21:12:08.078Z"
+    },
+    {
+     "name": "Brat46",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-27T21:08:52.061Z"
+    },
+    {
+     "name": "Brat45",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-27T21:06:43.252Z"
+    },
+    {
+     "name": "Brat44",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-27T17:37:34.687Z"
+    },
+    {
+     "name": "Brat43",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-27T17:35:23.894Z"
+    },
+    {
+     "name": "Brat42",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-27T17:31:48.095Z"
+    },
+    {
+     "name": "Brat41",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-27T17:29:50.117Z"
+    },
+    {
+     "name": "Brat40",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-27T17:26:23.378Z"
+    },
+    {
+     "name": "Brat39",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-27T17:24:44.369Z"
+    },
+    {
+     "name": "Brat38 Afro/Japanese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-25T02:59:49.245Z"
+    },
+    {
+     "name": "Brat37 Afro/Japanese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-24T14:04:04.026Z"
+    },
+    {
+     "name": "Brat36 Mexican",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-20T19:19:38.680Z"
+    },
+    {
+     "name": "Brat35 Mexican",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-20T17:14:50.039Z"
+    },
+    {
+     "name": "Brat34 Mexican",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-20T15:04:12.400Z"
+    },
+    {
+     "name": "Brat33 Chinese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-19T16:20:21.860Z"
+    },
+    {
+     "name": "Brat32 Chinese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-19T16:04:54.606Z"
+    },
+    {
+     "name": "Brat31 Chinese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-19T15:51:39.612Z"
+    },
+    {
+     "name": "Brat30 Thai",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-19T08:20:02.039Z"
+    },
+    {
+     "name": "Brat29 Thai",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-19T08:12:18.580Z"
+    },
+    {
+     "name": "Brat28 Thai",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-19T08:09:49.583Z"
+    },
+    {
+     "name": "Brat27 Japanese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-18T22:25:49.137Z"
+    },
+    {
+     "name": "Brat26 Japanese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-18T22:23:06.462Z"
+    },
+    {
+     "name": "Brat25 Japanese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-18T22:20:03.219Z"
+    },
+    {
+     "name": "Brat24 Japanese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-18T22:17:27.895Z"
+    },
+    {
+     "name": "Brat23 Japanese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-18T22:12:06.454Z"
+    },
+    {
+     "name": "Brat22 Persian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-18T12:47:19.996Z"
+    },
+    {
+     "name": "Brat21 Persian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-18T12:42:32.099Z"
+    },
+    {
+     "name": "Brat20 Persian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-18T12:36:33.587Z"
+    },
+    {
+     "name": "Brat19 Persian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-18T12:31:06.441Z"
+    },
+    {
+     "name": "Brat18 Da hood girls",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-17T15:43:39.257Z"
+    },
+    {
+     "name": "Brat17 Da hood girls",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-17T12:39:14.528Z"
+    },
+    {
+     "name": "Brat16 Da hood girls",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-17T10:44:36.150Z"
+    },
+    {
+     "name": "Brat15 Mexican",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-22T21:39:09.636Z"
+    },
+    {
+     "name": "Brat14 Persian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-22T19:26:42.036Z"
+    },
+    {
+     "name": "Brat13 Irish",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-22T19:26:51.348Z"
+    },
+    {
+     "name": "Brat12 Persian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-22T19:26:46.586Z"
+    },
+    {
+     "name": "Brat11 Finnish",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T18:26:35.506Z"
+    },
+    {
+     "name": "Brat10 Lebanese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T18:26:40.420Z"
+    },
+    {
+     "name": "Brat9 Chinese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T16:45:05.217Z"
+    },
+    {
+     "name": "Brat8 Bulgarian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T15:47:53.983Z"
+    },
+    {
+     "name": "Brat7 Italian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-20T14:28:45.409Z"
+    },
+    {
+     "name": "Brat6 Japanese",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-16T06:01:48.157Z"
+    },
+    {
+     "name": "Brat5 Russian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-16T05:16:35.363Z"
+    },
+    {
+     "name": "Brat4 Persian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-15T19:52:55.627Z"
+    },
+    {
+     "name": "Brat3 Persian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-15T19:52:59.426Z"
+    },
+    {
+     "name": "Brat2 Persian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-15T19:53:01.370Z"
+    },
+    {
+     "name": "Brat1 Persian",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-15T19:37:54.825Z"
+    }
+   ],
+   "downloads": 10356,
+   "likes": 149,
+   "comments": 10,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/01973b89-39c5-499d-9a89-0276455d5229/original=true/147165527.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/01973b89-39c5-499d-9a89-0276455d5229/width=512/147165527.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/58b5e73f-d015-48ff-958a-868649e8b71f/original=true/147165875.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/58b5e73f-d015-48ff-958a-868649e8b71f/width=512/147165875.jpeg",
+     "width": 2048,
+     "height": 2048
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/d32c9b02-e97e-4c01-877f-f8251579b36a/original=true/147225748.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/d32c9b02-e97e-4c01-877f-f8251579b36a/width=512/147225748.jpeg",
+     "width": 2048,
+     "height": 2048
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a1933baf-5921-460f-a49a-4569e236e9e8/original=true/147225756.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a1933baf-5921-460f-a49a-4569e236e9e8/width=512/147225756.jpeg",
+     "width": 2048,
+     "height": 2048
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2940470",
+   "allowCommercialUse": [
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 9
+   }
+  },
+  {
+   "id": 2909179,
+   "name": "The Lightbox - An Assortment of Photography Styles [KREA2]",
+   "author": "LolTurdFerguson",
+   "type": "LORA",
+   "tags": [
+    "vintage",
+    "modern",
+    "style",
+    "graphic design",
+    "photography",
+    "photos",
+    "styles"
+   ],
+   "description": "The Lightbox is an assortment of photography styles I've created and wanted to house in one place. Each version is its own distinct style, with details, triggers, and usage information provided on that version's model card.\nThis is not a multipurpose, all-in-one photography Style LoRA. Quite the opposite. Each version has a deliberately narrow focus and is intended for a specific photographic look or visual language.\nSome are broader than others, but they're all here because they're a little too niche to need an entire model page of their own. This will serve as a centralized hub for all of my",
+   "version": "Cinestill 800T Analog",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-07T14:00:00.000Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "CineStill800T-Analog-Rank16.safetensors",
+     "sizeMB": 112,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    },
+    {
+     "name": "CineStill800T-Balanced-Rank32.safetensors",
+     "sizeMB": 223.9,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": false
+    }
+   ],
+   "versions": [
+    {
+     "name": "Cinestill 800T Analog",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-07T14:00:00.000Z"
+    },
+    {
+     "name": "Kodak Funsaver Disposable",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-28T16:05:00.000Z"
+    },
+    {
+     "name": "Kodak Portra 400",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-27T14:00:00.000Z"
+    },
+    {
+     "name": "Infrared",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-16T16:34:51.828Z"
+    },
+    {
+     "name": "Atmospheric Hybrid [EXP]",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-13T18:34:10.663Z"
+    },
+    {
+     "name": "Ruin (Flash & Borders)",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-10T17:37:17.974Z"
+    },
+    {
+     "name": "Silverlight Studio",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-05T16:27:53.261Z"
+    },
+    {
+     "name": "Cinematic Concept",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-02T17:08:03.215Z"
+    },
+    {
+     "name": "Grain 35 - Consumer 35mm",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-22T14:33:03.237Z"
+    },
+    {
+     "name": "Mourning Light",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-18T15:18:04.586Z"
+    },
+    {
+     "name": "Autochrome",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-03T17:00:22.148Z"
+    },
+    {
+     "name": "Kodacolor II",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-04T18:51:08.886Z"
+    },
+    {
+     "name": "Imagelink HQ",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-04T14:29:32.460Z"
+    },
+    {
+     "name": "Museum Archival",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-03T17:00:18.855Z"
+    },
+    {
+     "name": "Warm Vintage",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-03T17:00:14.189Z"
+    }
+   ],
+   "downloads": 9760,
+   "likes": 297,
+   "comments": 11,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a613d933-a2e2-449f-a069-4c46d037df40/original=true/148214297.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/a613d933-a2e2-449f-a069-4c46d037df40/width=512/148214297.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/30dc1299-6194-4165-87da-6e06f3eebbfe/original=true/148214298.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/30dc1299-6194-4165-87da-6e06f3eebbfe/width=512/148214298.jpeg",
+     "width": 840,
+     "height": 1256
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cab51f50-4fe5-4857-be13-c5f7bed3aa5f/original=true/148214302.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cab51f50-4fe5-4857-be13-c5f7bed3aa5f/width=512/148214302.jpeg",
+     "width": 840,
+     "height": 1256
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/1068584a-036f-486a-b3c2-5b40add72acd/original=true/148214301.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/1068584a-036f-486a-b3c2-5b40add72acd/width=512/148214301.jpeg",
+     "width": 840,
+     "height": 1256
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2909179",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 10
+   }
+  },
+  {
+   "id": 2554999,
+   "name": "Niji Sweet Spot",
+   "author": "ZaeY",
+   "type": "LORA",
+   "tags": [
+    "anime",
+    "niji",
+    "style",
+    "semi-realistic"
+   ],
+   "description": "This Lora feature high-fidelity digital rendering with a semi-realistic aesthetic, characterized by dramatic cinematic lighting with intricate shadow patterns, luminous emissive eyes as central focal points, and a shallow depth of field that emphasizes sharp facial details and varied material textures. This lora works better for close-ups/portraits\nBased on MJ Niji v7\nNIJI SWEET SPOT BRANCHES:\nZaey Ultra Quality Style - Krea2_v1.0 | Krea 2 LoRA | Civitai\nZaey Painterly Drawing Style - Anima_v1.0 | Anima LoRA | Civitai\n- PLEASE READ THE DESCRIPTION -You can look into the showcase images for the",
+   "version": "Krea2_v3",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-11-16T18:48:50.458Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "NSSv3_KREA2.safetensors",
+     "sizeMB": 447.6,
+     "format": "SafeTensor",
+     "fp": "fp16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2_v3",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-16T18:48:50.458Z"
+    },
+    {
+     "name": "Krea2_v2_A",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-13T19:31:07.850Z"
+    },
+    {
+     "name": "Krea2_v2_B",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-11T19:21:15.548Z"
+    },
+    {
+     "name": "Krea2_v1",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-14T00:46:05.150Z"
+    }
+   ],
+   "downloads": 39351,
+   "likes": 2023,
+   "comments": 21,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3c167952-71bc-40a1-a0c0-a5f87a0e90e1/original=true/149246118.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3c167952-71bc-40a1-a0c0-a5f87a0e90e1/width=512/149246118.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5649b578-215b-4d81-9ba9-fc0329074b5a/original=true/149246136.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5649b578-215b-4d81-9ba9-fc0329074b5a/width=512/149246136.jpeg",
+     "width": 1152,
+     "height": 1728
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/68cc30a6-16cf-44eb-b73d-2526a340767b/original=true/149246141.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/68cc30a6-16cf-44eb-b73d-2526a340767b/width=512/149246141.jpeg",
+     "width": 1152,
+     "height": 1728
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9ae0e86f-2fe5-431b-85d6-ecbad60563ec/original=true/149246115.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9ae0e86f-2fe5-431b-85d6-ecbad60563ec/width=512/149246115.jpeg",
+     "width": 768,
+     "height": 1152
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2554999",
+   "allowCommercialUse": [
+    "Image",
+    "RentCivit",
+    "Rent"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 11
+   }
+  },
+  {
+   "id": 599757,
+   "name": "Velvet's Mythic Fantasy Styles | Flux + Pony + illustrious + ZiT + Anima + Krea2",
+   "author": "VelvetS",
+   "type": "LORA",
+   "tags": [
+    "anime",
+    "art",
+    "manga",
+    "style",
+    "epic",
+    "woman",
+    "fantasy",
+    "man",
+    "nsfw",
+    "sfw",
+    "styles",
+    "ponyxl"
+   ],
+   "description": "Update Flux VersionThe new version has been trained to work on Flux models. From my testing Flux is amazing with sentence like prompts, and turns booru prompts to anime pics that don't have a lot of details but this LoRA fixes that:\n\nI tested it on SD Forge using the NF4 model and it work fine, you just need to change the Diffusion in Low Bits from Automatic to Automatic (fp16 LoRA) like this:\n\nThe rest of the LoRAs are designed to work with Pony Diffusion XL, or any other Pony model.\nHow to use1- Manga Style (Blood Moon): Made from high quality monochrome images to give you a manga feel, oh a",
+   "version": "Krea 2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-07-16T18:17:45.178Z",
+   "triggerWords": [
+    "mythp0rt"
+   ],
+   "files": [
+    {
+     "name": "Krea2MythP0rtr4itStyle.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea 2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-16T18:17:45.178Z"
+    }
+   ],
+   "downloads": 253634,
+   "likes": 15019,
+   "comments": 146,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cb3b72d0-a48a-497b-a8f5-b59c6de9e69e/original=true/136902882.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cb3b72d0-a48a-497b-a8f5-b59c6de9e69e/width=512/136902882.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/2dce8a30-565c-4016-b2ea-a74ab48ceabc/original=true/136902832.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/2dce8a30-565c-4016-b2ea-a74ab48ceabc/width=512/136902832.jpeg",
+     "width": 864,
+     "height": 1080
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cc4abf91-3242-4282-8c79-6cbc21a8da9f/original=true/136902940.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cc4abf91-3242-4282-8c79-6cbc21a8da9f/width=512/136902940.jpeg",
+     "width": 864,
+     "height": 1080
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/97a2458e-2a19-453e-9656-edd4a3c94388/original=true/136902944.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/97a2458e-2a19-453e-9656-edd4a3c94388/width=512/136902944.jpeg",
+     "width": 864,
+     "height": 1080
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/599757",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Image",
+    "Rent",
+    "Sell",
+    "SellMerge"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 13
+   }
+  },
+  {
+   "id": 2845721,
+   "name": "Enzino Characters",
+   "author": "enzino",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "woman",
+    "photography",
+    "realistic"
+   ],
+   "description": "Need a custom LoRA?I also create custom characters, clothing LoRAs, style LoRAs and commercial LoRAs. Contact me via enzinoai.com or DM.\nFree for personal use. For commercial use, get a license at https://enzinoai.com/licencing⭐ Unlock EnzinoAI Pro for just $25/month on EnzinoAI or Ko-fi ! Exclusive models, LoRAs, custom nodes & workflows. BF16, FP8, INT8 + new releases included.\n\n📢 Join our Discord CommunityMeet OlenaOlena is an original fictional AI character from the EnzinoAI Characters collection.\nInspired by the atmosphere of Prague, her universe blends vintage fashion, charming cafés, s",
+   "version": "Rose",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-10-30T10:47:50.066Z",
+   "triggerWords": [
+    "rose"
+   ],
+   "files": [
+    {
+     "name": "licence-commercial.txt",
+     "sizeMB": 0,
+     "format": "Other",
+     "fp": null,
+     "primary": false
+    },
+    {
+     "name": "rose_krea2_enzino.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Rose",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-30T10:47:50.066Z"
+    },
+    {
+     "name": "Elena",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-26T12:58:42.505Z"
+    },
+    {
+     "name": "Molia",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-06T12:50:04.208Z"
+    },
+    {
+     "name": "Ambre",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-09-11T12:44:13.701Z"
+    },
+    {
+     "name": "Amelia",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-17T08:08:19.280Z"
+    },
+    {
+     "name": "Sophie",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-13T15:34:45.864Z"
+    },
+    {
+     "name": "Maria",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-11T10:08:36.646Z"
+    },
+    {
+     "name": "Elia",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-09T13:40:13.985Z"
+    }
+   ],
+   "downloads": 6666,
+   "likes": 206,
+   "comments": 6,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/99bfad5d-aa6b-49ef-b2c2-c3b00937d147/original=true/147319187.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/99bfad5d-aa6b-49ef-b2c2-c3b00937d147/width=512/147319187.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cb3b33fd-ee84-4f21-87f2-438b798fe167/original=true/147318530.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/cb3b33fd-ee84-4f21-87f2-438b798fe167/width=512/147318530.jpeg",
+     "width": 1152,
+     "height": 1728
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/130774f1-fb5b-40e4-9faf-87da17acc821/original=true/147323520.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/130774f1-fb5b-40e4-9faf-87da17acc821/width=512/147323520.jpeg",
+     "width": 1152,
+     "height": 1728
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2845721",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Rent"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 14
+   }
+  },
+  {
+   "id": 2836231,
+   "name": "Nix Comic [Multiple Styles]",
+   "author": "xFennec777",
+   "type": "LORA",
+   "tags": [
+    "style",
+    "illustration",
+    "comic"
+   ],
+   "description": "Nix comic is a flexible comic base - with a core style mixture of 1990s Disney animation and 2000s Marvel Comics. It is tuned to be used at 0.7-0.85 strength on most prompts, giving headroom for mixing in other LoRA or style guidance. No keywords, just add, enable, and generate.\nThe colour pallette is largely the same between versions - the big differences are how face and SOME anatomy are handles, some line weighting and shading.\nMOSS Image VariantsMOSS Image variants SHOULD follow similar tonality as the Krea 2. The caveats I have found here are:\nToo many steps increases saturation (8-step t",
+   "version": "Disney / Comic [Krea 2]",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-08-26T12:03:43.112Z",
+   "triggerWords": [],
+   "files": [
+    {
+     "name": "Krea 2 Nix Comic v2_balanced.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "fp16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Disney / Comic [Krea 2]",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-26T12:03:43.112Z"
+    },
+    {
+     "name": "90s Nostalgia [Krea 2]",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-11-05T10:57:58.561Z"
+    },
+    {
+     "name": "Pixar-Inspired [Krea 2]",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-10-29T16:06:08.370Z"
+    },
+    {
+     "name": "v1.1 [Krea 2]",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-07T23:56:42.389Z"
+    },
+    {
+     "name": "v1.0 [Krea 2]",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-08-05T16:54:23.239Z"
+    }
+   ],
+   "downloads": 5234,
+   "likes": 338,
+   "comments": 9,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/2a07a4aa-893a-47a2-bddb-121abb6c4d07/original=true/147999900.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/2a07a4aa-893a-47a2-bddb-121abb6c4d07/width=512/147999900.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/d056d2bd-d688-457d-81fb-818b4f6eeb5d/original=true/140891273.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/d056d2bd-d688-457d-81fb-818b4f6eeb5d/width=512/140891273.jpeg",
+     "width": 1200,
+     "height": 1600
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/2836231",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Rent"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 17
+   }
+  },
+  {
+   "id": 789313,
+   "name": "80s Fantasy Movie",
+   "author": "ArsMachina",
+   "type": "LORA",
+   "tags": [
+    "movie",
+    "80s",
+    "style",
+    "fantasy",
+    "still",
+    "midjourney v6",
+    "arsmjstyle"
+   ],
+   "description": "This LoRA is designed to capture the distinct look and feel of early 80s fantasy movies.\n\nThe trigger words are ArsMovieStill, 80s Fantasy Movie Still\nRecommended usage settings:\nYour favourite spot.\nListen to Castle Rat as background.\nEnjoy!\n\nMJ7 UPDATE:\nBuilding each dataset is a joy, so with the release of MidJourney 7, I naturally started this one again from scratch.\nThis version stays true to the original aesthetic but with improved fidelity and an even stronger 80s vibe.\nIt’s trained on a fresh, carefully curated set of ~250 images, created by referencing the best results from the previo",
+   "version": "Krea2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-07-18T08:52:11.656Z",
+   "triggerWords": [
+    "ArsMovieStill, 80s Fantasy Movie Still,"
+   ],
+   "files": [
+    {
+     "name": "80sFantasyKrea2Raw_000004500.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-18T08:52:11.656Z"
+    }
+   ],
+   "downloads": 47533,
+   "likes": 3150,
+   "comments": 49,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/bc3f2628-3d0e-40cd-95a5-bb771ac5ce6a/original=true/135523341.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/bc3f2628-3d0e-40cd-95a5-bb771ac5ce6a/width=512/135523341.jpeg",
+   "exampleImages": [
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b395ad99-e3c7-42ff-b9cb-7ce0fe27c69b/original=true/135523224.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/b395ad99-e3c7-42ff-b9cb-7ce0fe27c69b/width=512/135523224.jpeg",
+     "width": 1024,
+     "height": 1024
+    },
+    {
+     "url": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7e843257-16ae-478a-8f23-22638b9c5a87/original=true/135523237.jpeg",
+     "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/7e843257-16ae-478a-8f23-22638b9c5a87/width=512/135523237.jpeg",
+     "width": 1024,
+     "height": 1024
+    }
+   ],
+   "pageUrl": "https://civitai.com/models/789313",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Image"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 18
+   }
+  },
+  {
+   "id": 1155749,
+   "name": "Hyperdetailed Colored Pencil",
+   "author": "ArsMachina",
+   "type": "LORA",
+   "tags": [
+    "midjourney",
+    "niji",
+    "style",
+    "midjourney v6",
+    "arsmjstyle"
+   ],
+   "description": "A LoRA inspired by one of my favourite styles of hyperdetailed colored pencil illustrations.\nThis style captures the intricate shading and fine textures, enhanced by the subtle depth and warmth of colored pencil strokes.\nIdeal for creating striking portraits with expressive details, this style brings out the natural beauty of facial features, elaborate clothing, and delicate embellishments. It blends artistic sophistication with a touch of classical elegance.\nThe keywords are ArsMJStyle, Colored pencil hyperdetailed realism.\n\nMiniMax H3:\nThis version is trained on the images from V2 Dataset. I",
+   "version": "Krea2",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-07-26T11:20:07.365Z",
+   "triggerWords": [
+    "ArsMJStyle, Colored pencil hyperdetailed realism,"
+   ],
+   "files": [
+    {
+     "name": "HyperDetailedColoredPencilKrea2.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "Krea2",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-07-26T11:20:07.365Z"
+    }
+   ],
+   "downloads": 47763,
+   "likes": 3545,
+   "comments": 34,
+   "coverUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5d2e1b22-6172-4f79-9024-57f21f2133ca/original=true/136219742.jpeg",
+   "thumbUrl": "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/5d2e1b22-6172-4f79-9024-57f21f2133ca/width=512/136219742.jpeg",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/1155749",
+   "allowCommercialUse": [
+    "RentCivit",
+    "Image"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 19
+   }
+  },
+  {
+   "id": 2618083,
+   "name": "RLY Thot Shot - Helena (MOSS + QWEN2.1 + KREA 2 + Ideogram 4 + ZiB/ZiT + K9B)",
+   "author": "RaymondLuxuryYacht",
+   "type": "LORA",
+   "tags": [
+    "character",
+    "photorealistic",
+    "woman",
+    "photography",
+    "rly"
+   ],
+   "description": "If you're enjoying the free RLY Thot Shots series and want to say thanks, a coffee, tips or other support is always appreciated!: RLY Ko-FiHelena is the sixteenth release in a series (RLY Thot Shots) of female character LoRAs.Helena is a contradiction. From the Trailer Park in the American Deep South to Milan, Italy. Raised in rural Alabama, now models for Vogue. Chews tobacco and vapes but loves caviar and foie gras. Wears YSL to Mudfest. You can take the girl out of the trailer park, but you can't take the trailer park out of the girl. You'll catch her at the shooting range in heels.\nFun-fac",
+   "version": "KREA2-v1.0",
+   "baseModel": "Krea 2",
+   "publishedAt": "2026-06-30T15:57:20.146Z",
+   "triggerWords": [
+    "rlyhelena"
+   ],
+   "files": [
+    {
+     "name": "RLY-thot_shot-KREA2-helena-v1-trigger-rlyhelena.safetensors",
+     "sizeMB": 218,
+     "format": "SafeTensor",
+     "fp": "bf16",
+     "primary": true
+    }
+   ],
+   "versions": [
+    {
+     "name": "KREA2-v1.0",
+     "baseModel": "Krea 2",
+     "publishedAt": "2026-06-30T15:57:20.146Z"
+    }
+   ],
+   "downloads": 9912,
+   "likes": 420,
+   "comments": 11,
+   "coverUrl": "",
+   "thumbUrl": "",
+   "exampleImages": [],
+   "pageUrl": "https://civitai.com/models/2618083",
+   "allowCommercialUse": [
+    "RentCivit"
+   ],
+   "ranks": {
+    "day": null,
+    "week": null,
+    "month": 20
+   }
+  }
+ ]
+}
