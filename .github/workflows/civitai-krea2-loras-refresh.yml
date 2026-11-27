@@ -1,6 +1,6 @@
 name: C站 Krea2 热门 LoRA 每日刷新
 
-# 每天自动从 Civitai 拉取 Krea 2 / Krea 2 Turbo 热门 LoRA 榜（日 / 周 / 月各 Top 20），更新 civitai-krea2-loras-data.json。
+# 每天自动从 Civitai 拉取 Krea 2 / Krea 2 Turbo 热门 LoRA 榜（日 / 周 / 月各 Top 50，每条最多 8 张示例图），更新 civitai-krea2-loras-data.json。
 # 10:44（北京时间）= 02:44 UTC，与热门图榜的刷新时间错开 1 小时。
 on:
   workflow_dispatch:
