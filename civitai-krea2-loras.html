@@ -391,6 +391,7 @@ function cardHtml(item) {
       '<div class="btnrow">' +
         '<button type="button" class="pill accent" data-open="' + item.id + '">看全部 ' + gal.length + ' 张图</button>' +
         '<a class="pill" href="' + esc(item.pageUrl) + '" target="_blank" rel="noopener">Civitai 原页 ↗</a>' +
+        '<button type="button" class="pill" data-copyname="' + item.id + '">⧉ 复制名称</button>' +
         '<button type="button" class="pill favbtn' + (fav ? " faved" : "") + '" data-fav="' + item.id + '" aria-pressed="' + fav + '">' + (fav ? "★ 已收藏" : "☆ 收藏") + '</button>' +
       '</div>' +
     '</div></article>';
@@ -519,6 +520,7 @@ function renderDetail() {
       '<div class="statgrid"><div class="cell"><b>' + fmtNum(item.downloads) + '</b><span>下载</span></div><div class="cell"><b>' + fmtNum(item.likes) + '</b><span>点赞</span></div><div class="cell"><b>' + fmtNum(item.comments) + '</b><span>评论</span></div><div class="cell"><b>' + (file && file.sizeMB != null ? file.sizeMB + " MB" : "—") + '</b><span>主文件</span></div></div>' +
       '<div class="actrow">' +
         '<button type="button" class="btn' + (fav ? "" : " primary") + '" data-fav="' + item.id + '" aria-pressed="' + fav + '">' + (fav ? "★ 已收藏" : "☆ 收藏") + '</button>' +
+        '<button type="button" class="btn" data-copyname="' + item.id + '">⧉ 复制名称</button>' +
         '<a class="btn" href="' + esc(item.pageUrl) + '" target="_blank" rel="noopener">Civitai 原页 ↗</a>' +
       '</div>';
   if (item.triggerWords && item.triggerWords.length) {
@@ -611,6 +613,12 @@ document.addEventListener("click", function(e) {
   if (cp) {
     var it2 = findItem(Number(cp.getAttribute("data-copytrig")));
     if (it2 && it2.triggerWords.length) copyText(it2.triggerWords.join(", ")).then(function(ok){ notify(ok ? "已复制触发词" : "复制失败，请手动复制"); });
+    return;
+  }
+  var cn = e.target.closest("[data-copyname]");
+  if (cn) {
+    var it3 = findItem(Number(cn.getAttribute("data-copyname")));
+    if (it3 && it3.name) copyText(it3.name).then(function(ok){ notify(ok ? "已复制 LoRA 名：" + it3.name : "复制失败，请手动复制"); });
     return;
   }
   if (e.target.closest("[data-close]")) { closeDetail(); return; }
